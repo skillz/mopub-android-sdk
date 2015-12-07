@@ -142,6 +142,7 @@ public class MoPubActivity extends BaseInterstitialActivity {
         @Override
         public void onInterstitialClicked() {
             broadcastAction(MoPubActivity.this, getBroadcastIdentifier(), ACTION_INTERSTITIAL_CLICK);
+            finish();
         }
 
         @Override
