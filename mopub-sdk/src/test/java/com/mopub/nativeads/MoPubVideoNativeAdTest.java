@@ -13,6 +13,7 @@ import android.view.TextureView;
 import android.view.TextureView.SurfaceTextureListener;
 import android.view.View;
 
+import com.mopub.common.Constants;
 import com.mopub.common.event.EventDetails;
 import com.mopub.common.test.support.SdkTestRunner;
 import com.mopub.mobileads.BaseVideoPlayerActivity;
@@ -51,6 +52,7 @@ import org.robolectric.Robolectric;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowApplication;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -130,6 +132,7 @@ public class MoPubVideoNativeAdTest {
                 mockVisibilityTracker, mockNativeVideoControllerFactory, null,
                 "header click tracker", mockVastManager);
         subject.setNativeEventListener(mockNativeEventListener);
+        // noinspection unchecked
         when(mockNativeVideoControllerFactory
                 .createForId(anyInt(), any(Context.class), any(List.class), eq(mockVastVideoConfig),
                         any(EventDetails.class)))
@@ -207,7 +210,7 @@ public class MoPubVideoNativeAdTest {
         verify(mockImageLoader).get(eq("iconimageurl"), any(ImageListener.class));
         verify(mockImageLoader).get(eq("extraimageurl"), any(ImageListener.class));
         verify(mockVastManager).prepareVastVideoConfiguration(eq("video"),
-                any(VastManager.VastManagerListener.class), any(Context.class));
+                any(VastManager.VastManagerListener.class), anyString(), any(Context.class));
     }
 
     @Test
@@ -216,6 +219,7 @@ public class MoPubVideoNativeAdTest {
         verify(mockCustomEventNativeListener).onNativeAdFailed(NativeErrorCode.INVALID_RESPONSE);
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void onVastVideoConfigurationPrepared_shouldConstructNativeVideoController_shouldNotifyListenerOfAdLoaded() {
         subject.loadAd();
@@ -242,6 +246,7 @@ public class MoPubVideoNativeAdTest {
         verify(mockCustomEventNativeListener).onNativeAdLoaded(subject);
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void onVastVideoConfigurationPrepared_shouldMergeHeaderAndJsonClickTrackers() {
         final ArgumentCaptor<List> argumentCaptor = ArgumentCaptor.forClass(List.class);
@@ -260,6 +265,7 @@ public class MoPubVideoNativeAdTest {
         assertThat(jsonClickTracker.isRepeatable()).isFalse();
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void onVastVideoConfigurationPrepared_shouldDedupeHeaderAndJsonClickTrackers() throws Exception {
         jsonObject.remove("clktracker");
@@ -277,6 +283,7 @@ public class MoPubVideoNativeAdTest {
         assertThat(clickTracker.isRepeatable()).isFalse();
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void onVastVideoConfigurationPrepared_shouldAcceptJsonArrayClickTrackers() throws Exception {
         jsonObject.remove("clktracker");
@@ -301,6 +308,7 @@ public class MoPubVideoNativeAdTest {
         assertThat(headerClickTracker.isRepeatable()).isFalse();
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void onVastVideoConfigurationPrepared_shouldDedupeJsonArrayClickTrackers() throws Exception {
         jsonObject.remove("clktracker");
@@ -517,9 +525,9 @@ public class MoPubVideoNativeAdTest {
                 .isEqualTo(MraidVideoPlayerActivity.class.getName());
         assertThat(startedActivity.getStringExtra(BaseVideoPlayerActivity.VIDEO_CLASS_EXTRAS_KEY))
                 .isEqualTo("native");
-        assertThat(startedActivity.getLongExtra(NativeVideoViewController.NATIVE_VIDEO_ID, 0L))
+        assertThat(startedActivity.getLongExtra(Constants.NATIVE_VIDEO_ID, 0L))
                 .isGreaterThan(0L);
-        assertThat(startedActivity.getSerializableExtra(NativeVideoViewController
+        assertThat(startedActivity.getSerializableExtra(Constants
                 .NATIVE_VAST_VIDEO_CONFIG))
                 .isEqualTo(mockVastVideoConfig);
     }
@@ -853,6 +861,46 @@ public class MoPubVideoNativeAdTest {
         subject.applyState(VideoState.ENDED);
 
         verify(mockMediaLayout).setMainImageDrawable(mockNativeVideoController.getFinalFrame());
+    }
+
+    @Test
+    public void applyState_withVideoStatePause_afterVideoStatePlayingMuted_shouldFirePauseTrackers() {
+        final ArrayList<VastTracker> testList = new ArrayList<VastTracker>();
+        testList.add(new VastTracker("testUrl", true));
+
+        when(mockVastVideoConfig.getPauseTrackers()).thenReturn(testList);
+
+        subject.loadAd();
+        subject.onVastVideoConfigurationPrepared(mockVastVideoConfig);
+        subject.prepare(mockRootView);
+        subject.render(mockMediaLayout);
+
+        subject.applyState(VideoState.PLAYING_MUTED);
+        subject.applyState(VideoState.PAUSED);
+
+        verify(mockVastVideoConfig).getPauseTrackers();
+        verify(mockRequestQueue).add(argThat(isUrl("testUrl")));
+    }
+
+    @Test
+    public void applyState_withVideoStatePlayingMuted_afterPaused_afterPlaying_shouldFireResumeTrackers() {
+        final ArrayList<VastTracker> testList = new ArrayList<VastTracker>();
+        testList.add(new VastTracker("testResumeUrl", true));
+
+        when(mockVastVideoConfig.getResumeTrackers()).thenReturn(testList);
+
+        subject.loadAd();
+        subject.onVastVideoConfigurationPrepared(mockVastVideoConfig);
+        subject.prepare(mockRootView);
+        subject.render(mockMediaLayout);
+
+        subject.applyState(VideoState.PLAYING_MUTED);
+        subject.applyState(VideoState.PAUSED);
+        subject.applyState(VideoState.BUFFERING);
+        subject.applyState(VideoState.PLAYING_MUTED);
+
+        verify(mockVastVideoConfig).getPauseTrackers();
+        verify(mockRequestQueue).add(argThat(isUrl("testResumeUrl")));
     }
 
     @Test

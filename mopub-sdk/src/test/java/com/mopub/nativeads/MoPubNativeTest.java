@@ -83,12 +83,12 @@ public class MoPubNativeTest {
 
     @Test
     public void destroy_shouldSetListenersToEmptyAndClearContext() {
-        assertThat(subject.getActivityOrDestroy()).isSameAs(context);
+        assertThat(subject.getContextOrDestroy()).isSameAs(context);
         assertThat(subject.getMoPubNativeNetworkListener()).isSameAs(mockNetworkListener);
 
         subject.destroy();
 
-        assertThat(subject.getActivityOrDestroy()).isNull();
+        assertThat(subject.getContextOrDestroy()).isNull();
         assertThat(subject.getMoPubNativeNetworkListener()).isSameAs(EMPTY_NETWORK_LISTENER);
     }
 
@@ -104,10 +104,10 @@ public class MoPubNativeTest {
 
     @Test
     public void requestNativeAd_shouldFireNetworkRequest() {
-        subject.requestNativeAd("http://www.mopub.com");
+        subject.requestNativeAd("https://www.mopub.com");
 
         verify(mockNetworkListener, never()).onNativeFail(any(NativeErrorCode.class));
-        verify(mockRequestQueue).add(argThat(isUrl("http://www.mopub.com")));
+        verify(mockRequestQueue).add(argThat(isUrl("https://www.mopub.com")));
     }
 
     @Test

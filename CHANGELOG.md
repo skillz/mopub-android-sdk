@@ -1,8 +1,58 @@
+## Version 4.9.0 (September 1, 2016)
+- Removed the full SDK bundle.
+- Removed Eclipse support.
+- Removed InMobi custom events from extras.
+- Deprecated rewarded video calls from `MoPub.java` and moved them to `MoPubRewardedVideos.java`.
+  - For example, `MoPub#loadRewardedVideo` is deprecated in favor of `MoPubRewardedVideos#loadRewardedVideo`.
+- Bug fixes.
+
+**Modular SDK**
+ - Added the ability to specify which ad formats to include as dependencies (to decrease the overall footprint of the MoPub SDK in your app).
+ - Default behavior remains unchanged and includes access to all ad formats.
+ - **Note:** Maven builds from source are currently unstable and will be reinstated in a future release. Maven developers can still pull the MoPub SDK AAR from JCenter.
+
+## Version 4.8.0 (August 1, 2016)
+- Changed the behavior of `MoPubInterstitial#load()` while an interstitial is loading or has been successfully loaded. Previously, this would discard the currently-caching or cached interstitial -- now the interstitial will be unaffected and will remain in the cache.
+- `MoPubInterstitial`s can now be shown only once per successful ad load.
+- Modified a number of Native Ads APIs (manual integration) to accept Context instead of Activity. Affected classes/methods include: `MoPubNative`, `AdapterHelper`, `CustomEventNative#loadNativeAd()`, and `MoPubAdRenderer#createAdView()`.
+
+#### Version 4.7.1 (June 10, 2016)
+- Fixed deeplink bug.
+
+## Version 4.7.0 (June 2, 2016)
+- Rewarded video server-side currency rewarding (Beta).
+- Enhanced Android intent handling.
+
+#### Version 4.6.1 (May 5, 2016)
+- Enhanced caching logic for HTML and MRAID interstitials. Resource-heavy interstitials will now render more quickly when MoPubInterstitial#show() is called.
+
+## Version 4.6.0 (April 21, 2016)
+- Certified Chartboost version 6.4.1
+- Certified Tapjoy version 11.5.1
+
+#### Version 4.5.1 (March 31, 2016)
+- Updated ExoPlayer dependency from r1.4.2 to r1.5.6; courtesy @talklittle. Removed references to READ_EXTERNAL_STORAGE permission.
+
+## Version 4.5.0 (March 24, 2016)
+- Rewarded video support from the MoPub Marketplace (Beta)
+- Miscellaneous bug fixes.
+
+#### Version 4.4.1 (February 23, 2016)
+- Fixed deeplink bug where host must be present in URL.
+
+## Version 4.4.0 (February 11, 2016) 
+- Updated permission model to be compatible with Android 6.0 (API level 23).
+- Enhancements and bug fixes for video ads.
+
+## Version 4.3.0 (December 15, 2015)
+
+- Enhancements and bug fixes for VAST video ads.
+
 ## Version 4.2.0 (November 30, 2015)
 
 - Support for mediating Facebook Native Video ads.
 - Mediated Facebook Native Ads now display the AdChoices icon.
-- Support for Facebook SDK 8.4.1
+- Support for Facebook SDK 4.8.1
 
 ## Version 4.1.0 (November 12, 2015)
 

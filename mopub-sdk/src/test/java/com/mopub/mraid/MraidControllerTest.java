@@ -388,11 +388,11 @@ public class MraidControllerTest {
         // Move to DEFAULT state
         subject.handlePageLoad();
 
-        subject.handleExpand(URI.create("http://two-part-url"), false);
+        subject.handleExpand(URI.create("https://two-part-url"), false);
 
         verify(mockTwoPartBridge).setMraidBridgeListener(any(MraidBridgeListener.class));
         verify(mockTwoPartBridge).attachView(any(MraidWebView.class));
-        verify(mockTwoPartBridge).setContentUrl(URI.create("http://two-part-url").toString());
+        verify(mockTwoPartBridge).setContentUrl(URI.create("https://two-part-url").toString());
 
         assertThat(subject.getExpandedAdContainer().getChildCount()).isEqualTo(2);
         assertThat(subject.getAdContainer().getChildCount()).isEqualTo(1);
@@ -409,7 +409,7 @@ public class MraidControllerTest {
     }
 
     @Test
-    public void handleClose_fromExpandedState_shouldMoveWebViewToOriginalContainer_shouldNotFireOnClose() throws MraidCommandException {
+    public void handleClose_fromExpandedState_shouldMoveWebViewToOriginalContainer_shouldFireOnClose() throws MraidCommandException {
         // Move to EXPANDED state
         subject.handlePageLoad();
         subject.handleExpand(null, false);
@@ -419,13 +419,13 @@ public class MraidControllerTest {
         assertThat(subject.getExpandedAdContainer().getChildCount()).isEqualTo(1);
         assertThat(subject.getAdContainer().getChildCount()).isEqualTo(1);
         assertThat(subject.getViewState()).isEqualTo(ViewState.DEFAULT);
-        verify(mockMraidListener, never()).onClose();
+        verify(mockMraidListener).onClose();
     }
 
     @Test
-    public void handleClose_fromTwoPartExpandedState_shouldDetachTwoPartBridge_shouldMoveWebViewToOriginalContainer_shouldNotFireOnClose()
+    public void handleClose_fromTwoPartExpandedState_shouldDetachTwoPartBridge_shouldMoveWebViewToOriginalContainer_shouldFireOnClose()
             throws MraidCommandException {
-        URI uri = URI.create("http://two-part-url");
+        URI uri = URI.create("https://two-part-url");
 
         // Move to two part EXPANDED state
         subject.handlePageLoad();
@@ -439,7 +439,7 @@ public class MraidControllerTest {
         assertThat(subject.getAdContainer().getChildCount()).isEqualTo(1);
         assertThat(subject.getViewState()).isEqualTo(ViewState.DEFAULT);
 
-        verify(mockMraidListener, never()).onClose();
+        verify(mockMraidListener).onClose();
     }
 
     @Test
@@ -458,9 +458,9 @@ public class MraidControllerTest {
 
     @Test
     public void handleShowVideo_shouldStartVideoPlayerActivity() {
-        subject.handleShowVideo("http://video");
+        subject.handleShowVideo("https://video");
         BaseVideoPlayerActivityTest.assertMraidVideoPlayerActivityStarted(
-                MraidVideoPlayerActivity.class, "http://video");
+                MraidVideoPlayerActivity.class, "https://video");
     }
 
     @Test
@@ -521,7 +521,7 @@ public class MraidControllerTest {
 
     @Test
     public void handleOpen_withHttpApplicationUrl_shouldStartMoPubBrowser() {
-        String applicationUrl = "http://www.mopub.com/";
+        String applicationUrl = "https://www.mopub.com/";
 
         subject.handleOpen(applicationUrl);
 
@@ -975,7 +975,7 @@ public class MraidControllerTest {
         // Necessary to set up the webview before expanding. Also moves the state to DEFAULT.
         subject.handlePageLoad();
         assertThat(subject.getViewState()).isEqualTo(ViewState.DEFAULT);
-        subject.handleExpand(URI.create("http://two-part-url"), false);
+        subject.handleExpand(URI.create("https://two-part-url"), false);
 
         assertThat(subject.getMraidWebView()).isNotNull();
         assertThat(subject.getTwoPartWebView()).isNotNull();
