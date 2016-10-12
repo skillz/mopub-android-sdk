@@ -204,8 +204,10 @@ public enum UrlAction {
 
         @Override
         protected void performAction(
-                @NonNull final Context context, @NonNull final Uri uri,
-                @NonNull final UrlHandler urlHandler)
+                @NonNull final Context context,
+                @NonNull final Uri uri,
+                @NonNull final UrlHandler urlHandler,
+                @Nullable String creativeId)
                 throws IntentNotResolvableException {
 
             try {
