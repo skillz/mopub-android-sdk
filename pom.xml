@@ -10,7 +10,7 @@
         <version>5</version>
     </parent>
 
-    <groupId>com.mopub.mobileads</groupId>
+    <groupId>com.skillz.mopub.mobileads</groupId>
     <artifactId>mopub-android</artifactId>
     <version>1.0</version>
     <packaging>pom</packaging>

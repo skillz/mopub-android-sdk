@@ -1,4 +1,4 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.content.Context;
 import android.util.Log;
@@ -7,7 +7,7 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
-import com.mopub.common.util.Views;
+import com.skillz.mopub.common.util.Views;
 
 import java.util.Map;
 

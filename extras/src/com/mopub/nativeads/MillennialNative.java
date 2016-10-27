@@ -1,4 +1,4 @@
-package com.mopub.nativeads;
+package com.skillz.mopub.nativeads;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static com.mopub.nativeads.NativeImageHelper.preCacheImages;
+import static com.skillz.mopub.nativeads.NativeImageHelper.preCacheImages;
 
 public class MillennialNative extends CustomEventNative {
     public static final String DCN_KEY = "dcn";

@@ -1,4 +1,4 @@
-package com.mopub.simpleadsdemo;
+package com.skillz.mopub.simpleadsdemo;
 
 public class LeaderboardDetailFragment extends AbstractBannerDetailFragment {
 

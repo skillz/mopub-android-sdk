@@ -1,31 +1,31 @@
-package com.mopub.simpleadsdemo;
+package com.skillz.mopub.simpleadsdemo;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.mopub.common.logging.MoPubLog;
+import com.skillz.mopub.common.logging.MoPubLog;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-import static com.mopub.simpleadsdemo.MoPubSQLiteHelper.COLUMN_AD_TYPE;
-import static com.mopub.simpleadsdemo.MoPubSQLiteHelper.COLUMN_AD_UNIT_ID;
-import static com.mopub.simpleadsdemo.MoPubSQLiteHelper.COLUMN_DESCRIPTION;
-import static com.mopub.simpleadsdemo.MoPubSQLiteHelper.COLUMN_ID;
-import static com.mopub.simpleadsdemo.MoPubSQLiteHelper.COLUMN_USER_GENERATED;
-import static com.mopub.simpleadsdemo.MoPubSQLiteHelper.TABLE_AD_CONFIGURATIONS;
-import static com.mopub.simpleadsdemo.MoPubSampleAdUnit.AdType;
-import static com.mopub.simpleadsdemo.MoPubSampleAdUnit.AdType.BANNER;
-import static com.mopub.simpleadsdemo.MoPubSampleAdUnit.AdType.CUSTOM_NATIVE;
-import static com.mopub.simpleadsdemo.MoPubSampleAdUnit.AdType.INTERSTITIAL;
-import static com.mopub.simpleadsdemo.MoPubSampleAdUnit.AdType.LEADERBOARD;
-import static com.mopub.simpleadsdemo.MoPubSampleAdUnit.AdType.LIST_VIEW;
-import static com.mopub.simpleadsdemo.MoPubSampleAdUnit.AdType.MRECT;
-import static com.mopub.simpleadsdemo.MoPubSampleAdUnit.AdType.RECYCLER_VIEW;
-import static com.mopub.simpleadsdemo.MoPubSampleAdUnit.AdType.REWARDED_VIDEO;
+import static com.skillz.mopub.simpleadsdemo.MoPubSQLiteHelper.COLUMN_AD_TYPE;
+import static com.skillz.mopub.simpleadsdemo.MoPubSQLiteHelper.COLUMN_AD_UNIT_ID;
+import static com.skillz.mopub.simpleadsdemo.MoPubSQLiteHelper.COLUMN_DESCRIPTION;
+import static com.skillz.mopub.simpleadsdemo.MoPubSQLiteHelper.COLUMN_ID;
+import static com.skillz.mopub.simpleadsdemo.MoPubSQLiteHelper.COLUMN_USER_GENERATED;
+import static com.skillz.mopub.simpleadsdemo.MoPubSQLiteHelper.TABLE_AD_CONFIGURATIONS;
+import static com.skillz.mopub.simpleadsdemo.MoPubSampleAdUnit.AdType;
+import static com.skillz.mopub.simpleadsdemo.MoPubSampleAdUnit.AdType.BANNER;
+import static com.skillz.mopub.simpleadsdemo.MoPubSampleAdUnit.AdType.CUSTOM_NATIVE;
+import static com.skillz.mopub.simpleadsdemo.MoPubSampleAdUnit.AdType.INTERSTITIAL;
+import static com.skillz.mopub.simpleadsdemo.MoPubSampleAdUnit.AdType.LEADERBOARD;
+import static com.skillz.mopub.simpleadsdemo.MoPubSampleAdUnit.AdType.LIST_VIEW;
+import static com.skillz.mopub.simpleadsdemo.MoPubSampleAdUnit.AdType.MRECT;
+import static com.skillz.mopub.simpleadsdemo.MoPubSampleAdUnit.AdType.RECYCLER_VIEW;
+import static com.skillz.mopub.simpleadsdemo.MoPubSampleAdUnit.AdType.REWARDED_VIDEO;
 
 class AdUnitDataSource {
     private Context mContext;

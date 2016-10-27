@@ -1,10 +1,10 @@
-package com.mopub.simpleadsdemo;
+package com.skillz.mopub.simpleadsdemo;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.mopub.common.logging.MoPubLog;
-import com.mopub.mobileads.MoPubErrorCode;
+import com.skillz.mopub.common.logging.MoPubLog;
+import com.skillz.mopub.mobileads.MoPubErrorCode;
 
 import java.util.logging.Handler;
 import java.util.logging.LogManager;

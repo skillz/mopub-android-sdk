@@ -1,4 +1,4 @@
-package com.mopub.simpleadsdemo;
+package com.skillz.mopub.simpleadsdemo;
 
 
 import android.location.Location;
@@ -14,13 +14,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.mopub.nativeads.MediaViewBinder;
-import com.mopub.nativeads.MoPubNativeAdPositioning;
-import com.mopub.nativeads.MoPubStaticNativeAdRenderer;
-import com.mopub.nativeads.MoPubRecyclerAdapter;
-import com.mopub.nativeads.MoPubVideoNativeAdRenderer;
-import com.mopub.nativeads.RequestParameters;
-import com.mopub.nativeads.ViewBinder;
+import com.skillz.mopub.nativeads.MediaViewBinder;
+import com.skillz.mopub.nativeads.MoPubNativeAdPositioning;
+import com.skillz.mopub.nativeads.MoPubStaticNativeAdRenderer;
+import com.skillz.mopub.nativeads.MoPubRecyclerAdapter;
+import com.skillz.mopub.nativeads.MoPubVideoNativeAdRenderer;
+import com.skillz.mopub.nativeads.RequestParameters;
+import com.skillz.mopub.nativeads.ViewBinder;
 
 import java.util.EnumSet;
 import java.util.Locale;

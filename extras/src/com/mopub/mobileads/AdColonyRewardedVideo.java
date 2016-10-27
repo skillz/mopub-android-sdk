@@ -1,4 +1,4 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.app.Activity;
 import android.os.Handler;
@@ -11,13 +11,13 @@ import com.jirbo.adcolony.AdColonyAdListener;
 import com.jirbo.adcolony.AdColonyV4VCAd;
 import com.jirbo.adcolony.AdColonyV4VCListener;
 import com.jirbo.adcolony.AdColonyV4VCReward;
-import com.mopub.common.BaseLifecycleListener;
-import com.mopub.common.DataKeys;
-import com.mopub.common.LifecycleListener;
-import com.mopub.common.MediationSettings;
-import com.mopub.common.MoPubReward;
-import com.mopub.common.logging.MoPubLog;
-import com.mopub.common.util.Json;
+import com.skillz.mopub.common.BaseLifecycleListener;
+import com.skillz.mopub.common.DataKeys;
+import com.skillz.mopub.common.LifecycleListener;
+import com.skillz.mopub.common.MediationSettings;
+import com.skillz.mopub.common.MoPubReward;
+import com.skillz.mopub.common.logging.MoPubLog;
+import com.skillz.mopub.common.util.Json;
 
 import java.util.Map;
 import java.util.WeakHashMap;

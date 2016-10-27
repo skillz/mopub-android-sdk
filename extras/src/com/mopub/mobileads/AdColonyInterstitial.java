@@ -1,4 +1,4 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,7 +9,7 @@ import com.jirbo.adcolony.AdColony;
 import com.jirbo.adcolony.AdColonyAd;
 import com.jirbo.adcolony.AdColonyAdListener;
 import com.jirbo.adcolony.AdColonyVideoAd;
-import com.mopub.common.util.Json;
+import com.skillz.mopub.common.util.Json;
 
 import java.util.Map;
 import java.util.concurrent.ScheduledThreadPoolExecutor;

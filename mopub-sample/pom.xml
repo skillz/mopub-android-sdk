@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.mopub.mobileads</groupId>
+        <groupId>com.skillz.mopub.mobileads</groupId>
         <artifactId>mopub-android</artifactId>
         <version>1.0</version>
     </parent>
@@ -24,7 +24,7 @@
         <!--main-->
 
         <dependency>
-            <groupId>com.mopub.mobileads</groupId>
+            <groupId>com.skillz.mopub.mobileads</groupId>
             <artifactId>mopub-sdk</artifactId>
             <version>1.0.0-SNAPSHOT</version>
             <type>aar</type>

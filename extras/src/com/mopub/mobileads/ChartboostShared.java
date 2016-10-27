@@ -1,4 +1,4 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
@@ -8,12 +8,12 @@ import android.util.Log;
 import com.chartboost.sdk.Chartboost;
 import com.chartboost.sdk.ChartboostDelegate;
 import com.chartboost.sdk.Model.CBError;
-import com.mopub.common.MoPub;
-import com.mopub.common.MoPubReward;
-import com.mopub.common.Preconditions;
-import com.mopub.common.VisibleForTesting;
-import com.mopub.common.logging.MoPubLog;
-import com.mopub.mobileads.CustomEventInterstitial.CustomEventInterstitialListener;
+import com.skillz.mopub.common.MoPub;
+import com.skillz.mopub.common.MoPubReward;
+import com.skillz.mopub.common.Preconditions;
+import com.skillz.mopub.common.VisibleForTesting;
+import com.skillz.mopub.common.logging.MoPubLog;
+import com.skillz.mopub.mobileads.CustomEventInterstitial.CustomEventInterstitialListener;
 
 import java.util.Collections;
 import java.util.Map;
@@ -21,8 +21,8 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import static com.mopub.mobileads.MoPubErrorCode.ADAPTER_CONFIGURATION_ERROR;
-import static com.mopub.mobileads.MoPubErrorCode.VIDEO_DOWNLOAD_ERROR;
+import static com.skillz.mopub.mobileads.MoPubErrorCode.ADAPTER_CONFIGURATION_ERROR;
+import static com.skillz.mopub.mobileads.MoPubErrorCode.VIDEO_DOWNLOAD_ERROR;
 
 /**
  * Shared infrastructure for initializing the Chartboost SDK when mediated by MoPub
