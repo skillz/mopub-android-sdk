@@ -36,6 +36,13 @@ public class BaseWebView extends WebView {
             clearWebViewDeadlock(getContext());
             sDeadlockCleared = true;
         }
+
+        getSettings().setDomStorageEnabled(true);
+        getSettings().setLoadsImagesAutomatically(true);
+
+        if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
+            getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
     }
 
     @Override
