@@ -52,11 +52,11 @@
             android:singleLine="true"/>
     </LinearLayout>
 
-    <com.mopub.mobileads.MoPubView
+    <com.skillz.mopub.mobileads.MoPubView
         android:id="@+id/banner_mopubview"
         android:layout_width="320dp"
         android:layout_height="50dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp">
-    </com.mopub.mobileads.MoPubView>
+    </com.skillz.mopub.mobileads.MoPubView>
 </LinearLayout>

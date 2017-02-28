@@ -1,4 +1,4 @@
-package com.mopub.simpleadsdemo;
+package com.skillz.mopub.simpleadsdemo;
 
 import android.annotation.TargetApi;
 import android.os.Build;
@@ -8,15 +8,15 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.webkit.WebView;
 
-import com.mopub.common.MoPub;
-import com.mopub.common.util.DeviceUtils;
+import com.skillz.mopub.common.MoPub;
+import com.skillz.mopub.common.util.DeviceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-import static com.mopub.common.Constants.UNUSED_REQUEST_CODE;
+import static com.skillz.mopub.common.Constants.UNUSED_REQUEST_CODE;
 
 public class MoPubSampleActivity extends FragmentActivity {
     private static final List<String> REQUIRED_DANGEROUS_PERMISSIONS = new ArrayList<String>();

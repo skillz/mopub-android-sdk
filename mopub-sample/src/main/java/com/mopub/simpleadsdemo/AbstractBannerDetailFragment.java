@@ -1,4 +1,4 @@
-package com.mopub.simpleadsdemo;
+package com.skillz.mopub.simpleadsdemo;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,12 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.mopub.mobileads.MoPubErrorCode;
-import com.mopub.mobileads.MoPubView;
+import com.skillz.mopub.mobileads.MoPubErrorCode;
+import com.skillz.mopub.mobileads.MoPubView;
 
-import static com.mopub.mobileads.MoPubView.BannerAdListener;
-import static com.mopub.simpleadsdemo.Utils.hideSoftKeyboard;
-import static com.mopub.simpleadsdemo.Utils.logToast;
+import static com.skillz.mopub.mobileads.MoPubView.BannerAdListener;
+import static com.skillz.mopub.simpleadsdemo.Utils.hideSoftKeyboard;
+import static com.skillz.mopub.simpleadsdemo.Utils.logToast;
 
 /**
  * A base class for creating banner style ads with various height and width dimensions.

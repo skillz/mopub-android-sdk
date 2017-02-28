@@ -1,4 +1,4 @@
-package com.mopub.simpleadsdemo;
+package com.skillz.mopub.simpleadsdemo;
 
 import android.content.Context;
 import android.util.Log;
@@ -8,8 +8,8 @@ import com.greystripe.sdk.GSAd;
 import com.greystripe.sdk.GSAdErrorCode;
 import com.greystripe.sdk.GSAdListener;
 import com.greystripe.sdk.GSMobileBannerAdView;
-import com.mopub.mobileads.CustomEventBanner;
-import com.mopub.mobileads.MoPubErrorCode;
+import com.skillz.mopub.mobileads.CustomEventBanner;
+import com.skillz.mopub.mobileads.MoPubErrorCode;
 
 import java.util.Map;
 

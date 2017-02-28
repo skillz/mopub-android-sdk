@@ -1,4 +1,4 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -10,8 +10,8 @@ import com.facebook.ads.AdError;
 import com.facebook.ads.AdListener;
 import com.facebook.ads.AdSize;
 import com.facebook.ads.AdView;
-import com.mopub.common.DataKeys;
-import com.mopub.common.util.Views;
+import com.skillz.mopub.common.DataKeys;
+import com.skillz.mopub.common.util.Views;
 
 import java.util.Map;
 

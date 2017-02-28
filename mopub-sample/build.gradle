@@ -7,7 +7,7 @@ repositories {
 
 apply plugin: 'com.android.application'
 
-project.group = 'com.mopub'
+project.group = 'com.skillz.mopub'
 project.description = '''MoPub Sample App'''
 project.version = '4.9.0'
 

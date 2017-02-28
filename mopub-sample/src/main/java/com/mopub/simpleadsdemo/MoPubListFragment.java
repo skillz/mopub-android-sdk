@@ -1,4 +1,4 @@
-package com.mopub.simpleadsdemo;
+package com.skillz.mopub.simpleadsdemo;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -19,13 +19,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mopub.common.MoPub;
-import com.mopub.common.logging.MoPubLog;
+import com.skillz.mopub.common.MoPub;
+import com.skillz.mopub.common.logging.MoPubLog;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.mopub.simpleadsdemo.MoPubSampleAdUnit.AdType;
+import static com.skillz.mopub.simpleadsdemo.MoPubSampleAdUnit.AdType;
 
 
 interface TrashCanClickListener {

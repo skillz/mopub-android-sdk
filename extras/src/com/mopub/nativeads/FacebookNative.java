@@ -1,4 +1,4 @@
-package com.mopub.nativeads;
+package com.skillz.mopub.nativeads;
 
 import android.content.Context;
 import android.view.View;
@@ -10,15 +10,15 @@ import com.facebook.ads.ImpressionListener;
 import com.facebook.ads.MediaView;
 import com.facebook.ads.NativeAd;
 import com.facebook.ads.NativeAd.Rating;
-import com.mopub.common.Preconditions;
-import com.mopub.common.logging.MoPubLog;
+import com.skillz.mopub.common.Preconditions;
+import com.skillz.mopub.common.logging.MoPubLog;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.mopub.nativeads.NativeImageHelper.preCacheImages;
+import static com.skillz.mopub.nativeads.NativeImageHelper.preCacheImages;
 
 /**
  * Tested with Facebook SDK 4.8.1. FacebookAdRenderer is also necessary in order to show video ads.
@@ -64,7 +64,7 @@ public class FacebookNative extends CustomEventNative {
 
         if (sIsVideoRendererAvailable == null) {
             try {
-                Class.forName("com.mopub.nativeads.FacebookAdRenderer");
+                Class.forName("com.skillz.mopub.nativeads.FacebookAdRenderer");
                 sIsVideoRendererAvailable = true;
             } catch (ClassNotFoundException e) {
                 sIsVideoRendererAvailable = false;
@@ -87,7 +87,7 @@ public class FacebookNative extends CustomEventNative {
     /**
      * Sets whether Facebook native video ads may be shown. This value is overridden by the value of
      * the "video_enabled" key that may be sent from the MoPub ad server.
-     * com.mopub.nativeads.FacebookAdRenderer must also be used to display video-enabled ads.
+     * com.skillz.mopub.nativeads.FacebookAdRenderer must also be used to display video-enabled ads.
      *
      * @param videoEnabled True if you want to enable Facebook native video.
      */
@@ -98,7 +98,7 @@ public class FacebookNative extends CustomEventNative {
     /**
      * Sets whether a renderer is available that supports Facebook video ads.
      * <p/>
-     * If you use a custom renderer class that is not com.mopub.nativeads.FacebookAdRenderer to show
+     * If you use a custom renderer class that is not com.skillz.mopub.nativeads.FacebookAdRenderer to show
      * video-enabled native ads, you should set this to true.
      *
      * @param videoRendererAvailable Whether or not there is a renderer available for video-enabled

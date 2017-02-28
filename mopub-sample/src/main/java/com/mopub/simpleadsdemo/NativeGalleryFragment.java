@@ -1,4 +1,4 @@
-package com.mopub.simpleadsdemo;
+package com.skillz.mopub.simpleadsdemo;
 
 import android.app.Activity;
 import android.location.Location;
@@ -12,17 +12,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.mopub.nativeads.MediaViewBinder;
-import com.mopub.nativeads.MoPubNativeAdLoadedListener;
-import com.mopub.nativeads.MoPubStaticNativeAdRenderer;
-import com.mopub.nativeads.MoPubStreamAdPlacer;
-import com.mopub.nativeads.MoPubVideoNativeAdRenderer;
-import com.mopub.nativeads.RequestParameters;
-import com.mopub.nativeads.ViewBinder;
+import com.skillz.mopub.nativeads.MediaViewBinder;
+import com.skillz.mopub.nativeads.MoPubNativeAdLoadedListener;
+import com.skillz.mopub.nativeads.MoPubStaticNativeAdRenderer;
+import com.skillz.mopub.nativeads.MoPubStreamAdPlacer;
+import com.skillz.mopub.nativeads.MoPubVideoNativeAdRenderer;
+import com.skillz.mopub.nativeads.RequestParameters;
+import com.skillz.mopub.nativeads.ViewBinder;
 
 import java.util.EnumSet;
 
-import static com.mopub.nativeads.RequestParameters.NativeAdAsset;
+import static com.skillz.mopub.nativeads.RequestParameters.NativeAdAsset;
 
 public class NativeGalleryFragment extends Fragment implements MoPubNativeAdLoadedListener {
     private MoPubSampleAdUnit mAdConfiguration;

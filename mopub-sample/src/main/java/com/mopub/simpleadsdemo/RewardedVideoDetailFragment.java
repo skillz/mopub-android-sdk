@@ -1,4 +1,4 @@
-package com.mopub.simpleadsdemo;
+package com.skillz.mopub.simpleadsdemo;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,17 +9,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.mopub.common.MoPub;
-import com.mopub.common.MoPubReward;
-import com.mopub.mobileads.MoPubErrorCode;
-import com.mopub.mobileads.MoPubRewardedVideoListener;
-import com.mopub.mobileads.MoPubRewardedVideoManager.RequestParameters;
+import com.skillz.mopub.common.MoPub;
+import com.skillz.mopub.common.MoPubReward;
+import com.skillz.mopub.mobileads.MoPubErrorCode;
+import com.skillz.mopub.mobileads.MoPubRewardedVideoListener;
+import com.skillz.mopub.mobileads.MoPubRewardedVideoManager.RequestParameters;
 
 import java.util.Locale;
 import java.util.Set;
 
-import static com.mopub.simpleadsdemo.Utils.hideSoftKeyboard;
-import static com.mopub.simpleadsdemo.Utils.logToast;
+import static com.skillz.mopub.simpleadsdemo.Utils.hideSoftKeyboard;
+import static com.skillz.mopub.simpleadsdemo.Utils.logToast;
 
 public class RewardedVideoDetailFragment extends Fragment implements MoPubRewardedVideoListener {
 

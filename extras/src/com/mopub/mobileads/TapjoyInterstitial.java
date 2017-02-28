@@ -1,11 +1,11 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 
-import com.mopub.common.logging.MoPubLog;
+import com.skillz.mopub.common.logging.MoPubLog;
 import com.tapjoy.TJActionRequest;
 import com.tapjoy.TJError;
 import com.tapjoy.TJPlacement;

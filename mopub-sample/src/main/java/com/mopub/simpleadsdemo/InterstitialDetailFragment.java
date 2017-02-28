@@ -1,4 +1,4 @@
-package com.mopub.simpleadsdemo;
+package com.skillz.mopub.simpleadsdemo;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,12 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.mopub.mobileads.MoPubErrorCode;
-import com.mopub.mobileads.MoPubInterstitial;
+import com.skillz.mopub.mobileads.MoPubErrorCode;
+import com.skillz.mopub.mobileads.MoPubInterstitial;
 
-import static com.mopub.mobileads.MoPubInterstitial.InterstitialAdListener;
-import static com.mopub.simpleadsdemo.Utils.hideSoftKeyboard;
-import static com.mopub.simpleadsdemo.Utils.logToast;
+import static com.skillz.mopub.mobileads.MoPubInterstitial.InterstitialAdListener;
+import static com.skillz.mopub.simpleadsdemo.Utils.hideSoftKeyboard;
+import static com.skillz.mopub.simpleadsdemo.Utils.logToast;
 
 public class InterstitialDetailFragment extends Fragment implements InterstitialAdListener {
     private MoPubInterstitial mMoPubInterstitial;

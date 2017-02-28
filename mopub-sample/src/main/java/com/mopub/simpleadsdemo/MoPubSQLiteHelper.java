@@ -1,4 +1,4 @@
-package com.mopub.simpleadsdemo;
+package com.skillz.mopub.simpleadsdemo;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

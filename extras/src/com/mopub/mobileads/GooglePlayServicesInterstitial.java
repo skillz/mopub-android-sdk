@@ -1,4 +1,4 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.content.Context;
 import android.util.Log;

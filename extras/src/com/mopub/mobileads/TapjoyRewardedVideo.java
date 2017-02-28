@@ -1,14 +1,14 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
-import com.mopub.common.LifecycleListener;
-import com.mopub.common.MediationSettings;
-import com.mopub.common.MoPubReward;
-import com.mopub.common.logging.MoPubLog;
+import com.skillz.mopub.common.LifecycleListener;
+import com.skillz.mopub.common.MediationSettings;
+import com.skillz.mopub.common.MoPubReward;
+import com.skillz.mopub.common.logging.MoPubLog;
 import com.tapjoy.TJActionRequest;
 import com.tapjoy.TJConnectListener;
 import com.tapjoy.TJError;

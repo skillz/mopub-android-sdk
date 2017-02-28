@@ -1,4 +1,4 @@
-package com.mopub.simpleadsdemo;
+package com.skillz.mopub.simpleadsdemo;
 
 import android.location.Location;
 import android.os.Bundle;
@@ -9,17 +9,17 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.mopub.nativeads.MediaViewBinder;
-import com.mopub.nativeads.MoPubAdAdapter;
-import com.mopub.nativeads.MoPubStaticNativeAdRenderer;
-import com.mopub.nativeads.MoPubVideoNativeAdRenderer;
-import com.mopub.nativeads.RequestParameters;
-import com.mopub.nativeads.ViewBinder;
+import com.skillz.mopub.nativeads.MediaViewBinder;
+import com.skillz.mopub.nativeads.MoPubAdAdapter;
+import com.skillz.mopub.nativeads.MoPubStaticNativeAdRenderer;
+import com.skillz.mopub.nativeads.MoPubVideoNativeAdRenderer;
+import com.skillz.mopub.nativeads.RequestParameters;
+import com.skillz.mopub.nativeads.ViewBinder;
 
 import java.util.EnumSet;
 
-import static com.mopub.nativeads.MoPubNativeAdPositioning.MoPubServerPositioning;
-import static com.mopub.nativeads.RequestParameters.NativeAdAsset;
+import static com.skillz.mopub.nativeads.MoPubNativeAdPositioning.MoPubServerPositioning;
+import static com.skillz.mopub.nativeads.RequestParameters.NativeAdAsset;
 
 public class NativeListViewFragment extends Fragment {
     private MoPubAdAdapter mAdAdapter;

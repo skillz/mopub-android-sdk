@@ -1,4 +1,4 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.app.Activity;
 import android.os.Handler;
@@ -6,10 +6,10 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.chartboost.sdk.Chartboost;
-import com.mopub.common.DataKeys;
-import com.mopub.common.LifecycleListener;
-import com.mopub.common.MediationSettings;
-import com.mopub.common.logging.MoPubLog;
+import com.skillz.mopub.common.DataKeys;
+import com.skillz.mopub.common.LifecycleListener;
+import com.skillz.mopub.common.MediationSettings;
+import com.skillz.mopub.common.logging.MoPubLog;
 
 import java.util.Map;
 
