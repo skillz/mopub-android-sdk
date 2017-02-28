@@ -3,7 +3,9 @@ package com.skillz.mopub.mobileads;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.net.http.SslError;
 import android.support.annotation.NonNull;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -50,6 +52,12 @@ class HtmlWebViewClient extends WebViewClient {
         mDspCreativeId = dspCreativeId;
         mContext = htmlWebView.getContext();
     }
+
+    @Override
+    public void onReceivedSslError (WebView view, SslErrorHandler handler, SslError error) {
+        handler.proceed() ;
+    }
+
 
     @Override
     public boolean shouldOverrideUrlLoading(final WebView view, final String url) {
