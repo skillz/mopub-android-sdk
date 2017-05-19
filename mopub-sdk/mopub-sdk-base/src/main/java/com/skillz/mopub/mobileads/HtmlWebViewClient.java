@@ -1,6 +1,8 @@
 package com.skillz.mopub.mobileads;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.net.http.SslError;
@@ -9,8 +11,8 @@ import android.webkit.SslErrorHandler;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.skillz.mopub.common.UrlHandler;
 import com.skillz.mopub.common.UrlAction;
+import com.skillz.mopub.common.UrlHandler;
 import com.skillz.mopub.common.logging.MoPubLog;
 import com.skillz.mopub.common.util.Intents;
 import com.skillz.mopub.exceptions.IntentNotResolvableException;
@@ -54,8 +56,23 @@ class HtmlWebViewClient extends WebViewClient {
     }
 
     @Override
-    public void onReceivedSslError (WebView view, SslErrorHandler handler, SslError error) {
-        handler.proceed() ;
+    public void onReceivedSslError(WebView view, final SslErrorHandler handler, SslError error) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setMessage("Invalid SSL Certification");
+        builder.setPositiveButton("continue", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                handler.proceed();
+            }
+        });
+        builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                handler.cancel();
+            }
+        });
+        final AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
 
