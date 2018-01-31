@@ -51,7 +51,7 @@ class VastLinearXmlManager {
     private static final String SKIP = "skip";
 
     private static final int CREATIVE_VIEW_TRACKER_THRESHOLD = 0;
-    private static final int START_TRACKER_THRESHOLD = 2000;
+    private static final int START_TRACKER_THRESHOLD = 0;
     private static final float FIRST_QUARTER_MARKER = 0.25f;
     private static final float MID_POINT_MARKER = 0.50f;
     private static final float THIRD_QUARTER_MARKER = 0.75f;
@@ -105,9 +105,12 @@ class VastLinearXmlManager {
                 if (Strings.isPercentageTracker(offsetString)) {
                     String trackingUrl = XmlUtils.getNodeValue(progressNode);
                     try {
-                        float trackingFraction =
+                        final float trackingFraction =
                                 Float.parseFloat(offsetString.replace("%", "")) / 100f;
-                        percentTrackers.add(new VastFractionalProgressTracker(trackingUrl, trackingFraction));
+                        if (trackingFraction >= 0) {
+                            percentTrackers.add(new VastFractionalProgressTracker(trackingUrl,
+                                    trackingFraction));
+                        }
                     } catch (NumberFormatException e) {
                         MoPubLog.d(String.format("Failed to parse VAST progress tracker %s",
                                 offsetString));
@@ -142,7 +145,7 @@ class VastLinearXmlManager {
     List<VastAbsoluteProgressTracker> getAbsoluteProgressTrackers() {
         List<VastAbsoluteProgressTracker> trackers = new ArrayList<VastAbsoluteProgressTracker>();
 
-        // Start trackers are treated as absolute trackers with a 2s offset.
+        // Start trackers are treated as absolute trackers set at 0 seconds
         final List<String> startTrackers = getVideoTrackersByAttribute(START);
         for (String url : startTrackers) {
             trackers.add(new VastAbsoluteProgressTracker(url, START_TRACKER_THRESHOLD));
@@ -164,7 +167,7 @@ class VastLinearXmlManager {
                     String trackingUrl = XmlUtils.getNodeValue(progressNode);
                     try {
                         Integer trackingMilliseconds = Strings.parseAbsoluteOffset(offsetString);
-                        if (trackingMilliseconds != null) {
+                        if (trackingMilliseconds != null && trackingMilliseconds >= 0) {
                             trackers.add(new VastAbsoluteProgressTracker(trackingUrl, trackingMilliseconds));
                         }
                     } catch (NumberFormatException e) {
@@ -178,9 +181,12 @@ class VastLinearXmlManager {
             final List<Node> creativeViewNodes = XmlUtils.getMatchingChildNodes(trackingEvents,
                     VIDEO_TRACKER, EVENT, Collections.singletonList(CREATIVE_VIEW));
             for (Node creativeViewNode : creativeViewNodes) {
-                trackers.add(
-                        new VastAbsoluteProgressTracker(XmlUtils.getNodeValue(creativeViewNode),
-                                CREATIVE_VIEW_TRACKER_THRESHOLD));
+                final String creativeNodeValue = XmlUtils.getNodeValue(creativeViewNode);
+                if (creativeNodeValue != null) {
+                    trackers.add(
+                            new VastAbsoluteProgressTracker(creativeNodeValue,
+                                    CREATIVE_VIEW_TRACKER_THRESHOLD));
+                }
             }
         }
 

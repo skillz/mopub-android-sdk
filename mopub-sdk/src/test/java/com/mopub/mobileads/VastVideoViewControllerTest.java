@@ -1,6 +1,5 @@
 package com.mopub.mobileads;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -11,17 +10,15 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.MediaMetadataRetriever;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.VideoView;
 
-import com.mopub.TestSdkHelper;
+import com.mopub.common.ExternalViewabilitySession;
 import com.mopub.common.MoPubBrowser;
 import com.mopub.common.test.support.SdkTestRunner;
 import com.mopub.common.util.DeviceUtils.ForceOrientation;
@@ -54,20 +51,19 @@ import org.robolectric.shadows.httpclient.RequestMatcher;
 import org.robolectric.shadows.httpclient.TestHttpResponse;
 import org.robolectric.shadows.support.v4.ShadowLocalBroadcastManager;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE;
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
-import static com.mopub.common.VolleyRequestMatcher.isUrl;
-import static com.mopub.mobileads.BaseVideoViewController.BaseVideoViewControllerListener;
 import static com.mopub.common.IntentActions.ACTION_INTERSTITIAL_DISMISS;
 import static com.mopub.common.IntentActions.ACTION_INTERSTITIAL_FAIL;
 import static com.mopub.common.IntentActions.ACTION_INTERSTITIAL_SHOW;
+import static com.mopub.common.VolleyRequestMatcher.isUrl;
+import static com.mopub.mobileads.BaseVideoViewController.BaseVideoViewControllerListener;
 import static com.mopub.mobileads.EventForwardingBroadcastReceiverTest.getIntentForActionAndIdentifier;
 import static com.mopub.mobileads.VastVideoViewController.CURRENT_POSITION;
 import static com.mopub.mobileads.VastVideoViewController.DEFAULT_VIDEO_DURATION_FOR_CLOSE_BUTTON;
@@ -138,7 +134,6 @@ public class VastVideoViewControllerTest {
     private VastVideoViewProgressRunnable spyProgressRunnable;
     private VideoView spyVideoView;
 
-    @TargetApi(VERSION_CODES.GINGERBREAD_MR1)
     @Before
     public void setUp() throws Exception {
         Networking.setRequestQueueForTesting(mockRequestQueue);
@@ -390,7 +385,6 @@ public class VastVideoViewControllerTest {
                 DEFAULT_VIDEO_DURATION_FOR_CLOSE_BUTTON);
     }
 
-    @TargetApi(VERSION_CODES.HONEYCOMB)
     @Test
     public void constructor_shouldAddBlackBackgroundToLayout() throws Exception {
         initializeSubject();
@@ -570,7 +564,7 @@ public class VastVideoViewControllerTest {
         subject.onCreate();
 
         verify(baseVideoViewControllerListener).onSetRequestedOrientation(
-                SCREEN_ORIENTATION_LANDSCAPE);
+                SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
     }
 
     @Test
@@ -611,7 +605,7 @@ public class VastVideoViewControllerTest {
         subject.onCreate();
 
         verify(baseVideoViewControllerListener).onSetRequestedOrientation(
-                SCREEN_ORIENTATION_LANDSCAPE);
+                SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
     }
 
     @Test
@@ -878,19 +872,6 @@ public class VastVideoViewControllerTest {
 
         getShadowVideoView().getOnTouchListener().onTouch(null, GestureUtils.createActionUp(0, 0));
         assertThat(FakeHttp.httpRequestWasMade()).isFalse();
-    }
-
-    @Test
-    public void onTouch_withNullBaseVideoViewListener_andActionTouchUp_shouldReturnTrueAndNotBlowUp() throws Exception {
-        subject = new VastVideoViewController((Activity) context, bundle, null,
-                testBroadcastIdentifier, null);
-
-        boolean result = getShadowVideoView().getOnTouchListener().onTouch(null, GestureUtils.createActionUp(
-                0, 0));
-
-        // pass
-
-        assertThat(result).isTrue();
     }
 
     @Test
@@ -1199,29 +1180,7 @@ public class VastVideoViewControllerTest {
     }
 
     @Test
-    public void onPrepared_beforeGingerbreadMr1_shouldNotSetBlurredLastVideoFrame() throws Exception {
-
-        TestSdkHelper.setReportedSdkLevel(VERSION_CODES.GINGERBREAD);
-        VastVideoConfig vastVideoConfig = new VastVideoConfig();
-        vastVideoConfig.setDiskMediaFileUrl("disk_video_path");
-        bundle.putSerializable(VAST_VIDEO_CONFIG, vastVideoConfig);
-
-        initializeSubject();
-
-        getShadowVideoView().getOnPreparedListener().onPrepared(null);
-        Robolectric.getBackgroundThreadScheduler().unPause();
-        Robolectric.getForegroundThreadScheduler().unPause();
-        Thread.sleep(NETWORK_DELAY);
-
-        assertThat(subject.getBlurredLastVideoFrameImageView().getDrawable()).isNull();
-
-        ShadowImageView imageView = Shadows.shadowOf(subject.getBlurredLastVideoFrameImageView());
-        assertThat(imageView.getOnTouchListener()).isNull();
-    }
-
-    @Test
-    public void onPrepared_atLeastGingerbreadMr1_shouldSetBlurredLastVideoFrame() throws Exception {
-        TestSdkHelper.setReportedSdkLevel(VERSION_CODES.GINGERBREAD_MR1);
+    public void onPrepared_shouldSetBlurredLastVideoFrame() throws Exception {
         VastVideoConfig vastVideoConfig = new VastVideoConfig();
         vastVideoConfig.setDiskMediaFileUrl("disk_video_path");
         bundle.putSerializable(VAST_VIDEO_CONFIG, vastVideoConfig);
@@ -1266,6 +1225,7 @@ public class VastVideoViewControllerTest {
 
         initializeSubject();
         testTracker.setTracked();
+        setViewabilityTrackersTracked(vastVideoConfig);
         spyOnVideoView();
         setVideoViewParams(15000, 15000);
 
@@ -1446,8 +1406,7 @@ public class VastVideoViewControllerTest {
         assertThat(topGradientStripWidget.getVisibility()).isEqualTo(View.GONE);
         assertThat(bottomGradientStripWidget.getVisibility()).isEqualTo(View.GONE);
     }
-
-    @TargetApi(VERSION_CODES.HONEYCOMB)
+    
     @Test
     public void onCompletion_whenCompanionAdNotAvailableAndBlurredLastVideoFrameNotPrepared_shouldShowBlackBackground() throws Exception {
         VastVideoConfig vastVideoConfig = new VastVideoConfig();
@@ -1543,33 +1502,6 @@ public class VastVideoViewControllerTest {
 
         verify(spyProgressRunnable).stop();
         verify(spyCountdownRunnable).stop();
-    }
-
-
-    @Test
-    @Config(shadows = {MoPubShadowMediaPlayer.class})
-    public void onError_withVideoFilePermissionErrorBelowJellyBean_shouldRetryPlayingTheVideo() throws Exception {
-        TestSdkHelper.setReportedSdkLevel(VERSION_CODES.ICE_CREAM_SANDWICH);
-
-        File file = new File("disk_video_path");
-        file.createNewFile();
-
-        // ShadowMediaPlayer setup needed to
-
-        initializeSubject();
-
-        assertThat(getShadowVideoView().getCurrentVideoState()).isEqualTo(-1);
-
-        assertThat(subject.getVastVideoView().getVideoRetries()).isEqualTo(0);
-        getShadowVideoView().getOnErrorListener().onError(new MediaPlayer(), 1, Integer.MIN_VALUE);
-
-        // Robo 3.0 introduces a requirement that ShadowMediaPlayer be set up with MediaInfo for a data source.
-        // Because we generate a file descriptor datasource at runtime, we can't set it up easily in this test.
-
-        assertThat(getShadowVideoView().isPlaying()).isTrue();
-        assertThat(subject.getVastVideoView().getVideoRetries()).isEqualTo(1);
-
-        file.delete();
     }
 
     @Test
@@ -2308,5 +2240,18 @@ public class VastVideoViewControllerTest {
 
     private ShadowVastVideoView getShadowVideoView() {
         return (ShadowVastVideoView) ShadowExtractor.extract(subject.getVastVideoView());
+    }
+
+    private void setViewabilityTrackersTracked(VastVideoConfig vastVideoConfig) {
+        for (VastFractionalProgressTracker tracker : vastVideoConfig.getFractionalTrackers()) {
+            final String content = tracker.getContent();
+            try {
+                // Only mark trackers that match with viewability's VideoEvent enum
+                Enum.valueOf(ExternalViewabilitySession.VideoEvent.class, content);
+                tracker.setTracked();
+            } catch (IllegalArgumentException e) {
+                // pass
+            }
+        }
     }
 }

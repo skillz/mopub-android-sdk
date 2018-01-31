@@ -3,38 +3,30 @@ package com.mopub.mobileads;
 import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 
 import com.mopub.common.BaseLifecycleListener;
-import com.mopub.common.DataKeys;
 import com.mopub.common.LifecycleListener;
-import com.mopub.common.MediationSettings;
 import com.mopub.common.MoPubReward;
 import com.mopub.common.VisibleForTesting;
 import com.mopub.common.logging.MoPubLog;
-import com.unity3d.ads.android.IUnityAdsListener;
-import com.unity3d.ads.android.UnityAds;
+import com.unity3d.ads.mediation.IUnityAdsExtendedListener;
+import com.unity3d.ads.UnityAds;
 
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
  * A custom event for showing Unity rewarded videos.
  *
- * Certified with Unity 1.4.7
+ * Certified with Unity Ads 2.1.1
  */
 public class UnityRewardedVideo extends CustomEventRewardedVideo {
-    private static final String DEFAULT_ZONE_ID = "";
     private static final String GAME_ID_KEY = "gameId";
-    private static final String ZONE_ID_KEY = "zoneId";
     private static final LifecycleListener sLifecycleListener = new UnityLifecycleListener();
     private static final UnityAdsListener sUnityAdsListener = new UnityAdsListener();
+    private static String sPlacementId = "";
 
-    private static boolean sInitialized = false;
-    @NonNull private static String sZoneId = DEFAULT_ZONE_ID;
-
-    @Nullable private UnityMediationSettings mMediationSettings;
+    @Nullable
+    private Activity mLauncherActivity;
 
     @Override
     @NonNull
@@ -51,63 +43,53 @@ public class UnityRewardedVideo extends CustomEventRewardedVideo {
     @Override
     @NonNull
     public String getAdNetworkId() {
-        return sZoneId;
+        return sPlacementId;
     }
 
     @Override
     public boolean checkAndInitializeSdk(@NonNull final Activity launcherActivity,
             @NonNull final Map<String, Object> localExtras,
             @NonNull final Map<String, String> serverExtras) throws Exception {
-        if (sInitialized) {
-            return false;
-        }
-
-        String gameId;
-        if (serverExtras.containsKey(GAME_ID_KEY)) {
-            gameId = serverExtras.get(GAME_ID_KEY);
-            if (TextUtils.isEmpty(gameId)) {
-                throw new IllegalStateException("Unity rewarded video initialization failed due " +
-                        "to empty " + GAME_ID_KEY);
+        synchronized (UnityRewardedVideo.class) {
+            if (UnityAds.isInitialized()) {
+                return false;
             }
-        } else {
-            throw new IllegalStateException("Unity rewarded video initialization failed due to " +
-                    "missing " + GAME_ID_KEY);
+
+            try {
+                UnityRouter.initUnityAds(serverExtras, launcherActivity);
+                UnityRouter.addListener(sPlacementId, sUnityAdsListener);
+            } catch (UnityRouter.UnityAdsException e) {
+                MoPubLog.e("Failed to initialize Unity Ads.", e);
+                MoPubRewardedVideoManager.onRewardedVideoLoadFailure(UnityRewardedVideo.class, sPlacementId, UnityRouter.UnityAdsUtils.getMoPubErrorCode(e.getErrorCode()));
+            }
+
+            return true;
         }
-
-        UnityAds.init(launcherActivity, gameId, sUnityAdsListener);
-        sInitialized = true;
-
-        return true;
     }
 
     @Override
     protected void loadWithSdkInitialized(@NonNull Activity activity,
-            @NonNull Map<String, Object> localExtras, @NonNull Map<String, String> serverExtras)
-            throws Exception {
+            @NonNull Map<String, Object> localExtras,
+            @NonNull Map<String, String> serverExtras) throws Exception {
 
-        if (serverExtras.containsKey(ZONE_ID_KEY)) {
-            String zoneId = serverExtras.get(ZONE_ID_KEY);
-            sZoneId = TextUtils.isEmpty(zoneId) ? sZoneId : zoneId;
+        sPlacementId = UnityRouter.placementIdForServerExtras(serverExtras, sPlacementId);
+        mLauncherActivity = activity;
+
+        UnityRouter.addListener(sPlacementId, sUnityAdsListener);
+        if (UnityAds.isReady()) {
+            MoPubRewardedVideoManager.onRewardedVideoLoadSuccess(UnityRewardedVideo.class, sPlacementId);
         }
-
-        try {
-            setUpMediationSettingsForRequest((String) localExtras.get(DataKeys.AD_UNIT_ID_KEY));
-        } catch (ClassCastException e) {
-            MoPubLog.e("Failed to set up Unity mediation settings due to invalid ad unit id", e);
-        }
-
-        loadRewardedVideo();
     }
 
     @Override
     public boolean hasVideoAvailable() {
-        return UnityAds.canShow();
+        return UnityAds.isReady(sPlacementId);
     }
 
     @Override
     public void showVideo() {
         if (hasVideoAvailable()) {
-            UnityAds.show(getUnityProperties());
+            UnityAds.show(mLauncherActivity, sPlacementId);
         } else {
             MoPubLog.d("Attempted to show Unity rewarded video before it was available.");
         }
@@ -115,123 +97,81 @@ public class UnityRewardedVideo extends CustomEventRewardedVideo {
 
     @Override
     protected void onInvalidate() {
-        UnityAds.setListener(null);
-    }
-
-
-    private void setUpMediationSettingsForRequest(@Nullable final String moPubId) {
-        mMediationSettings =
-                MoPubRewardedVideoManager.getGlobalMediationSettings(UnityMediationSettings.class);
-
-        // Instance settings override global settings.
-        if (moPubId != null) {
-            final UnityMediationSettings instanceSettings = MoPubRewardedVideoManager
-                    .getInstanceMediationSettings(UnityMediationSettings.class, moPubId);
-            if (instanceSettings != null) {
-                mMediationSettings = instanceSettings;
-            }
-        }
-
+        UnityRouter.removeListener(sPlacementId);
     }
 
     private static final class UnityLifecycleListener extends BaseLifecycleListener {
         @Override
         public void onCreate(@NonNull final Activity activity) {
             super.onCreate(activity);
-            UnityAds.changeActivity(activity);
         }
 
         @Override
         public void onResume(@NonNull final Activity activity) {
             super.onResume(activity);
-            UnityAds.changeActivity(activity);
         }
 
     }
 
-    @NonNull
-    private Map<String, Object> getUnityProperties() {
-        if (mMediationSettings == null) {
-            return Collections.emptyMap();
-        }
-        return mMediationSettings.getPropertiesMap();
-    }
-
-
-    private static class UnityAdsListener implements IUnityAdsListener,
+    private static class UnityAdsListener implements IUnityAdsExtendedListener,
             CustomEventRewardedVideoListener {
         @Override
-        public void onFetchCompleted() {
-            MoPubLog.d("Unity rewarded video cached for zone " + UnityAds.getZone() + ".");
-            loadRewardedVideo();
-        }
-
-        @Override
-        public void onFetchFailed() {
-            MoPubLog.d("Unity rewarded video cache failed for zone " + UnityAds.getZone() + ".");
-            MoPubRewardedVideoManager.onRewardedVideoLoadFailure(UnityRewardedVideo.class,
-                    UnityAds.getZone(), MoPubErrorCode.NETWORK_NO_FILL);
-        }
-
-        @Override
-        public void onShow() {
-            MoPubLog.d("Unity rewarded video displayed for zone " + UnityAds.getZone() + ".");
-        }
-
-        @Override
-        public void onHide() {
-            MoPubRewardedVideoManager.onRewardedVideoClosed(UnityRewardedVideo.class, UnityAds.getZone());
-            MoPubLog.d("Unity rewarded video dismissed for zone " + UnityAds.getZone() + ".");
-        }
-
-        @Override
-        public void onVideoStarted() {
-            MoPubRewardedVideoManager.onRewardedVideoStarted(UnityRewardedVideo.class, UnityAds.getZone());
-            MoPubLog.d("Unity rewarded video started for zone " + UnityAds.getZone() + ".");
-        }
-
-        @Override
-        public void onVideoCompleted(final String itemKey, final boolean skipped) {
-            if (!skipped) {
-                MoPubRewardedVideoManager.onRewardedVideoCompleted(
-                        UnityRewardedVideo.class,
-                        UnityAds.getZone(),
-                        MoPubReward.success(itemKey, MoPubReward.NO_REWARD_AMOUNT));
-                MoPubLog.d("Unity rewarded video completed for zone " + UnityAds.getZone()
-                        + " with reward item key " + itemKey);
-            } else {
-                MoPubRewardedVideoManager.onRewardedVideoCompleted(
-                        UnityRewardedVideo.class,
-                        UnityAds.getZone(),
-                        MoPubReward.failure());
-                MoPubLog.d("Unity rewarded video skipped for zone " + UnityAds.getZone() + " with "
-                        + "reward item key " + itemKey);
+        public void onUnityAdsReady(String placementId) {
+            if (placementId.equals(sPlacementId)) {
+                MoPubLog.d("Unity rewarded video cached for placement " + placementId + ".");
+                MoPubRewardedVideoManager.onRewardedVideoLoadSuccess(UnityRewardedVideo.class, placementId);
             }
         }
-    }
 
-    private static void loadRewardedVideo() {
-        UnityAds.setZone(sZoneId);
-        MoPubRewardedVideoManager.onRewardedVideoLoadSuccess(UnityRewardedVideo.class, UnityAds.getZone());
-    }
-
-    public static final class UnityMediationSettings implements MediationSettings {
-        @NonNull private final HashMap<String, Object> mProperties;
-
-        public UnityMediationSettings(@NonNull final String gamerId) {
-            mProperties = new HashMap<String, Object>();
-            mProperties.put(UnityAds.UNITY_ADS_OPTION_GAMERSID_KEY, gamerId);
+        @Override
+        public void onUnityAdsStart(String placementId) {
+            MoPubRewardedVideoManager.onRewardedVideoStarted(UnityRewardedVideo.class, placementId);
+            MoPubLog.d("Unity rewarded video started for placement " + placementId + ".");
         }
 
-        @NonNull
-        public Map<String, Object> getPropertiesMap() {
-            return mProperties;
+        @Override
+        public void onUnityAdsFinish(String placementId, UnityAds.FinishState finishState) {
+            MoPubLog.d("Unity Ad finished with finish state = " + finishState);
+            if (finishState == UnityAds.FinishState.ERROR) {
+                MoPubRewardedVideoManager.onRewardedVideoPlaybackError(
+                        UnityRewardedVideo.class,
+                        sPlacementId,
+                        MoPubErrorCode.VIDEO_PLAYBACK_ERROR);
+                MoPubLog.d("Unity rewarded video encountered a playback error for placement " + placementId);
+            } else if (finishState == UnityAds.FinishState.COMPLETED) {
+                MoPubRewardedVideoManager.onRewardedVideoCompleted(
+                        UnityRewardedVideo.class,
+                        sPlacementId,
+                        MoPubReward.success(MoPubReward.NO_REWARD_LABEL, MoPubReward.NO_REWARD_AMOUNT));
+                MoPubLog.d("Unity rewarded video completed for placement " + placementId);
+            } else if (finishState == UnityAds.FinishState.SKIPPED) {
+                MoPubLog.d("Unity ad was skipped, no reward will be given.");
+            }
+            MoPubRewardedVideoManager.onRewardedVideoClosed(UnityRewardedVideo.class, sPlacementId);
+            UnityRouter.removeListener(placementId);
+        }
+
+        @Override
+        public void onUnityAdsClick(String placementId) {
+            MoPubRewardedVideoManager.onRewardedVideoClicked(UnityRewardedVideo.class, placementId);
+            MoPubLog.d("Unity rewarded video clicked for placement " + placementId + ".");
+        }
+
+        // @Override
+        public void onUnityAdsPlacementStateChanged(String placementId, UnityAds.PlacementState oldState, UnityAds.PlacementState newState) {
+
+        }
+
+        @Override
+        public void onUnityAdsError(UnityAds.UnityAdsError unityAdsError, String message) {
+            MoPubLog.d("Unity rewarded video cache failed for placement " + sPlacementId + ".");
+            MoPubErrorCode errorCode = UnityRouter.UnityAdsUtils.getMoPubErrorCode(unityAdsError);
+            MoPubRewardedVideoManager.onRewardedVideoLoadFailure(UnityRewardedVideo.class, sPlacementId, errorCode);
         }
     }
 
     @VisibleForTesting
     void reset() {
-        sInitialized = false;
-        sZoneId = DEFAULT_ZONE_ID;
+        sPlacementId = "";
     }
 }

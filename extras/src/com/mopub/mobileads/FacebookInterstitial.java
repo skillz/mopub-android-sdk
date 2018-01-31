@@ -11,7 +11,7 @@ import com.facebook.ads.InterstitialAdListener;
 import java.util.Map;
 
 /**
- * Tested with Facebook SDK 4.8.1.
+ * Certified with Facebook Audience Network 4.26.1
  */
 public class FacebookInterstitial extends CustomEventInterstitial implements InterstitialAdListener {
     public static final String PLACEMENT_ID_KEY = "placement_id";
@@ -97,6 +97,11 @@ public class FacebookInterstitial extends CustomEventInterstitial implements Int
     public void onAdClicked(final Ad ad) {
         Log.d("MoPub", "Facebook interstitial ad clicked.");
         mInterstitialListener.onInterstitialClicked();
+    }
+
+    @Override
+    public void onLoggingImpression(Ad ad) {
+        Log.d("MoPub", "Facebook interstitial ad logged impression.");
     }
 
     @Override

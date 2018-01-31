@@ -27,7 +27,7 @@ import static com.mopub.mobileads.MoPubErrorCode.VIDEO_DOWNLOAD_ERROR;
 /**
  * Shared infrastructure for initializing the Chartboost SDK when mediated by MoPub
  *
- * Certified with Chartboost 6.4.1
+ * Certified with Chartboost 7.0.1
  */
 public class ChartboostShared {
     private static volatile ChartboostSingletonDelegate sDelegate = new ChartboostSingletonDelegate();
@@ -75,7 +75,6 @@ public class ChartboostShared {
 
         // Perform all the common SDK initialization steps including startAppWithId
         Chartboost.startWithAppId(launcherActivity, mAppId, mAppSignature);
-        Chartboost.setImpressionsUseActivities(false);
         Chartboost.setMediation(Chartboost.CBMediation.CBMediationMoPub, MoPub.SDK_VERSION);
         Chartboost.setDelegate(sDelegate);
         Chartboost.setShouldRequestInterstitialsInFirstSession(true);

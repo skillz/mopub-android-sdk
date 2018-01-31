@@ -17,30 +17,9 @@ import com.mopub.common.DataKeys;
 import static com.mopub.common.DataKeys.BROADCAST_IDENTIFIER_KEY;
 
 abstract class BaseInterstitialActivity extends Activity {
-    protected AdReport mAdReport;
-
-    enum JavaScriptWebViewCallbacks {
-        // The ad server appends these functions to the MRAID javascript to help with third party
-        // impression tracking.
-        WEB_VIEW_DID_APPEAR("webviewDidAppear();"),
-        WEB_VIEW_DID_CLOSE("webviewDidClose();");
-
-        private String mJavascript;
-        private JavaScriptWebViewCallbacks(String javascript) {
-            mJavascript = javascript;
-        }
-
-        protected String getJavascript() {
-            return mJavascript;
-        }
-
-        protected String getUrl() {
-            return "javascript:" + mJavascript;
-        }
-    }
-
-    private CloseableLayout mCloseableLayout;
-    private Long mBroadcastIdentifier;
+    @Nullable protected AdReport mAdReport;
+    @Nullable private CloseableLayout mCloseableLayout;
+    @Nullable private Long mBroadcastIdentifier;
 
     public abstract View getAdView();
 
@@ -71,20 +50,32 @@ abstract class BaseInterstitialActivity extends Activity {
 
     @Override
     protected void onDestroy() {
-        mCloseableLayout.removeAllViews();
+        if (mCloseableLayout != null) {
+            mCloseableLayout.removeAllViews();
+        }
         super.onDestroy();
     }
 
+    @Nullable
+    protected CloseableLayout getCloseableLayout() {
+        return mCloseableLayout;
+    }
+
+    @Nullable
     Long getBroadcastIdentifier() {
         return mBroadcastIdentifier;
     }
 
     protected void showInterstitialCloseButton() {
-        mCloseableLayout.setCloseVisible(true);
+        if (mCloseableLayout != null) {
+            mCloseableLayout.setCloseVisible(true);
+        }
     }
 
     protected void hideInterstitialCloseButton() {
-        mCloseableLayout.setCloseVisible(false);
+        if (mCloseableLayout != null) {
+            mCloseableLayout.setCloseVisible(false);
+        }
     }
 
     protected static Long getBroadcastIdentifierFromIntent(Intent intent) {

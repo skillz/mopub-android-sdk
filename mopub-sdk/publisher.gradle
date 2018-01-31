@@ -23,7 +23,7 @@ android.libraryVariants.all { variant ->
 
     task.dependsOn variant.javaCompile
     task.from variant.javaCompile.destinationDir
-    artifacts.add('archives', task);
+    artifacts.add('archives', task)
 }
 
 android.libraryVariants.all { variant ->
@@ -58,6 +58,5 @@ publish {
     bintrayUser = project.hasProperty("bintray.user") ? project.getProperty("bintray.user") : ""
     bintrayKey = project.hasProperty("bintray.apikey") ? project.getProperty("bintray.apikey") : ""
 
-    autoPublish = true
     dryRun = false
 }

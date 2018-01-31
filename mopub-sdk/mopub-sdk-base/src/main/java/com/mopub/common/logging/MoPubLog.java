@@ -1,6 +1,5 @@
 package com.mopub.common.logging;
 
-import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -127,7 +126,7 @@ public class MoPubLog {
         }
 
         @Override
-        @SuppressLint("LogTagMismatch")
+        @SuppressWarnings({"LogTagMismatch", "WrongConstant"})
         public void publish(final LogRecord logRecord) {
             if (isLoggable(logRecord)) {
                 final int priority;

@@ -16,7 +16,7 @@ import com.mopub.common.util.Views;
 import java.util.Map;
 
 /**
- * Tested with Facebook SDK 4.8.1.
+ * Certified with Facebook Audience Network 4.26.1
  */
 public class FacebookBanner extends CustomEventBanner implements AdListener {
     public static final String PLACEMENT_ID_KEY = "placement_id";
@@ -100,6 +100,11 @@ public class FacebookBanner extends CustomEventBanner implements AdListener {
     public void onAdClicked(Ad ad) {
         Log.d("MoPub", "Facebook banner ad clicked.");
         mBannerListener.onBannerClicked();
+    }
+
+    @Override
+    public void onLoggingImpression(Ad ad) {
+        Log.d("MoPub", "Facebook banner ad logged impression.");
     }
 
     private boolean serverExtrasAreValid(final Map<String, String> serverExtras) {

@@ -11,7 +11,6 @@ import com.mopub.common.util.test.support.ShadowReflection;
 import com.mopub.mobileads.test.support.TestAdViewControllerFactory;
 import com.mopub.mobileads.test.support.TestCustomEventBannerAdapterFactory;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,16 +47,11 @@ public class MoPubViewTest {
         adViewController = TestAdViewControllerFactory.getSingletonMock();
     }
 
-    @After
-    public void tearDown() {
-        ShadowReflection.reset();
-    }
-
     @Test
     public void screenStateBroadcastReceiver_withActionUserPresent_shouldUnpauseRefresh() throws Exception {
         broadcastIntent(new Intent(Intent.ACTION_USER_PRESENT));
 
-        verify(adViewController).unpauseRefresh();
+        verify(adViewController).resumeRefresh();
     }
 
     @Test
@@ -72,7 +66,7 @@ public class MoPubViewTest {
         broadcastIntent(null);
 
         verify(adViewController, never()).pauseRefresh();
-        verify(adViewController, never()).unpauseRefresh();
+        verify(adViewController, never()).resumeRefresh();
     }
 
     @Test
@@ -80,7 +74,7 @@ public class MoPubViewTest {
         broadcastIntent(new Intent(Intent.ACTION_BATTERY_LOW));
 
         verify(adViewController, never()).pauseRefresh();
-        verify(adViewController, never()).unpauseRefresh();
+        verify(adViewController, never()).resumeRefresh();
     }
 
     @Test
@@ -89,7 +83,7 @@ public class MoPubViewTest {
         reset(adViewController);
 
         broadcastIntent(new Intent(Intent.ACTION_USER_PRESENT));
-        verify(adViewController, never()).unpauseRefresh();
+        verify(adViewController, never()).resumeRefresh();
 
         broadcastIntent(new Intent(Intent.ACTION_SCREEN_OFF));
         verify(adViewController, never()).pauseRefresh();
@@ -100,7 +94,7 @@ public class MoPubViewTest {
         subject.destroy();
 
         broadcastIntent(new Intent(Intent.ACTION_USER_PRESENT));
-        verify(adViewController, never()).unpauseRefresh();
+        verify(adViewController, never()).resumeRefresh();
 
         broadcastIntent(new Intent(Intent.ACTION_SCREEN_OFF));
         verify(adViewController, never()).pauseRefresh();
@@ -112,7 +106,7 @@ public class MoPubViewTest {
         subject.onWindowVisibilityChanged(View.INVISIBLE);
 
         verify(adViewController).pauseRefresh();
-        verify(adViewController, never()).unpauseRefresh();
+        verify(adViewController, never()).resumeRefresh();
     }
 
 
@@ -124,7 +118,7 @@ public class MoPubViewTest {
         subject.onWindowVisibilityChanged(View.VISIBLE);
 
         verify(adViewController, never()).pauseRefresh();
-        verify(adViewController).unpauseRefresh();
+        verify(adViewController).resumeRefresh();
     }
 
     @Test
@@ -133,7 +127,7 @@ public class MoPubViewTest {
         subject.onWindowVisibilityChanged(View.VISIBLE);
 
         verify(adViewController, never()).pauseRefresh();
-        verify(adViewController, never()).unpauseRefresh();
+        verify(adViewController, never()).resumeRefresh();
     }
 
     @Test
@@ -144,7 +138,7 @@ public class MoPubViewTest {
         subject.onWindowVisibilityChanged(View.GONE);
 
         verify(adViewController, never()).pauseRefresh();
-        verify(adViewController, never()).unpauseRefresh();
+        verify(adViewController, never()).resumeRefresh();
     }
 
     @Test
@@ -155,21 +149,21 @@ public class MoPubViewTest {
         subject.onWindowVisibilityChanged(View.INVISIBLE);
 
         verify(adViewController, never()).pauseRefresh();
-        verify(adViewController, never()).unpauseRefresh();
+        verify(adViewController, never()).resumeRefresh();
     }
 
     @Test
     public void setAutorefreshEnabled_withRefreshTrue_shouldForwardToAdViewController() throws Exception {
         subject.setAutorefreshEnabled(true);
 
-        verify(adViewController).forceSetAutorefreshEnabled(true);
+        verify(adViewController).setShouldAllowAutoRefresh(true);
     }
 
     @Test
     public void setAutorefreshEnabled_withRefreshFalse_shouldForwardToAdViewController() throws Exception {
         subject.setAutorefreshEnabled(false);
 
-        verify(adViewController).forceSetAutorefreshEnabled(false);
+        verify(adViewController).setShouldAllowAutoRefresh(false);
     }
     
     @Test
