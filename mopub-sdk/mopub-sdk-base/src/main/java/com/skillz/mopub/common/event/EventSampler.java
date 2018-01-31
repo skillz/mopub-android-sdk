@@ -14,7 +14,8 @@ import java.util.Random;
  */
 public class EventSampler {
 
-    @VisibleForTesting static final int MAX_SIZE = 100;
+    @VisibleForTesting
+    static final int MAX_SIZE = 100;
     private static final float LOAD_FACTOR = 0.75f;
     /**
      * The capacity is just large enough to hold the max size without rehashing.

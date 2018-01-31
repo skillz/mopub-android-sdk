@@ -25,8 +25,6 @@ import com.skillz.mopub.mobileads.factories.AdViewControllerFactory;
 import java.util.Map;
 import java.util.TreeMap;
 
-import static com.skillz.mopub.mobileads.MoPubErrorCode.ADAPTER_NOT_FOUND;
-
 public class MoPubView extends FrameLayout {
     public interface BannerAdListener {
         public void onBannerLoaded(MoPubView banner);
@@ -36,8 +34,8 @@ public class MoPubView extends FrameLayout {
         public void onBannerCollapsed(MoPubView banner);
     }
 
-    private final String CUSTOM_EVENT_BANNER_ADAPTER_FACTORY =
-            "com.skillz.mopub.mobileads.factories.CustomEventBannerAdapterFactory";
+    private static final String CUSTOM_EVENT_BANNER_ADAPTER_FACTORY =
+            "com.mopub.mobileads.factories.CustomEventBannerAdapterFactory";
 
     @Nullable
     protected AdViewController mAdViewController;
@@ -65,15 +63,22 @@ public class MoPubView extends FrameLayout {
         setHorizontalScrollBarEnabled(false);
         setVerticalScrollBarEnabled(false);
 
-        // There is a rare bug in Froyo/2.2 where creation of a WebView causes a
-        // NullPointerException. (https://code.google.com/p/android/issues/detail?id=10789)
-        // It happens when the WebView can't access the local file store to make a cache file.
-        // Here, we'll work around it by trying to create a file store and then just go inert
-        // if it's not accessible.
-        if (WebViewDatabase.getInstance(context) == null) {
-            MoPubLog.e("Disabling MoPub. Local cache file is inaccessible so MoPub will " +
-                    "fail if we try to create a WebView. Details of this Android bug found at:" +
-                    "https://code.google.com/p/android/issues/detail?id=10789");
+        try {
+            // There is a rare bug in Froyo/2.2 where creation of a WebView causes a
+            // NullPointerException. (https://code.google.com/p/android/issues/detail?id=10789)
+            // It happens when the WebView can't access the local file store to make a cache file.
+            // Here, we'll work around it by trying to create a file store and then just go inert
+            // if it's not accessible.
+            if (WebViewDatabase.getInstance(context) == null) {
+                MoPubLog.e("Disabling MoPub. Local cache file is inaccessible so MoPub will " +
+                        "fail if we try to create a WebView. Details of this Android bug found at:" +
+                        "https://code.google.com/p/android/issues/detail?id=10789");
+                return;
+            }
+        } catch (Exception e) {
+            // If anything goes wrong here, it's most likely due to not having a WebView at all.
+            // This happens when Android updates WebView.
+            MoPubLog.e("Disabling MoPub due to no WebView, or it's being updated", e);
             return;
         }
 
@@ -165,7 +170,7 @@ public class MoPubView extends FrameLayout {
         }
         if (TextUtils.isEmpty(customEventClassName)) {
             MoPubLog.d("Couldn't invoke custom event because the server did not specify one.");
-            loadFailUrl(ADAPTER_NOT_FOUND);
+            loadFailUrl(MoPubErrorCode.ADAPTER_NOT_FOUND);
             return;
         }
 
@@ -226,7 +231,7 @@ public class MoPubView extends FrameLayout {
         }
 
         if (Visibility.isScreenVisible(visibility)) {
-            mAdViewController.unpauseRefresh();
+            mAdViewController.resumeRefresh();
         } else {
             mAdViewController.pauseRefresh();
         }
@@ -328,12 +333,12 @@ public class MoPubView extends FrameLayout {
 
     public void setAutorefreshEnabled(boolean enabled) {
         if (mAdViewController != null) {
-            mAdViewController.forceSetAutorefreshEnabled(enabled);
+            mAdViewController.setShouldAllowAutoRefresh(enabled);
         }
     }
 
     public boolean getAutorefreshEnabled() {
-        if (mAdViewController != null) return mAdViewController.getAutorefreshEnabled();
+        if (mAdViewController != null) return mAdViewController.getCurrentAutoRefreshStatus();
         else {
             MoPubLog.d("Can't get autorefresh status for destroyed MoPubView. " +
                     "Returning false.");

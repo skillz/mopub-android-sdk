@@ -1,6 +1,5 @@
 package com.skillz.mopub.common.logging;
 
-import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -15,7 +14,7 @@ import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
 public class MoPubLog {
-    public static final String LOGGER_NAMESPACE = "com.skillz.mopub";
+    public static final String LOGGER_NAMESPACE = "com.mopub";
 
     private static final String LOGTAG = "MoPub";
     private static final Logger LOGGER = Logger.getLogger(LOGGER_NAMESPACE);
@@ -127,7 +126,7 @@ public class MoPubLog {
         }
 
         @Override
-        @SuppressLint("LogTagMismatch")
+        @SuppressWarnings({"LogTagMismatch", "WrongConstant"})
         public void publish(final LogRecord logRecord) {
             if (isLoggable(logRecord)) {
                 final int priority;

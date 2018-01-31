@@ -8,14 +8,9 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.skillz.mopub.common.logging.MoPubLog;
-import com.skillz.mopub.exceptions.IntentNotResolvableException;
+import com.skillz.mopub.common.util.Drawables;
 
 import java.util.EnumSet;
-
-import static com.skillz.mopub.common.util.Drawables.LEFT_ARROW;
-import static com.skillz.mopub.common.util.Drawables.RIGHT_ARROW;
-import static com.skillz.mopub.common.util.Drawables.UNLEFT_ARROW;
-import static com.skillz.mopub.common.util.Drawables.UNRIGHT_ARROW;
 
 class BrowserWebViewClient extends WebViewClient {
 
@@ -78,8 +73,6 @@ class BrowserWebViewClient extends WebViewClient {
     @Override
     public void onPageStarted(WebView view, String url, Bitmap favicon) {
         super.onPageStarted(view, url, favicon);
-        mMoPubBrowser.getForwardButton()
-                .setImageDrawable(UNRIGHT_ARROW.createDrawable(mMoPubBrowser));
     }
 
     @Override
@@ -87,13 +80,13 @@ class BrowserWebViewClient extends WebViewClient {
         super.onPageFinished(view, url);
 
         Drawable backImageDrawable = view.canGoBack()
-                ? LEFT_ARROW.createDrawable(mMoPubBrowser)
-                : UNLEFT_ARROW.createDrawable(mMoPubBrowser);
+                ? Drawables.LEFT_ARROW.createDrawable(mMoPubBrowser)
+                : Drawables.UNLEFT_ARROW.createDrawable(mMoPubBrowser);
         mMoPubBrowser.getBackButton().setImageDrawable(backImageDrawable);
 
         Drawable forwardImageDrawable = view.canGoForward()
-                ? RIGHT_ARROW.createDrawable(mMoPubBrowser)
-                : UNRIGHT_ARROW.createDrawable(mMoPubBrowser);
+                ? Drawables.RIGHT_ARROW.createDrawable(mMoPubBrowser)
+                : Drawables.UNRIGHT_ARROW.createDrawable(mMoPubBrowser);
         mMoPubBrowser.getForwardButton().setImageDrawable(forwardImageDrawable);
     }
 }

@@ -9,7 +9,6 @@ import com.skillz.mopub.common.AdReport;
 import com.skillz.mopub.common.Constants;
 import com.skillz.mopub.common.Preconditions;
 import com.skillz.mopub.common.logging.MoPubLog;
-import com.skillz.mopub.mobileads.CustomEventInterstitial.CustomEventInterstitialListener;
 import com.skillz.mopub.mobileads.factories.CustomEventInterstitialFactory;
 
 import java.util.Map;
@@ -21,7 +20,7 @@ import static com.skillz.mopub.mobileads.MoPubErrorCode.ADAPTER_NOT_FOUND;
 import static com.skillz.mopub.mobileads.MoPubErrorCode.NETWORK_TIMEOUT;
 import static com.skillz.mopub.mobileads.MoPubErrorCode.UNSPECIFIED;
 
-public class CustomEventInterstitialAdapter implements CustomEventInterstitialListener {
+public class CustomEventInterstitialAdapter implements CustomEventInterstitial.CustomEventInterstitialListener {
     public static final int DEFAULT_INTERSTITIAL_TIMEOUT_DELAY = Constants.THIRTY_SECONDS_MILLIS;
 
     private final MoPubInterstitial mMoPubInterstitial;
@@ -31,6 +30,7 @@ public class CustomEventInterstitialAdapter implements CustomEventInterstitialLi
     private Context mContext;
     private Map<String, Object> mLocalExtras;
     private Map<String, String> mServerExtras;
+    private long mBroadcastIdentifier;
     private final Handler mHandler;
     private final Runnable mTimeout;
 
@@ -42,6 +42,7 @@ public class CustomEventInterstitialAdapter implements CustomEventInterstitialLi
         Preconditions.checkNotNull(serverExtras);
         mHandler = new Handler();
         mMoPubInterstitial = moPubInterstitial;
+        mBroadcastIdentifier = broadcastIdentifier;
         mContext = mMoPubInterstitial.getActivity();
         mTimeout = new Runnable() {
             @Override
@@ -118,6 +119,11 @@ public class CustomEventInterstitialAdapter implements CustomEventInterstitialLi
         mServerExtras = null;
         mLocalExtras = null;
         mCustomEventInterstitialAdapterListener = null;
+        final WebViewCacheService.Config config =
+                WebViewCacheService.popWebViewConfig(mBroadcastIdentifier);
+        if (config != null) {
+            config.getWebView().destroy();
+        }
         mInvalidated = true;
     }
 

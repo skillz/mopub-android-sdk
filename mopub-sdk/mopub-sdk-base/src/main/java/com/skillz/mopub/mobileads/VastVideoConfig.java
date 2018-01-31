@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
+import com.skillz.mopub.common.Constants;
 import com.skillz.mopub.common.MoPubBrowser;
 import com.skillz.mopub.common.Preconditions;
 import com.skillz.mopub.common.UrlAction;
@@ -19,18 +20,22 @@ import com.skillz.mopub.common.util.DeviceUtils;
 import com.skillz.mopub.common.util.Intents;
 import com.skillz.mopub.common.util.Strings;
 import com.skillz.mopub.exceptions.IntentNotResolvableException;
+import com.skillz.mopub.network.TrackingRequest;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-
-import static com.skillz.mopub.network.TrackingRequest.makeVastTrackingHttpRequest;
+import java.util.Set;
 
 public class VastVideoConfig implements Serializable {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     @NonNull private final ArrayList<VastTracker> mImpressionTrackers;
     @NonNull private final ArrayList<VastFractionalProgressTracker> mFractionalTrackers;
@@ -42,6 +47,7 @@ public class VastVideoConfig implements Serializable {
     @NonNull private final ArrayList<VastTracker> mSkipTrackers;
     @NonNull private final ArrayList<VastTracker> mClickTrackers;
     @NonNull private final ArrayList<VastTracker> mErrorTrackers;
+
     @Nullable private String mClickThroughUrl;
     @Nullable private String mNetworkMediaFileUrl;
     @Nullable private String mDiskMediaFileUrl;
@@ -58,6 +64,10 @@ public class VastVideoConfig implements Serializable {
     @Nullable private String mCustomCloseIconUrl;
     @NonNull private DeviceUtils.ForceOrientation mCustomForceOrientation = DeviceUtils.ForceOrientation.FORCE_LANDSCAPE; // Default is forcing landscape
     @Nullable private VideoViewabilityTracker mVideoViewabilityTracker;
+    // Viewability
+    @NonNull private final Map<String, String> mExternalViewabilityTrackers;
+    @NonNull private final Set<String> mAvidJavascriptResources;
+    @NonNull private final Set<String> mMoatImpressionPixels;
 
     // MoPub-specific metadata
     private String mDspCreativeId;
@@ -82,6 +92,10 @@ public class VastVideoConfig implements Serializable {
         mErrorTrackers = new ArrayList<VastTracker>();
         mSocialActionsCompanionAds = new HashMap<String, VastCompanionAdConfig>();
         mIsRewardedVideo = false;
+
+        mExternalViewabilityTrackers = new HashMap<String, String>();
+        mAvidJavascriptResources = new HashSet<String>();
+        mMoatImpressionPixels = new HashSet<String>();
     }
 
     /**
@@ -112,7 +126,7 @@ public class VastVideoConfig implements Serializable {
     }
 
     /**
-     * Add trackers for absolute tracking. This includes start trackers, which have an absolute threshold of 2 seconds.
+     * Add trackers for absolute tracking.
      */
     public void addAbsoluteTrackers(@NonNull final List<VastAbsoluteProgressTracker> absoluteTrackers) {
         Preconditions.checkNotNull(absoluteTrackers, "absoluteTrackers cannot be null");
@@ -168,6 +182,92 @@ public class VastVideoConfig implements Serializable {
     public void addErrorTrackers(@NonNull final List<VastTracker> errorTrackers) {
         Preconditions.checkNotNull(errorTrackers, "errorTrackers cannot be null");
         mErrorTrackers.addAll(errorTrackers);
+    }
+
+    /**
+     * Adds internal video trackers from a JSONObject in the form:
+     *      {
+     *          urls: [ "...%%VIDEO_EVENT%%...", ... ],
+     *          events: [ "companionAdView", ... ]
+     *      }
+     *
+     * Each event adds a corresponding tracker type with all the listed urls, with %%VIDEO_EVENT%%
+     * replaced with the event name. The currently supported trackers and their mappings are:
+     *      > start: addAbsoluteTrackers(url, 0)
+     *      > firstQuartile: addFractionalTrackers(url, 0.25f)
+     *      > midpoint: addFractionalTrackers(url, 0.5f)
+     *      > thirdQuartile: addFractionalTrackers(url, 0.75f)
+     *      > complete: addCompleteTrackers(url)
+     *      > companionAdView: VastCompanionAdConfig.addCreativeViewTrackers
+     *      > companionAdClick: VastCompanionAdConfig.addClickTrackers
+     *
+     * @param videoTrackers A JSONObject with the urls and events to track
+     */
+    public void addVideoTrackers(@Nullable final JSONObject videoTrackers) {
+        if (videoTrackers == null) {
+            return;
+        }
+
+        final JSONArray urls = videoTrackers.optJSONArray(Constants.VIDEO_TRACKING_URLS_KEY);
+        final JSONArray events = videoTrackers.optJSONArray(Constants.VIDEO_TRACKING_EVENTS_KEY);
+        if (urls == null || events == null) {
+            return;
+        }
+
+        for (int i = 0; i < events.length(); i++) { // JSONArray isn't Iterable -_-)
+            final String eventName = events.optString(i);
+            final List<String> urlsForEvent = hydrateUrls(eventName, urls);
+            final VideoTrackingEvent event = VideoTrackingEvent.fromString(eventName);
+            if (eventName == null || urlsForEvent == null) {
+                continue;
+            }
+
+            switch (event) {
+                case START:
+                    addStartTrackersForUrls(urlsForEvent);
+                    break;
+                case FIRST_QUARTILE:
+                    addFractionalTrackersForUrls(urlsForEvent, 0.25f);
+                    break;
+                case MIDPOINT:
+                    addFractionalTrackersForUrls(urlsForEvent, 0.5f);
+                    break;
+                case THIRD_QUARTILE:
+                    addFractionalTrackersForUrls(urlsForEvent, 0.75f);
+                    break;
+                case COMPLETE:
+                    addCompleteTrackersForUrls(urlsForEvent);
+                    break;
+                case COMPANION_AD_VIEW:
+                    addCompanionAdViewTrackersForUrls(urlsForEvent);
+                    break;
+                case COMPANION_AD_CLICK:
+                    addCompanionAdClickTrackersForUrls(urlsForEvent);
+                    break;
+                case UNKNOWN:
+                default:
+                    MoPubLog.d("Encountered unknown video tracking event: " + eventName);
+            }
+        }
+    }
+
+    public void addExternalViewabilityTrackers(
+            @Nullable final Map<String, String> externalViewabilityTrackers) {
+        if (externalViewabilityTrackers != null) {
+            mExternalViewabilityTrackers.putAll(externalViewabilityTrackers);
+        }
+    }
+
+    public void addAvidJavascriptResources(@Nullable final Set<String> javascriptResources) {
+        if (javascriptResources != null) {
+            mAvidJavascriptResources.addAll(javascriptResources);
+        }
+    }
+
+    public void addMoatImpressionPixels(@Nullable final Set<String> impressionPixels) {
+        if (impressionPixels != null) {
+            mMoatImpressionPixels.addAll(impressionPixels);
+        }
     }
 
     public void setClickThroughUrl(@Nullable final String clickThroughUrl) {
@@ -354,6 +454,21 @@ public class VastVideoConfig implements Serializable {
         return mVideoViewabilityTracker;
     }
 
+    @NonNull
+    public Map<String, String> getExternalViewabilityTrackers() {
+        return mExternalViewabilityTrackers;
+    }
+
+    @NonNull
+    public Set<String> getAvidJavascriptResources() {
+        return mAvidJavascriptResources;
+    }
+
+    @NonNull
+    public Set<String> getMoatImpressionPixels() {
+        return mMoatImpressionPixels;
+    }
+
     public boolean isCustomForceOrientationSet() {
         return mIsForceOrientationSet;
     }
@@ -405,7 +520,7 @@ public class VastVideoConfig implements Serializable {
      */
     public void handleImpression(@NonNull final Context context, int contentPlayHead) {
         Preconditions.checkNotNull(context, "context cannot be null");
-        makeVastTrackingHttpRequest(
+        TrackingRequest.makeVastTrackingHttpRequest(
                 mImpressionTrackers,
                 null,
                 contentPlayHead,
@@ -454,7 +569,7 @@ public class VastVideoConfig implements Serializable {
             @Nullable final Integer requestCode) {
         Preconditions.checkNotNull(context, "context cannot be null");
 
-        makeVastTrackingHttpRequest(
+        TrackingRequest.makeVastTrackingHttpRequest(
                 mClickTrackers,
                 null,
                 contentPlayHead,
@@ -525,7 +640,7 @@ public class VastVideoConfig implements Serializable {
      */
     public void handleResume(@NonNull final Context context, int contentPlayHead) {
         Preconditions.checkNotNull(context, "context cannot be null");
-        makeVastTrackingHttpRequest(
+        TrackingRequest.makeVastTrackingHttpRequest(
                 mResumeTrackers,
                 null,
                 contentPlayHead,
@@ -542,7 +657,7 @@ public class VastVideoConfig implements Serializable {
      */
     public void handlePause(@NonNull final Context context, int contentPlayHead) {
         Preconditions.checkNotNull(context, "context cannot be null");
-        makeVastTrackingHttpRequest(
+        TrackingRequest.makeVastTrackingHttpRequest(
                 mPauseTrackers,
                 null,
                 contentPlayHead,
@@ -559,7 +674,7 @@ public class VastVideoConfig implements Serializable {
      */
     public void handleClose(@NonNull Context context, int contentPlayHead) {
         Preconditions.checkNotNull(context, "context cannot be null");
-        makeVastTrackingHttpRequest(
+        TrackingRequest.makeVastTrackingHttpRequest(
                 mCloseTrackers,
                 null,
                 contentPlayHead,
@@ -567,7 +682,7 @@ public class VastVideoConfig implements Serializable {
                 context
         );
 
-        makeVastTrackingHttpRequest(
+        TrackingRequest.makeVastTrackingHttpRequest(
                 mSkipTrackers,
                 null,
                 contentPlayHead,
@@ -584,7 +699,7 @@ public class VastVideoConfig implements Serializable {
      */
     public void handleComplete(@NonNull Context context, int contentPlayHead) {
         Preconditions.checkNotNull(context, "context cannot be null");
-        makeVastTrackingHttpRequest(
+        TrackingRequest.makeVastTrackingHttpRequest(
                 mCompleteTrackers,
                 null,
                 contentPlayHead,
@@ -603,7 +718,7 @@ public class VastVideoConfig implements Serializable {
     public void handleError(@NonNull Context context, @Nullable VastErrorCode errorCode,
             int contentPlayHead) {
         Preconditions.checkNotNull(context, "context cannot be null");
-        makeVastTrackingHttpRequest(
+        TrackingRequest.makeVastTrackingHttpRequest(
                 mErrorTrackers,
                 errorCode,
                 contentPlayHead,
@@ -619,12 +734,13 @@ public class VastVideoConfig implements Serializable {
      * @param videoLengthMillis the total video length.
      */
     @NonNull
-    public List<VastTracker> getUntriggeredTrackersBefore(int currentPositionMillis, int videoLengthMillis) {
-        if (Preconditions.NoThrow.checkArgument(videoLengthMillis > 0)) {
+    public List<VastTracker> getUntriggeredTrackersBefore(final int currentPositionMillis, final int videoLengthMillis) {
+        if (Preconditions.NoThrow.checkArgument(videoLengthMillis > 0) && currentPositionMillis >= 0) {
             float progressFraction = currentPositionMillis / (float) (videoLengthMillis);
             List<VastTracker> untriggeredTrackers = new ArrayList<VastTracker>();
 
-            VastAbsoluteProgressTracker absoluteTest = new VastAbsoluteProgressTracker("", currentPositionMillis);
+            VastAbsoluteProgressTracker absoluteTest = new VastAbsoluteProgressTracker("",
+                    currentPositionMillis);
             int absoluteTrackerCount = mAbsoluteTrackers.size();
             for (int i = 0; i < absoluteTrackerCount; i++) {
                 VastAbsoluteProgressTracker tracker = mAbsoluteTrackers.get(i);
@@ -699,4 +815,81 @@ public class VastVideoConfig implements Serializable {
         }
         return null;
     }
+
+    @Nullable
+    private List<String> hydrateUrls(@Nullable final String event, @NonNull final JSONArray urls) {
+        Preconditions.checkNotNull(urls);
+
+        if (event == null) {
+            return null;
+        }
+
+        final List<String> hydratedUrls = new ArrayList<String>();
+        for (int i = 0; i < urls.length(); i++) {
+            final String url = urls.optString(i);
+            if (url == null) {
+                continue;
+            }
+            hydratedUrls.add(url.replace(Constants.VIDEO_TRACKING_URL_MACRO, event));
+        }
+        return hydratedUrls;
+    }
+
+    private List<VastTracker> createVastTrackersForUrls(@NonNull final List<String> urls) {
+        Preconditions.checkNotNull(urls);
+
+        final List<VastTracker> trackers = new ArrayList<VastTracker>();
+        for (String url : urls) {
+            trackers.add(new VastTracker(url));
+        }
+        return trackers;
+    }
+
+    private void addCompleteTrackersForUrls(@NonNull final List<String> urls) {
+        Preconditions.checkNotNull(urls);
+
+        addCompleteTrackers(createVastTrackersForUrls(urls));
+    }
+
+    private void addStartTrackersForUrls(@NonNull final List<String> urls) {
+        Preconditions.checkNotNull(urls);
+
+        final List<VastAbsoluteProgressTracker> startTrackers = new ArrayList<VastAbsoluteProgressTracker>();
+        for (String url : urls) {
+            startTrackers.add(new VastAbsoluteProgressTracker(url, 0));
+        }
+        addAbsoluteTrackers(startTrackers);
+    }
+
+    private void addFractionalTrackersForUrls(@NonNull final List<String> urls,
+            final float fraction) {
+        Preconditions.checkNotNull(urls);
+
+        final List<VastFractionalProgressTracker> fractionalTrackers = new ArrayList<VastFractionalProgressTracker>();
+        for (String url : urls) {
+            fractionalTrackers.add(new VastFractionalProgressTracker(url, fraction));
+        }
+        addFractionalTrackers(fractionalTrackers);
+    }
+
+    private void addCompanionAdViewTrackersForUrls(@NonNull final List<String> urls) {
+        Preconditions.checkNotNull(urls);
+
+        if (hasCompanionAd()) {
+            final List<VastTracker> companionAdViewTrackers = createVastTrackersForUrls(urls);
+            mLandscapeVastCompanionAdConfig.addCreativeViewTrackers(companionAdViewTrackers);
+            mPortraitVastCompanionAdConfig.addCreativeViewTrackers(companionAdViewTrackers);
+        }
+    }
+
+    private void addCompanionAdClickTrackersForUrls(@NonNull final List<String> urls) {
+        Preconditions.checkNotNull(urls);
+
+        if (hasCompanionAd()) {
+            final List<VastTracker> companionAdClickTrackers = createVastTrackersForUrls(urls);
+            mLandscapeVastCompanionAdConfig.addClickTrackers(companionAdClickTrackers);
+            mPortraitVastCompanionAdConfig.addClickTrackers(companionAdClickTrackers);
+        }
+    }
+
 }

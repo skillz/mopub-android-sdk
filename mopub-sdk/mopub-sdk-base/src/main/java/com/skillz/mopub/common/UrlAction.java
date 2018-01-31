@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
+import com.skillz.mopub.common.MoPub.BrowserAgent;
 import com.skillz.mopub.common.event.BaseEvent;
 import com.skillz.mopub.common.logging.MoPubLog;
 import com.skillz.mopub.common.util.Intents;
@@ -18,6 +19,7 @@ import java.util.List;
 
 import static com.skillz.mopub.common.Constants.HTTP;
 import static com.skillz.mopub.common.Constants.HTTPS;
+import static com.skillz.mopub.common.MoPub.getBrowserAgent;
 import static com.skillz.mopub.network.TrackingRequest.makeTrackingHttpRequest;
 
 /**
@@ -102,7 +104,13 @@ public enum UrlAction {
     /* 3 */ OPEN_NATIVE_BROWSER(true) {
         @Override
         public boolean shouldTryHandlingUrl(@NonNull final Uri uri) {
-            return "mopubnativebrowser".equalsIgnoreCase(uri.getScheme());
+            final String scheme = uri.getScheme();
+
+            if (HTTP.equalsIgnoreCase(scheme) || HTTPS.equalsIgnoreCase(scheme)) {
+                return getBrowserAgent() == BrowserAgent.NATIVE;
+            }
+
+            return "mopubnativebrowser".equalsIgnoreCase(scheme);
         }
 
         @Override

@@ -14,7 +14,8 @@ import com.skillz.mopub.common.util.Dips;
 import com.skillz.mopub.mobileads.resource.DrawableConstants;
 
 public class VastVideoGradientStripWidget extends ImageView {
-    @NonNull DeviceUtils.ForceOrientation mForceOrientation;
+    @NonNull
+    DeviceUtils.ForceOrientation mForceOrientation;
     private int mVisibilityForCompanionAd;
     private boolean mHasCompanionAd;
     private boolean mIsVideoComplete;

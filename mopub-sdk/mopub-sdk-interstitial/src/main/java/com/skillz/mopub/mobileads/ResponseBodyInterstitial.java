@@ -3,6 +3,7 @@ package com.skillz.mopub.mobileads;
 import android.content.Context;
 
 import com.skillz.mopub.common.AdReport;
+import com.skillz.mopub.common.ExternalViewabilitySessionManager;
 import com.skillz.mopub.common.logging.MoPubLog;
 
 import java.util.Map;
@@ -17,6 +18,7 @@ public abstract class ResponseBodyInterstitial extends CustomEventInterstitial {
     protected Context mContext;
     protected AdReport mAdReport;
     protected long mBroadcastIdentifier;
+    protected ExternalViewabilitySessionManager mExternalViewabilitySessionManager;
 
     abstract protected void extractExtras(Map<String, String> serverExtras);
     abstract protected void preRenderHtml(CustomEventInterstitialListener customEventInterstitialListener);

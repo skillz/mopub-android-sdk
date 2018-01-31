@@ -2,6 +2,9 @@ package com.skillz.mopub.mobileads;
 
 import android.content.Context;
 
+import com.skillz.mopub.mobileads.Interstitial;
+import com.skillz.mopub.mobileads.MoPubErrorCode;
+
 import java.util.Map;
 
 /*
@@ -13,7 +16,7 @@ import java.util.Map;
  * At runtime, the MoPub SDK will find and instantiate a CustomEventInterstitial subclass as needed
  * and invoke its loadInterstitial() method.
  */
-public abstract class CustomEventInterstitial {
+public abstract class CustomEventInterstitial implements Interstitial {
     
     /*
      * When the MoPub SDK receives a response indicating it should load a custom event, it will send

@@ -15,11 +15,10 @@ import com.skillz.mopub.common.UrlAction;
 import com.skillz.mopub.common.UrlHandler;
 import com.skillz.mopub.common.logging.MoPubLog;
 import com.skillz.mopub.common.util.Intents;
+import com.skillz.mopub.network.TrackingRequest;
 
 import java.io.Serializable;
 import java.util.List;
-
-import static com.skillz.mopub.network.TrackingRequest.makeVastTrackingHttpRequest;
 
 public class VastCompanionAdConfig implements Serializable {
     private static final long serialVersionUID = 0L;
@@ -108,7 +107,7 @@ public class VastCompanionAdConfig implements Serializable {
     void handleImpression(@NonNull Context context, int contentPlayHead) {
         Preconditions.checkNotNull(context);
 
-        makeVastTrackingHttpRequest(
+        TrackingRequest.makeVastTrackingHttpRequest(
                 mCreativeViewTrackers,
                 null,
                 contentPlayHead,

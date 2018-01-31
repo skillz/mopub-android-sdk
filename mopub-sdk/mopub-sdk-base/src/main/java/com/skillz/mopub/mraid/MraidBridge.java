@@ -20,17 +20,14 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.skillz.mopub.common.AdReport;
-import com.skillz.mopub.common.CloseableLayout.ClosePosition;
 import com.skillz.mopub.common.Constants;
 import com.skillz.mopub.common.VisibleForTesting;
 import com.skillz.mopub.common.logging.MoPubLog;
 import com.skillz.mopub.mobileads.BaseWebView;
 import com.skillz.mopub.mobileads.ViewGestureDetector;
-import com.skillz.mopub.mobileads.ViewGestureDetector.UserClickListener;
-import com.skillz.mopub.mobileads.resource.MraidJavascript;
 import com.skillz.mopub.mraid.MraidBridge.MraidWebView.OnVisibilityChangedListener;
-import com.skillz.mopub.mraid.MraidNativeCommandHandler.MraidCommandFailureListener;
 import com.skillz.mopub.network.Networking;
+import com.skillz.mopub.common.CloseableLayout;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
@@ -56,7 +53,7 @@ public class MraidBridge {
         boolean onConsoleMessage(@NonNull ConsoleMessage consoleMessage);
 
         void onResize(int width, int height, int offsetX,
-                int offsetY, @NonNull ClosePosition closePosition, boolean allowOffscreen)
+                      int offsetY, @NonNull CloseableLayout.ClosePosition closePosition, boolean allowOffscreen)
                 throws MraidCommandException;
 
         void onExpand(URI uri, boolean shouldUseCustomClose) throws MraidCommandException;
@@ -72,10 +69,6 @@ public class MraidBridge {
 
         void onPlayVideo(URI uri);
     }
-
-    private final String FILTERED_JAVASCRIPT_SOURCE = MraidJavascript.JAVASCRIPT_SOURCE
-            .replaceAll("(?m)^\\s+", "")
-            .replaceAll("(?m)^//.*(?=\\n)", "");
 
     @NonNull private final PlacementType mPlacementType;
 
@@ -115,7 +108,6 @@ public class MraidBridge {
             }
         }
 
-        mMraidWebView.loadUrl("javascript:" + FILTERED_JAVASCRIPT_SOURCE);
         mMraidWebView.setScrollContainer(false);
         mMraidWebView.setVerticalScrollBarEnabled(false);
         mMraidWebView.setHorizontalScrollBarEnabled(false);
@@ -149,7 +141,7 @@ public class MraidBridge {
 
         final ViewGestureDetector gestureDetector = new ViewGestureDetector(
                 mMraidWebView.getContext(), mMraidWebView, mAdReport);
-        gestureDetector.setUserClickListener(new UserClickListener() {
+        gestureDetector.setUserClickListener(new ViewGestureDetector.UserClickListener() {
             @Override
             public void onUserClick() {
                 mIsClicked = true;
@@ -274,13 +266,7 @@ public class MraidBridge {
         }
     }
 
-    private final WebViewClient mMraidWebViewClient = new WebViewClient() {
-        @Override
-        public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-            MoPubLog.d("Error: " + description);
-            super.onReceivedError(view, errorCode, description, failingUrl);
-        }
-
+    private final WebViewClient mMraidWebViewClient = new MraidWebViewClient() {
         @Override
         public boolean shouldOverrideUrlLoading(@NonNull WebView view, @NonNull String url) {
             return handleShouldOverrideUrl(url);
@@ -289,6 +275,13 @@ public class MraidBridge {
         @Override
         public void onPageFinished(@NonNull WebView view, @NonNull String url) {
             handlePageFinished();
+        }
+
+        @Override
+        public void onReceivedError(@NonNull WebView view, int errorCode,
+                @NonNull String description, @NonNull String failingUrl) {
+            MoPubLog.d("Error: " + description);
+            super.onReceivedError(view, errorCode, description, failingUrl);
         }
     };
 
@@ -398,8 +391,8 @@ public class MraidBridge {
                 int height = checkRange(parseSize(params.get("height")), 0, 100000);
                 int offsetX = checkRange(parseSize(params.get("offsetX")), -100000, 100000);
                 int offsetY = checkRange(parseSize(params.get("offsetY")), -100000, 100000);
-                ClosePosition closePosition = parseClosePosition(
-                        params.get("customClosePosition"), ClosePosition.TOP_RIGHT);
+                CloseableLayout.ClosePosition closePosition = parseClosePosition(
+                        params.get("customClosePosition"), CloseableLayout.ClosePosition.TOP_RIGHT);
                 boolean allowOffscreen = parseBoolean(params.get("allowOffscreen"), true);
                 mMraidBridgeListener.onResize(
                         width, height, offsetX, offsetY, closePosition, allowOffscreen);
@@ -432,7 +425,7 @@ public class MraidBridge {
             case STORE_PICTURE:
                 uri = parseURI(params.get("uri"));
                 mMraidNativeCommandHandler.storePicture(mMraidWebView.getContext(), uri.toString(),
-                        new MraidCommandFailureListener() {
+                        new MraidNativeCommandHandler.MraidCommandFailureListener() {
                             @Override
                             public void onFailure(final MraidCommandException exception) {
                                 fireErrorEvent(command, exception.getMessage());
@@ -448,27 +441,27 @@ public class MraidBridge {
         }
     }
 
-    private ClosePosition parseClosePosition(@NonNull String text,
-            @NonNull ClosePosition defaultValue)
+    private CloseableLayout.ClosePosition parseClosePosition(@NonNull String text,
+                                                             @NonNull CloseableLayout.ClosePosition defaultValue)
             throws MraidCommandException {
         if (TextUtils.isEmpty(text)) {
             return defaultValue;
         }
 
         if (text.equals("top-left")) {
-            return ClosePosition.TOP_LEFT;
+            return CloseableLayout.ClosePosition.TOP_LEFT;
         } else if (text.equals("top-right")) {
-            return ClosePosition.TOP_RIGHT;
+            return CloseableLayout.ClosePosition.TOP_RIGHT;
         } else if (text.equals("center")) {
-            return ClosePosition.CENTER;
+            return CloseableLayout.ClosePosition.CENTER;
         } else if (text.equals("bottom-left")) {
-            return ClosePosition.BOTTOM_LEFT;
+            return CloseableLayout.ClosePosition.BOTTOM_LEFT;
         } else if (text.equals("bottom-right")) {
-            return ClosePosition.BOTTOM_RIGHT;
+            return CloseableLayout.ClosePosition.BOTTOM_RIGHT;
         } else if (text.equals("top-center")) {
-            return ClosePosition.TOP_CENTER;
+            return CloseableLayout.ClosePosition.TOP_CENTER;
         } else if (text.equals("bottom-center")) {
-            return ClosePosition.BOTTOM_CENTER;
+            return CloseableLayout.ClosePosition.BOTTOM_CENTER;
         } else {
             throw new MraidCommandException("Invalid close position: " + text);
         }
@@ -587,7 +580,7 @@ public class MraidBridge {
                 + stringifyRect(screenMetrics.getDefaultAdRectDips())
                 + ")");
         injectJavaScript("mraidbridge.notifySizeChangeEvent("
-                + stringifySize(screenMetrics.getCurrentAdRect())
+                + stringifySize(screenMetrics.getCurrentAdRectDips())
                 + ")");
     }
 

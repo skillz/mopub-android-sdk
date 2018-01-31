@@ -12,21 +12,22 @@ import android.support.annotation.NonNull;
 import android.view.Gravity;
 import android.widget.Toast;
 
+import com.skillz.mopub.common.MoPubBrowser;
 import com.skillz.mopub.common.Preconditions;
 import com.skillz.mopub.common.VisibleForTesting;
 import com.skillz.mopub.common.logging.MoPubLog;
+import com.skillz.mopub.mobileads.MraidVideoPlayerActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.skillz.mopub.common.util.VersionCode.HONEYCOMB_MR2;
-import static com.skillz.mopub.common.util.VersionCode.currentApiLevel;
-
 public class ManifestUtils {
     private ManifestUtils() {}
 
-    private static final String MOPUB_ACTIVITY = "com.skillz.mopub.mobileads.MoPubActivity";
-    private static final String MRAID_ACTIVITY = "com.skillz.mopub.mobileads.MraidActivity";
+    private static final String MOPUB_ACTIVITY = "com.mopub.mobileads.MoPubActivity";
+    private static final String MRAID_ACTIVITY = "com.mopub.mobileads.MraidActivity";
+    private static final String REWARDED_MRAID_ACTIVITY =
+            "com.mopub.mobileads.RewardedMraidActivity";
     private static final List<Class<? extends Activity>> REQUIRED_WEB_VIEW_SDK_ACTIVITIES;
     private static FlagCheckUtil sFlagCheckUtil = new FlagCheckUtil();
 
@@ -41,20 +42,22 @@ public class ManifestUtils {
         try {
             final Class moPubActivityClass = Class.forName(MOPUB_ACTIVITY);
             final Class mraidActivityClass = Class.forName(MRAID_ACTIVITY);
+            final Class rewardedMraidActivityClass = Class.forName(REWARDED_MRAID_ACTIVITY);
             REQUIRED_WEB_VIEW_SDK_ACTIVITIES.add(moPubActivityClass);
             REQUIRED_WEB_VIEW_SDK_ACTIVITIES.add(mraidActivityClass);
+            REQUIRED_WEB_VIEW_SDK_ACTIVITIES.add(rewardedMraidActivityClass);
         } catch (ClassNotFoundException e) {
             MoPubLog.i("ManifestUtils running without interstitial module");
         }
 
-        REQUIRED_WEB_VIEW_SDK_ACTIVITIES.add(com.skillz.mopub.mobileads.MraidVideoPlayerActivity.class);
-        REQUIRED_WEB_VIEW_SDK_ACTIVITIES.add(com.skillz.mopub.common.MoPubBrowser.class);
+        REQUIRED_WEB_VIEW_SDK_ACTIVITIES.add(MraidVideoPlayerActivity.class);
+        REQUIRED_WEB_VIEW_SDK_ACTIVITIES.add(MoPubBrowser.class);
     }
 
     private static final List<Class<? extends Activity>> REQUIRED_NATIVE_SDK_ACTIVITIES;
     static {
         REQUIRED_NATIVE_SDK_ACTIVITIES = new ArrayList<Class<? extends Activity>>(1);
-        REQUIRED_NATIVE_SDK_ACTIVITIES.add(com.skillz.mopub.common.MoPubBrowser.class);
+        REQUIRED_NATIVE_SDK_ACTIVITIES.add(MoPubBrowser.class);
     }
 
     public static void checkWebViewActivitiesDeclared(@NonNull final Context context) {
@@ -232,12 +235,7 @@ public class ManifestUtils {
         activityConfigChanges.hasOrientation = sFlagCheckUtil.hasFlag(activity, activityInfo.configChanges, ActivityInfo.CONFIG_ORIENTATION);
         activityConfigChanges.hasScreenSize = true;
 
-        // For screenSize, only set to false if the API level and target API are >= 13
-        // If the target API is < 13, then Android will implement its own backwards compatibility
-        if (currentApiLevel().isAtLeast(HONEYCOMB_MR2) &&
-                context.getApplicationInfo().targetSdkVersion >= VersionCode.HONEYCOMB_MR2.getApiLevel()) {
-            activityConfigChanges.hasScreenSize = sFlagCheckUtil.hasFlag(activity, activityInfo.configChanges, ActivityInfo.CONFIG_SCREEN_SIZE);
-        }
+        activityConfigChanges.hasScreenSize = sFlagCheckUtil.hasFlag(activity, activityInfo.configChanges, ActivityInfo.CONFIG_SCREEN_SIZE);
 
         return activityConfigChanges;
     }

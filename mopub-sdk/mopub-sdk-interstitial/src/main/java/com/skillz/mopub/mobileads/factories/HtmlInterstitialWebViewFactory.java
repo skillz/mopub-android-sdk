@@ -4,8 +4,7 @@ import android.content.Context;
 
 import com.skillz.mopub.common.AdReport;
 import com.skillz.mopub.mobileads.HtmlInterstitialWebView;
-
-import static com.skillz.mopub.mobileads.CustomEventInterstitial.CustomEventInterstitialListener;
+import com.skillz.mopub.mobileads.CustomEventInterstitial;
 
 public class HtmlInterstitialWebViewFactory {
     protected static HtmlInterstitialWebViewFactory instance = new HtmlInterstitialWebViewFactory();
@@ -13,7 +12,7 @@ public class HtmlInterstitialWebViewFactory {
     public static HtmlInterstitialWebView create(
             Context context,
             AdReport adReport,
-            CustomEventInterstitialListener customEventInterstitialListener,
+            CustomEventInterstitial.CustomEventInterstitialListener customEventInterstitialListener,
             boolean isScrollable,
             String redirectUrl,
             String clickthroughUrl) {
@@ -23,7 +22,7 @@ public class HtmlInterstitialWebViewFactory {
     public HtmlInterstitialWebView internalCreate(
             Context context,
             AdReport adReport,
-            CustomEventInterstitialListener customEventInterstitialListener,
+            CustomEventInterstitial.CustomEventInterstitialListener customEventInterstitialListener,
             boolean isScrollable,
             String redirectUrl,
             String clickthroughUrl) {

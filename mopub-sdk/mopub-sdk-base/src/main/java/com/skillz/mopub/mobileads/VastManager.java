@@ -12,7 +12,6 @@ import com.skillz.mopub.common.Preconditions;
 import com.skillz.mopub.common.VisibleForTesting;
 import com.skillz.mopub.common.logging.MoPubLog;
 import com.skillz.mopub.common.util.AsyncTasks;
-import com.skillz.mopub.mobileads.VideoDownloader.VideoDownloaderListener;
 
 /**
  * Given a VAST xml document, this class manages the lifecycle of parsing and finding a video and
@@ -112,7 +111,7 @@ public class VastManager implements VastXmlManagerAggregator.VastXmlManagerAggre
             return;
         }
 
-        final VideoDownloaderListener videoDownloaderListener = new VideoDownloaderListener() {
+        final VideoDownloader.VideoDownloaderListener videoDownloaderListener = new VideoDownloader.VideoDownloaderListener() {
             @Override
             public void onComplete(boolean success) {
                 if (success && updateDiskMediaFileUrl(vastVideoConfig)) {

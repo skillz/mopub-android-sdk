@@ -19,6 +19,7 @@ import com.skillz.mopub.common.UrlAction;
 import com.skillz.mopub.common.logging.MoPubLog;
 import com.skillz.mopub.exceptions.IntentNotResolvableException;
 import com.skillz.mopub.exceptions.UrlParseException;
+import com.skillz.mopub.common.MoPub;
 
 import java.util.List;
 
@@ -81,16 +82,37 @@ public class Intents {
      *
      * @param uri The Native Browser Scheme URL to open in the external browser.
      * @return An Intent that will open an app-external browser taking the user to a page specified
-     * in the query parameter of the passed-in url
-     * @throws UrlParseException if the provided url has an invalid format or is non-hierarchical
+     * in the query parameter of the passed-in url.
+     * @throws UrlParseException if the provided url has an invalid format or is non-hierarchical.
      */
     public static Intent intentForNativeBrowserScheme(@NonNull final Uri uri)
             throws UrlParseException {
         Preconditions.checkNotNull(uri);
 
         if (!UrlAction.OPEN_NATIVE_BROWSER.shouldTryHandlingUrl(uri)) {
-            throw new UrlParseException("URL does not have mopubnativebrowser:// scheme.");
+            String supportedSchemes = "mopubnativebrowser://";
+            if (MoPub.getBrowserAgent() == MoPub.BrowserAgent.NATIVE) {
+                supportedSchemes += ", http://, or https://";
+            }
+            throw new UrlParseException("URI does not have " + supportedSchemes + " scheme.");
         }
+
+        if ("mopubnativebrowser".equalsIgnoreCase(uri.getScheme())) {
+            final Uri intentUri = parseMoPubNativeBrowserUri(uri);
+            return new Intent(Intent.ACTION_VIEW, intentUri);
+        }
+
+        if (MoPub.getBrowserAgent() == MoPub.BrowserAgent.NATIVE) {
+            return new Intent(Intent.ACTION_VIEW, uri);
+        }
+
+        // Should never get here
+        throw new UrlParseException("Invalid URI: " + uri.toString());
+    }
+
+    private static Uri parseMoPubNativeBrowserUri(@NonNull final Uri uri)
+            throws UrlParseException {
+        Preconditions.checkNotNull(uri);
 
         if (!"navigate".equals(uri.getHost())) {
             throw new UrlParseException("URL missing 'navigate' host parameter.");
@@ -110,8 +132,7 @@ public class Intents {
             throw new UrlParseException("URL missing 'url' query parameter.");
         }
 
-        final Uri intentUri = Uri.parse(urlToOpenInNativeBrowser);
-        return new Intent(Intent.ACTION_VIEW, intentUri);
+        return Uri.parse(urlToOpenInNativeBrowser);
     }
 
     /**
@@ -202,7 +223,7 @@ public class Intents {
         Intent intent = getStartActivityIntent(context, MoPubBrowser.class, extras);
 
         String errorMessage = "Could not show MoPubBrowser for url: " + uri + "\n\tPerhaps you " +
-                "forgot to declare com.skillz.mopub.common.MoPubBrowser in your Android manifest file.";
+                "forgot to declare MoPubBrowser in your Android manifest file.";
 
         launchIntentForUserClick(context, intent, errorMessage);
     }

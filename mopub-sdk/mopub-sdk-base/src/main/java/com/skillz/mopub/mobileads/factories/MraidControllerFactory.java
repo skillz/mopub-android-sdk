@@ -16,9 +16,9 @@ public class MraidControllerFactory {
         instance = factory;
     }
 
-    public static MraidController create(@NonNull final Context context, 
-            @NonNull final AdReport adReport, 
-            @NonNull final PlacementType placementType) {
+    public static MraidController create(@NonNull final Context context,
+                                         @NonNull final AdReport adReport,
+                                         @NonNull final PlacementType placementType) {
         return instance.internalCreate(context, adReport, placementType);
     }
 

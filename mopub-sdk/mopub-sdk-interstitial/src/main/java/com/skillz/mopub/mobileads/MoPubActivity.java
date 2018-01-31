@@ -33,8 +33,6 @@ import static com.skillz.mopub.common.IntentActions.ACTION_INTERSTITIAL_FAIL;
 import static com.skillz.mopub.common.IntentActions.ACTION_INTERSTITIAL_SHOW;
 import static com.skillz.mopub.common.util.JavaScriptWebViewCallbacks.WEB_VIEW_DID_APPEAR;
 import static com.skillz.mopub.common.util.JavaScriptWebViewCallbacks.WEB_VIEW_DID_CLOSE;
-import static com.skillz.mopub.mobileads.CustomEventInterstitial.CustomEventInterstitialListener;
-import static com.skillz.mopub.mobileads.EventForwardingBroadcastReceiver.broadcastAction;
 import static com.skillz.mopub.mobileads.HtmlWebViewClient.MOPUB_FAIL_LOAD;
 import static com.skillz.mopub.mobileads.HtmlWebViewClient.MOPUB_FINISH_LOAD;
 
@@ -72,7 +70,7 @@ public class MoPubActivity extends BaseInterstitialActivity {
     static void preRenderHtml(final Interstitial baseInterstitial,
             final Context context,
             final AdReport adReport,
-            final CustomEventInterstitialListener customEventInterstitialListener,
+            final CustomEventInterstitial.CustomEventInterstitialListener customEventInterstitialListener,
             final String htmlData,
             final boolean isScrollable,
             final String redirectUrl,
@@ -162,7 +160,7 @@ public class MoPubActivity extends BaseInterstitialActivity {
         if (mExternalViewabilitySessionManager != null) {
             mExternalViewabilitySessionManager.startDeferredDisplaySession(this);
         }
-        broadcastAction(this, getBroadcastIdentifier(), ACTION_INTERSTITIAL_SHOW);
+        BaseBroadcastReceiver.broadcastAction(this, getBroadcastIdentifier(), ACTION_INTERSTITIAL_SHOW);
     }
 
     @Override
@@ -175,11 +173,11 @@ public class MoPubActivity extends BaseInterstitialActivity {
             mHtmlInterstitialWebView.loadUrl(WEB_VIEW_DID_CLOSE.getUrl());
             mHtmlInterstitialWebView.destroy();
         }
-        broadcastAction(this, getBroadcastIdentifier(), ACTION_INTERSTITIAL_DISMISS);
+        BaseBroadcastReceiver.broadcastAction(this, getBroadcastIdentifier(), ACTION_INTERSTITIAL_DISMISS);
         super.onDestroy();
     }
 
-    class BroadcastingInterstitialListener implements CustomEventInterstitialListener {
+    class BroadcastingInterstitialListener implements CustomEventInterstitial.CustomEventInterstitialListener {
         @Override
         public void onInterstitialLoaded() {
             if (mHtmlInterstitialWebView != null) {
@@ -189,7 +187,7 @@ public class MoPubActivity extends BaseInterstitialActivity {
 
         @Override
         public void onInterstitialFailed(MoPubErrorCode errorCode) {
-            broadcastAction(MoPubActivity.this, getBroadcastIdentifier(), ACTION_INTERSTITIAL_FAIL);
+            BaseBroadcastReceiver.broadcastAction(MoPubActivity.this, getBroadcastIdentifier(), ACTION_INTERSTITIAL_FAIL);
             finish();
         }
 
@@ -199,7 +197,7 @@ public class MoPubActivity extends BaseInterstitialActivity {
 
         @Override
         public void onInterstitialClicked() {
-            broadcastAction(MoPubActivity.this, getBroadcastIdentifier(), ACTION_INTERSTITIAL_CLICK);
+            BaseBroadcastReceiver.broadcastAction(MoPubActivity.this, getBroadcastIdentifier(), ACTION_INTERSTITIAL_CLICK);
             finish();
         }
 

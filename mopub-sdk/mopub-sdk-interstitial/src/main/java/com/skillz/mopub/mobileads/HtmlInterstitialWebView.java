@@ -5,8 +5,6 @@ import android.os.Handler;
 
 import com.skillz.mopub.common.AdReport;
 
-import static com.skillz.mopub.mobileads.CustomEventInterstitial.CustomEventInterstitialListener;
-
 public class HtmlInterstitialWebView extends BaseHtmlWebView {
     private Handler mHandler;
 
@@ -16,7 +14,7 @@ public class HtmlInterstitialWebView extends BaseHtmlWebView {
         mHandler = new Handler();
     }
 
-    public void init(final CustomEventInterstitialListener customEventInterstitialListener, boolean isScrollable, String redirectUrl, String clickthroughUrl, String dspCreativeId) {
+    public void init(final CustomEventInterstitial.CustomEventInterstitialListener customEventInterstitialListener, boolean isScrollable, String redirectUrl, String clickthroughUrl, String dspCreativeId) {
         super.init(isScrollable);
 
         HtmlInterstitialWebViewListener htmlInterstitialWebViewListener = new HtmlInterstitialWebViewListener(customEventInterstitialListener);
@@ -29,9 +27,9 @@ public class HtmlInterstitialWebView extends BaseHtmlWebView {
     }
 
     static class HtmlInterstitialWebViewListener implements HtmlWebViewListener {
-        private final CustomEventInterstitialListener mCustomEventInterstitialListener;
+        private final CustomEventInterstitial.CustomEventInterstitialListener mCustomEventInterstitialListener;
 
-        public HtmlInterstitialWebViewListener(CustomEventInterstitialListener customEventInterstitialListener) {
+        public HtmlInterstitialWebViewListener(CustomEventInterstitial.CustomEventInterstitialListener customEventInterstitialListener) {
             mCustomEventInterstitialListener = customEventInterstitialListener;
         }
 

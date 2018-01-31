@@ -1,6 +1,5 @@
 package com.skillz.mopub.mraid;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -10,8 +9,6 @@ import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Rect;
-import android.os.Build.VERSION;
-import android.os.Build.VERSION_CODES;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -28,6 +25,7 @@ import android.widget.FrameLayout;
 import android.widget.FrameLayout.LayoutParams;
 
 import com.skillz.mopub.common.AdReport;
+import com.skillz.mopub.common.ExternalViewabilitySessionManager;
 import com.skillz.mopub.common.UrlHandler;
 import com.skillz.mopub.common.CloseableLayout;
 import com.skillz.mopub.common.CloseableLayout.ClosePosition;
@@ -40,6 +38,7 @@ import com.skillz.mopub.common.util.DeviceUtils;
 import com.skillz.mopub.common.util.Dips;
 import com.skillz.mopub.common.util.Views;
 import com.skillz.mopub.mobileads.MraidVideoPlayerActivity;
+import com.skillz.mopub.mobileads.WebViewCacheService;
 import com.skillz.mopub.mobileads.util.WebViews;
 import com.skillz.mopub.mraid.MraidBridge.MraidBridgeListener;
 import com.skillz.mopub.mraid.MraidBridge.MraidWebView;
@@ -64,6 +63,10 @@ public class MraidController {
 
     public interface UseCustomCloseListener {
         public void useCustomCloseChanged(boolean useCustomClose);
+    }
+
+    public interface MraidWebViewCacheListener {
+        void onReady(final MraidWebView webView, final ExternalViewabilitySessionManager viewabilityManager);
     }
 
     /**
@@ -329,16 +332,69 @@ public class MraidController {
         mDebugListener = debugListener;
     }
 
-    public void loadContent(@NonNull String htmlData) {
-        Preconditions.checkState(mMraidWebView == null, "loadContent should only be called once");
+    /**
+     * Gets an MraidWebView and fills it with data. In the case that the MraidWebView is retrieved
+     * from the cache, this also notifies that the ad has been loaded. If the broadcast identifier
+     * is null or there is a cache miss, a new MraidWebView is created and is filled with htmlData.
+     * @param broadcastIdentifier The unique identifier of an interstitial. This can be null,
+     *                            especially when there is no interstitial.
+     * @param htmlData            The HTML of the ad. This will only be loaded if a cached WebView
+     *                            is not found.
+     * @param listener            Optional listener that (if non-null) is notified when an
+     *                            MraidWebView is loaded from the cache or created.
+     */
+    public void fillContent(@Nullable final Long broadcastIdentifier,
+            @NonNull final String htmlData,
+            @Nullable final MraidWebViewCacheListener listener) {
+        Preconditions.checkNotNull(htmlData, "htmlData cannot be null");
 
-        mMraidWebView = new MraidWebView(mContext);
+        final boolean cacheHit = hydrateMraidWebView(broadcastIdentifier, listener);
+        Preconditions.NoThrow.checkNotNull(mMraidWebView, "mMraidWebView cannot be null");
+
         mMraidBridge.attachView(mMraidWebView);
         mDefaultAdContainer.addView(mMraidWebView,
                 new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
-        // onPageLoaded gets fired once the html is loaded into the webView
-        mMraidBridge.setContentHtml(htmlData);
+        // If the WebView was retrieved from the cache, notify that the ad is already loaded.
+        if (cacheHit) {
+            handlePageLoad();
+        } else {
+            // Otherwise, load the content into the MraidWebView
+            mMraidBridge.setContentHtml(htmlData);
+        }
+    }
+
+    /**
+     * Gets and sets the MraidWebView. Returns true if the MraidWebView was from the cache, and
+     * false if a new one was created. If the broadcast identifier is {@code null}, then this
+     * will always return false and create a new MraidWebView.
+     *
+     * @param broadcastIdentifier The unique identifier associated with the MraidWebView in the cache.
+     * @param listener            Listener passed in from {@link #fillContent(Long, String, MraidWebViewCacheListener)}
+     * @return {@code true} if there was a cache hit, {@code false} if a new MraidWebView was created.
+     */
+    private boolean hydrateMraidWebView(@Nullable final Long broadcastIdentifier,
+            @Nullable final MraidWebViewCacheListener listener) {
+        if (broadcastIdentifier != null) {
+            final WebViewCacheService.Config config =
+                    WebViewCacheService.popWebViewConfig(broadcastIdentifier);
+            if (config != null && config.getWebView() instanceof MraidWebView) {
+                mMraidWebView = (MraidWebView) config.getWebView();
+                mMraidWebView.enablePlugins(true);
+
+                if (listener != null) {
+                    listener.onReady(mMraidWebView, config.getViewabilityManager());
+                }
+                return true;
+            }
+        }
+        MoPubLog.d("WebView cache miss. Creating a new MraidWebView.");
+        mMraidWebView = new MraidWebView(mContext);
+
+        if (listener != null) {
+            listener.onReady(mMraidWebView, null);
+        }
+        return false;
     }
 
     // onPageLoaded gets fired once the html is loaded into the webView.
@@ -441,7 +497,7 @@ public class MraidController {
     }
 
     @Nullable
-    private View getCurrentWebView() {
+    public MraidWebView getCurrentWebView() {
         return mTwoPartBridge.isAttached() ? mTwoPartWebView : mMraidWebView;
     }
 
@@ -571,10 +627,10 @@ public class MraidController {
 
         // This causes an inline video to resume if it was playing previously
         if (mMraidWebView != null) {
-            WebViews.onResume(mMraidWebView);
+            mMraidWebView.onResume();
         }
         if (mTwoPartWebView != null) {
-            WebViews.onResume(mTwoPartWebView);
+            mTwoPartWebView.onResume();
         }
     }
 
@@ -724,7 +780,7 @@ public class MraidController {
             mDefaultAdContainer.setVisibility(View.INVISIBLE);
             mCloseableAdContainer.addView(mMraidWebView,
                     new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-            getRootView().addView(mCloseableAdContainer, layoutParams);
+            getAndMemoizeRootView().addView(mCloseableAdContainer, layoutParams);
         } else if (mViewState == ViewState.RESIZED) {
             mCloseableAdContainer.setLayoutParams(layoutParams);
         }
@@ -772,7 +828,7 @@ public class MraidController {
                 mDefaultAdContainer.setVisibility(View.INVISIBLE);
                 mCloseableAdContainer.addView(mMraidWebView, layoutParams);
             }
-            getRootView().addView(mCloseableAdContainer,
+            getAndMemoizeRootView().addView(mCloseableAdContainer,
                     new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         } else if (mViewState == ViewState.RESIZED) {
             if (isTwoPart) {
@@ -794,7 +850,7 @@ public class MraidController {
     }
 
     @VisibleForTesting
-    void handleClose() {
+    protected void handleClose() {
         if (mMraidWebView == null) {
             // Doesn't throw an exception because the ad has been destroyed
             return;
@@ -821,7 +877,7 @@ public class MraidController {
                         LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
                 mDefaultAdContainer.setVisibility(View.VISIBLE);
             }
-            getRootView().removeView(mCloseableAdContainer);
+            Views.removeFromParent(mCloseableAdContainer);
 
             // Set the view state to default
             setViewState(ViewState.DEFAULT);
@@ -831,18 +887,28 @@ public class MraidController {
         }
     }
 
+    /*
+     * Prefer this method over getAndMemoizeRootView() when the rootView is only being used for
+     * screen size calculations (and not for adding/removing anything from the view hierarchy).
+     * Having consistent return values is less important in the former case.
+     */
     @NonNull
-    @TargetApi(VERSION_CODES.KITKAT)
     private ViewGroup getRootView() {
-        if (mRootView == null) {
-            // This method should never be called this method before the container is ready, ie before
-            // handlePageLoad.
-            if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
-                Preconditions.checkState(mDefaultAdContainer.isAttachedToWindow());
-            }
+        if (mRootView != null) {
+            return mRootView;
+        }
 
-            mRootView = (ViewGroup) mDefaultAdContainer.getRootView().findViewById(
-                    android.R.id.content);
+        final View bestRootView = Views.getTopmostView(mWeakActivity.get(),
+                mDefaultAdContainer);
+        return bestRootView instanceof ViewGroup
+                ? (ViewGroup) bestRootView
+                : mDefaultAdContainer;
+    }
+
+    @NonNull
+    private ViewGroup getAndMemoizeRootView() {
+        if (mRootView == null) {
+            mRootView = getRootView();
         }
 
         return mRootView;
@@ -901,7 +967,6 @@ public class MraidController {
         mOriginalActivityOrientation = null;
     }
 
-    @TargetApi(VERSION_CODES.HONEYCOMB_MR2)
     @VisibleForTesting
     boolean shouldAllowForceOrientation(final MraidOrientation newOrientation) {
         // NONE is the default and always allowed
@@ -934,17 +999,15 @@ public class MraidController {
         boolean containsNecessaryConfigChanges =
                 bitMaskContainsFlag(activityInfo.configChanges, CONFIG_ORIENTATION);
 
-        // And on API 13+, configChanges must also include "screenSize"
-        if (VERSION.SDK_INT >= VERSION_CODES.HONEYCOMB_MR2) {
-            containsNecessaryConfigChanges = containsNecessaryConfigChanges
-                    && bitMaskContainsFlag(activityInfo.configChanges, CONFIG_SCREEN_SIZE);
-        }
+        // configChanges must also include "screenSize"
+        containsNecessaryConfigChanges = containsNecessaryConfigChanges
+                && bitMaskContainsFlag(activityInfo.configChanges, CONFIG_SCREEN_SIZE);
 
         return containsNecessaryConfigChanges;
     }
 
     @VisibleForTesting
-    void handleCustomClose(boolean useCustomClose) {
+    protected void handleCustomClose(boolean useCustomClose) {
         boolean wasUsingCustomClose = !mCloseableAdContainer.isCloseVisible();
         if (useCustomClose == wasUsingCustomClose) {
             return;

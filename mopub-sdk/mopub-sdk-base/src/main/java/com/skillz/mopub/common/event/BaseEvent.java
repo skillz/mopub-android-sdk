@@ -9,8 +9,6 @@ import com.skillz.mopub.common.Preconditions;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static com.skillz.mopub.common.ClientMetadata.MoPubNetworkType;
-
 public abstract class BaseEvent {
 
     public enum ScribeCategory {
@@ -137,7 +135,7 @@ public abstract class BaseEvent {
     @Nullable private final Double mGeoLat;
     @Nullable private final Double mGeoLon;
     @Nullable private final Double mGeoAccuracy;
-    @Nullable private final MoPubNetworkType mNetworkType;
+    @Nullable private final ClientMetadata.MoPubNetworkType mNetworkType;
     @Nullable private final String mNetworkOperator;
     @Nullable private final String mNetworkOperatorName;
     @Nullable private final String mIsoCountryCode;
@@ -356,7 +354,7 @@ public abstract class BaseEvent {
     }
 
     @Nullable
-    public MoPubNetworkType getNetworkType() {
+    public ClientMetadata.MoPubNetworkType getNetworkType() {
         return mNetworkType;
     }
 

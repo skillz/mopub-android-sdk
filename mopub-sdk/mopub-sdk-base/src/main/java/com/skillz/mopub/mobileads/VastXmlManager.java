@@ -5,8 +5,8 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.skillz.mopub.common.Preconditions;
-import com.skillz.mopub.common.util.DeviceUtils.ForceOrientation;
 import com.skillz.mopub.mobileads.util.XmlUtils;
+import com.skillz.mopub.common.util.DeviceUtils;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -177,8 +177,8 @@ class VastXmlManager {
      * @return {@code ForceOrientation} orientation or {@code UNDEFINED}
      */
     @NonNull
-    ForceOrientation getCustomForceOrientation() {
-        return ForceOrientation.getForceOrientation(
+    DeviceUtils.ForceOrientation getCustomForceOrientation() {
+        return DeviceUtils.ForceOrientation.getForceOrientation(
                 XmlUtils.getFirstMatchingStringData(mVastDoc, CUSTOM_FORCE_ORIENTATION));
     }
 }

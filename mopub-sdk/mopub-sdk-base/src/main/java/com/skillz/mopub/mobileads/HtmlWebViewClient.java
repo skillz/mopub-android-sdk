@@ -19,8 +19,6 @@ import com.skillz.mopub.exceptions.IntentNotResolvableException;
 
 import java.util.EnumSet;
 
-import static com.skillz.mopub.mobileads.MoPubErrorCode.UNSPECIFIED;
-
 class HtmlWebViewClient extends WebViewClient {
     static final String MOPUB_FINISH_LOAD = "mopub://finishLoad";
     static final String MOPUB_FAIL_LOAD = "mopub://failLoad";
@@ -39,8 +37,8 @@ class HtmlWebViewClient extends WebViewClient {
 
     private final Context mContext;
     private final String mDspCreativeId;
-    private HtmlWebViewListener mHtmlWebViewListener;
-    private BaseHtmlWebView mHtmlWebView;
+    private final HtmlWebViewListener mHtmlWebViewListener;
+    private final BaseHtmlWebView mHtmlWebView;
     private final String mClickthroughUrl;
     private final String mRedirectUrl;
 
@@ -54,7 +52,6 @@ class HtmlWebViewClient extends WebViewClient {
         mDspCreativeId = dspCreativeId;
         mContext = htmlWebView.getContext();
     }
-
     @Override
     public void onReceivedSslError(WebView view, final SslErrorHandler handler, SslError error) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
@@ -74,8 +71,7 @@ class HtmlWebViewClient extends WebViewClient {
         final AlertDialog dialog = builder.create();
         dialog.show();
     }
-
-
+    
     @Override
     public boolean shouldOverrideUrlLoading(final WebView view, final String url) {
         new UrlHandler.Builder()
@@ -109,7 +105,8 @@ class HtmlWebViewClient extends WebViewClient {
 
                     @Override
                     public void onFailLoad() {
-                        mHtmlWebViewListener.onFailed(UNSPECIFIED);
+                        mHtmlWebView.stopLoading();
+                        mHtmlWebViewListener.onFailed(MoPubErrorCode.UNSPECIFIED);
                     }
                 })
                 .build().handleUrl(mContext, url, mHtmlWebView.wasClicked());

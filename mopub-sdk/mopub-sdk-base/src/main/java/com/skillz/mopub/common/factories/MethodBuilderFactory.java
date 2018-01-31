@@ -1,6 +1,6 @@
 package com.skillz.mopub.common.factories;
 
-import static com.skillz.mopub.common.util.Reflection.MethodBuilder;
+import com.skillz.mopub.common.util.Reflection;
 
 public class MethodBuilderFactory {
     protected static MethodBuilderFactory instance = new MethodBuilderFactory();
@@ -10,12 +10,12 @@ public class MethodBuilderFactory {
         instance = factory;
     }
 
-    public static MethodBuilder create(Object object, String methodName) {
+    public static Reflection.MethodBuilder create(Object object, String methodName) {
         return instance.internalCreate(object, methodName);
     }
 
-    protected MethodBuilder internalCreate(Object object, String methodName) {
-        return new MethodBuilder(object, methodName);
+    protected Reflection.MethodBuilder internalCreate(Object object, String methodName) {
+        return new Reflection.MethodBuilder(object, methodName);
     }
 }
 

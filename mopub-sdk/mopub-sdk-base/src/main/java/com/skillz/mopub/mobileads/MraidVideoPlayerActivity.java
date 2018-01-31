@@ -17,13 +17,13 @@ import com.skillz.mopub.common.logging.MoPubLog;
 import com.skillz.mopub.common.util.Intents;
 import com.skillz.mopub.common.util.Reflection;
 import com.skillz.mopub.mraid.MraidVideoViewController;
+import com.skillz.mopub.common.DataKeys;
 
-import static com.skillz.mopub.common.DataKeys.BROADCAST_IDENTIFIER_KEY;
 import static com.skillz.mopub.mobileads.BaseBroadcastReceiver.broadcastAction;
 
 public class MraidVideoPlayerActivity extends BaseVideoPlayerActivity implements BaseVideoViewController.BaseVideoViewControllerListener {
     private static final String NATIVE_VIDEO_VIEW_CONTROLLER =
-            "com.skillz.mopub.nativeads.NativeVideoViewController";
+            "com.mopub.nativeads.NativeVideoViewController";
 
     @Nullable private BaseVideoViewController mBaseVideoController;
     private long mBroadcastIdentifier;
@@ -147,7 +147,7 @@ public class MraidVideoPlayerActivity extends BaseVideoPlayerActivity implements
 
     @Override
     public void onSetRequestedOrientation(final int requestedOrientation) {
-        //setRequestedOrientation(requestedOrientation);
+      //  setRequestedOrientation(requestedOrientation);
     }
 
     @Override
@@ -173,7 +173,7 @@ public class MraidVideoPlayerActivity extends BaseVideoPlayerActivity implements
     }
 
     protected static long getBroadcastIdentifierFromIntent(Intent intent) {
-        return intent.getLongExtra(BROADCAST_IDENTIFIER_KEY, -1);
+        return intent.getLongExtra(DataKeys.BROADCAST_IDENTIFIER_KEY, -1);
     }
 
     @Deprecated // for testing

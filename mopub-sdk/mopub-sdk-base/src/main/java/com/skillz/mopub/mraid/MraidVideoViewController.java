@@ -13,13 +13,13 @@ import android.widget.VideoView;
 
 import com.skillz.mopub.common.util.Dips;
 import com.skillz.mopub.mobileads.BaseVideoViewController;
+import com.skillz.mopub.mobileads.BaseVideoPlayerActivity;
 
 import static android.view.View.GONE;
 import static android.view.View.OnClickListener;
 import static android.view.View.VISIBLE;
 import static com.skillz.mopub.common.util.Drawables.INTERSTITIAL_CLOSE_BUTTON_NORMAL;
 import static com.skillz.mopub.common.util.Drawables.INTERSTITIAL_CLOSE_BUTTON_PRESSED;
-import static com.skillz.mopub.mobileads.BaseVideoPlayerActivity.VIDEO_URL;
 
 public class MraidVideoViewController extends BaseVideoViewController {
     private static final float CLOSE_BUTTON_SIZE = 50f;
@@ -56,7 +56,7 @@ public class MraidVideoViewController extends BaseVideoViewController {
             }
         });
 
-        mVideoView.setVideoPath(intentExtras.getString(VIDEO_URL));
+        mVideoView.setVideoPath(intentExtras.getString(BaseVideoPlayerActivity.VIDEO_URL));
     }
 
     @Override

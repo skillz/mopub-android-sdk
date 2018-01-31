@@ -7,17 +7,16 @@ import android.support.annotation.NonNull;
 
 import com.skillz.mopub.common.IntentActions;
 
-import static com.skillz.mopub.mobileads.CustomEventInterstitial.CustomEventInterstitialListener;
 import static com.skillz.mopub.mobileads.MoPubErrorCode.NETWORK_INVALID_STATE;
 
 public class EventForwardingBroadcastReceiver extends BaseBroadcastReceiver {
-    private final CustomEventInterstitialListener mCustomEventInterstitialListener;
+    private final CustomEventInterstitial.CustomEventInterstitialListener mCustomEventInterstitialListener;
 
 
     private static IntentFilter sIntentFilter;
 
 
-    public EventForwardingBroadcastReceiver(CustomEventInterstitialListener customEventInterstitialListener, final long broadcastIdentifier) {
+    public EventForwardingBroadcastReceiver(CustomEventInterstitial.CustomEventInterstitialListener customEventInterstitialListener, final long broadcastIdentifier) {
         super(broadcastIdentifier);
         mCustomEventInterstitialListener = customEventInterstitialListener;
         getIntentFilter();

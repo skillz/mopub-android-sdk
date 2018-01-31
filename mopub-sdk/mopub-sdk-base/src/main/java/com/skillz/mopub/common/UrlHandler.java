@@ -13,7 +13,6 @@ import com.skillz.mopub.exceptions.IntentNotResolvableException;
 
 import java.util.EnumSet;
 
-import static com.skillz.mopub.common.UrlResolutionTask.UrlResolutionListener;
 import static com.skillz.mopub.network.TrackingRequest.makeTrackingHttpRequest;
 
 /**
@@ -263,7 +262,7 @@ public class UrlHandler {
             return;
         }
 
-        final UrlResolutionListener urlResolutionListener = new UrlResolutionListener() {
+        final UrlResolutionTask.UrlResolutionListener urlResolutionListener = new UrlResolutionTask.UrlResolutionListener() {
             @Override
             public void onSuccess(@NonNull final String resolvedUrl) {
                 mTaskPending = false;

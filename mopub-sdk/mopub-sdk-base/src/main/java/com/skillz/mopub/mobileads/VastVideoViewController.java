@@ -23,22 +23,23 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.VideoView;
 
+import com.skillz.mopub.common.ExternalViewabilitySession.VideoEvent;
+import com.skillz.mopub.common.ExternalViewabilitySessionManager;
 import com.skillz.mopub.common.IntentActions;
 import com.skillz.mopub.common.Preconditions;
 import com.skillz.mopub.common.VisibleForTesting;
 import com.skillz.mopub.common.util.Dips;
 import com.skillz.mopub.common.util.Utils;
 import com.skillz.mopub.mobileads.resource.DrawableConstants;
+import com.skillz.mopub.common.MoPubBrowser;
+import com.skillz.mopub.network.TrackingRequest;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Map;
 
-import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
-import static com.skillz.mopub.common.MoPubBrowser.MOPUB_BROWSER_REQUEST_CODE;
-import static com.skillz.mopub.mobileads.VastXmlManagerAggregator.ADS_BY_AD_SLOT_ID;
-import static com.skillz.mopub.mobileads.VastXmlManagerAggregator.SOCIAL_ACTIONS_AD_SLOT_ID;
-import static com.skillz.mopub.network.TrackingRequest.makeVastTrackingHttpRequest;
+import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE;
 
 public class VastVideoViewController extends BaseVideoViewController {
     static final String VAST_VIDEO_CONFIG = "vast_video_config";
@@ -63,6 +64,7 @@ public class VastVideoViewController extends BaseVideoViewController {
     private final VastVideoConfig mVastVideoConfig;
 
     @NonNull private final VastVideoView mVideoView;
+    @NonNull private ExternalViewabilitySessionManager mExternalViewabilitySessionManager;
     @NonNull private VastVideoGradientStripWidget mTopGradientStripWidget;
     @NonNull private VastVideoGradientStripWidget mBottomGradientStripWidget;
     @NonNull private ImageView mBlurredLastVideoFrameImageView;
@@ -139,11 +141,13 @@ public class VastVideoViewController extends BaseVideoViewController {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP && shouldAllowClickThrough()) {
+                    mExternalViewabilitySessionManager.recordVideoEvent(VideoEvent.AD_CLICK_THRU,
+                            getCurrentPosition());
                     mIsClosing = true;
                     broadcastAction(IntentActions.ACTION_INTERSTITIAL_CLICK);
                     mVastVideoConfig.handleClickForResult(activity,
                             mIsVideoFinishedPlaying ? mDuration : getCurrentPosition(),
-                            MOPUB_BROWSER_REQUEST_CODE);
+                            MoPubBrowser.MOPUB_BROWSER_REQUEST_CODE);
                 }
                 return true;
             }
@@ -161,6 +165,11 @@ public class VastVideoViewController extends BaseVideoViewController {
         // Video view
         mVideoView = createVideoView(activity, View.VISIBLE);
         mVideoView.requestFocus();
+
+        // Viewability measurements
+        mExternalViewabilitySessionManager = new ExternalViewabilitySessionManager(activity);
+        mExternalViewabilitySessionManager.createVideoSession(activity, mVideoView,
+                mVastVideoConfig);
 
         // Companion ad view, set to invisible initially to have it be drawn to calculate size
         mLandscapeCompanionAdView = createCompanionAdView(activity,
@@ -202,13 +211,17 @@ public class VastVideoViewController extends BaseVideoViewController {
         final int ctaHeight = Dips.dipsToIntPixels(DrawableConstants.CtaButton.HEIGHT_DIPS,
                 activity);
         mSocialActionsView = createSocialActionsView(activity,
-                mSocialActionsCompanionAds.get(SOCIAL_ACTIONS_AD_SLOT_ID),
+                mSocialActionsCompanionAds.get(VastXmlManagerAggregator.SOCIAL_ACTIONS_AD_SLOT_ID),
                 ctaHeight, RelativeLayout.ALIGN_TOP, mCtaButtonWidget, View.INVISIBLE,
                 DrawableConstants.SocialActions.SOCIAL_ACTIONS_LEFT_MARGIN_DIPS);
 
         // Close button snapped to top-right corner of screen
         // Always add last to layout since it must be visible above all other views
         addCloseButtonWidget(activity, View.GONE);
+
+        mExternalViewabilitySessionManager.registerVideoObstructions(Arrays.asList(
+                mTopGradientStripWidget, mProgressBarWidget, mBottomGradientStripWidget,
+                mRadialCountdownWidget, mCtaButtonWidget, mSocialActionsView, mCloseButtonWidget));
 
         Handler mainHandler = new Handler(Looper.getMainLooper());
         mProgressCheckerRunnable = new VastVideoViewProgressRunnable(this, mVastVideoConfig,
@@ -219,7 +232,7 @@ public class VastVideoViewController extends BaseVideoViewController {
     @VisibleForTesting
     View createAdsByView(Activity activity) {
         return createSocialActionsView(activity,
-                mSocialActionsCompanionAds.get(ADS_BY_AD_SLOT_ID),
+                mSocialActionsCompanionAds.get(VastXmlManagerAggregator.ADS_BY_AD_SLOT_ID),
                 mIconView.getHeight(),
                 RelativeLayout.RIGHT_OF, mIconView, View.VISIBLE,
                 DrawableConstants.SocialActions.ADS_BY_LEFT_MARGIN_DIPS
@@ -252,7 +265,7 @@ public class VastVideoViewController extends BaseVideoViewController {
                 getBaseVideoViewControllerListener().onSetRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
                 break;
             case FORCE_LANDSCAPE:
-                getBaseVideoViewControllerListener().onSetRequestedOrientation(SCREEN_ORIENTATION_LANDSCAPE);
+                getBaseVideoViewControllerListener().onSetRequestedOrientation(SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
                 break;
             case DEVICE_ORIENTATION:
                 break;  // don't do anything
@@ -271,8 +284,12 @@ public class VastVideoViewController extends BaseVideoViewController {
         startRunnables();
 
         if (mSeekerPositionOnPause > 0) {
+            mExternalViewabilitySessionManager.recordVideoEvent(VideoEvent.AD_PLAYING, mSeekerPositionOnPause);
             mVideoView.seekTo(mSeekerPositionOnPause);
+        } else {
+            mExternalViewabilitySessionManager.recordVideoEvent(VideoEvent.AD_LOADED, getCurrentPosition());
         }
+
         if (!mIsVideoFinishedPlaying) {
             mVideoView.start();
         }
@@ -287,6 +304,7 @@ public class VastVideoViewController extends BaseVideoViewController {
         mSeekerPositionOnPause = getCurrentPosition();
         mVideoView.pause();
         if (!mIsVideoFinishedPlaying && !mIsClosing) {
+            mExternalViewabilitySessionManager.recordVideoEvent(VideoEvent.AD_PAUSED, getCurrentPosition());
             mVastVideoConfig.handlePause(getContext(), mSeekerPositionOnPause);
         }
     }
@@ -294,6 +312,8 @@ public class VastVideoViewController extends BaseVideoViewController {
     @Override
     protected void onDestroy() {
         stopRunnables();
+        mExternalViewabilitySessionManager.recordVideoEvent(VideoEvent.AD_STOPPED, getCurrentPosition());
+        mExternalViewabilitySessionManager.endVideoSession();
         broadcastAction(IntentActions.ACTION_INTERSTITIAL_DISMISS);
 
         mVideoView.onDestroy();
@@ -325,7 +345,11 @@ public class VastVideoViewController extends BaseVideoViewController {
     }
 
     @Override
-    protected void onBackPressed() { }
+    protected void onBackPressed() {
+        if (!mIsVideoFinishedPlaying) {
+            mExternalViewabilitySessionManager.recordVideoEvent(VideoEvent.AD_SKIPPED, getCurrentPosition());
+        }
+    }
 
     // Enable the device's back button when the video close button has been displayed
     @Override
@@ -335,7 +359,7 @@ public class VastVideoViewController extends BaseVideoViewController {
 
     @Override
     void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
-        if (requestCode == MOPUB_BROWSER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+        if (requestCode == MoPubBrowser.MOPUB_BROWSER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             getBaseVideoViewControllerListener().onFinish();
         }
     }
@@ -377,6 +401,7 @@ public class VastVideoViewController extends BaseVideoViewController {
                 // The VideoView duration defaults to -1 when the video is not prepared or playing;
                 // Therefore set it here so that we have access to it at all times
                 mDuration = mVideoView.getDuration();
+                mExternalViewabilitySessionManager.onVideoPrepared(getLayout(), mDuration);
                 adjustSkipOffset();
                 if (mVastCompanionAdConfig == null || mHasSocialActions) {
                     videoView.prepareBlurredLastVideoFrame(mBlurredLastVideoFrameImageView,
@@ -394,7 +419,6 @@ public class VastVideoViewController extends BaseVideoViewController {
             public void onCompletion(MediaPlayer mp) {
                 stopRunnables();
                 makeVideoInteractable();
-
                 videoCompleted(false);
                 mIsVideoFinishedPlaying = true;
                 if (mVastVideoConfig.isRewardedVideo()) {
@@ -404,6 +428,7 @@ public class VastVideoViewController extends BaseVideoViewController {
                 // Only fire the completion tracker if we hit all the progress marks. Some Android implementations
                 // fire the completion event even if the whole video isn't watched.
                 if (!mVideoError && mVastVideoConfig.getRemainingProgressTrackerCount() == 0) {
+                    mExternalViewabilitySessionManager.recordVideoEvent(VideoEvent.AD_COMPLETE, getCurrentPosition());
                     mVastVideoConfig.handleComplete(getContext(), getCurrentPosition());
                 }
 
@@ -446,20 +471,17 @@ public class VastVideoViewController extends BaseVideoViewController {
         videoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
             @Override
             public boolean onError(final MediaPlayer mediaPlayer, final int what, final int extra) {
-                if (videoView.retryMediaPlayer(mediaPlayer, what, extra,
-                        mVastVideoConfig.getDiskMediaFileUrl())) {
-                    return true;
-                } else {
-                    stopRunnables();
-                    makeVideoInteractable();
-                    videoError(false);
-                    mVideoError = true;
+                mExternalViewabilitySessionManager.recordVideoEvent(VideoEvent.RECORD_AD_ERROR,
+                        getCurrentPosition());
+                stopRunnables();
+                makeVideoInteractable();
+                videoError(false);
+                mVideoError = true;
 
-                    mVastVideoConfig.handleError(getContext(),
-                            VastErrorCode.GENERAL_LINEAR_AD_ERROR, getCurrentPosition());
+                mVastVideoConfig.handleError(getContext(),
+                        VastErrorCode.GENERAL_LINEAR_AD_ERROR, getCurrentPosition());
 
-                    return false;
-                }
+                return false;
             }
         });
 
@@ -544,6 +566,9 @@ public class VastVideoViewController extends BaseVideoViewController {
                 }
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                     mIsClosing = true;
+                    if (!mIsVideoFinishedPlaying) {
+                        mExternalViewabilitySessionManager.recordVideoEvent(VideoEvent.AD_SKIPPED, getCurrentPosition());
+                    }
                     mVastVideoConfig.handleClose(getContext(), currentPosition);
                     getBaseVideoViewControllerListener().onFinish();
                 }
@@ -696,7 +721,7 @@ public class VastVideoViewController extends BaseVideoViewController {
         iconView.setVastWebViewClickListener(new VastWebView.VastWebViewClickListener() {
             @Override
             public void onVastWebViewClick() {
-                makeVastTrackingHttpRequest(
+                TrackingRequest.makeVastTrackingHttpRequest(
                         vastIconConfig.getClickTrackingUris(),
                         null,
                         getCurrentPosition(),
@@ -793,6 +818,12 @@ public class VastVideoViewController extends BaseVideoViewController {
         }
     }
 
+    void handleViewabilityQuartileEvent(@NonNull final String enumValue) {
+        final VideoEvent videoEvent = Enum.valueOf(VideoEvent.class, enumValue);
+
+        mExternalViewabilitySessionManager.recordVideoEvent(videoEvent, getCurrentPosition());
+    }
+
     private boolean shouldAllowClickThrough() {
         return mShowCloseButtonEventFired;
     }
@@ -825,20 +856,20 @@ public class VastVideoViewController extends BaseVideoViewController {
             @Override
             public void onVastWebViewClick() {
                 broadcastAction(IntentActions.ACTION_INTERSTITIAL_CLICK);
-                makeVastTrackingHttpRequest(
+                TrackingRequest.makeVastTrackingHttpRequest(
                         vastCompanionAdConfig.getClickTrackers(),
                         null,
                         mDuration,
                         null,
                         context
                 );
-                vastCompanionAdConfig.handleClick(context, MOPUB_BROWSER_REQUEST_CODE, null, mVastVideoConfig.getDspCreativeId());
+                vastCompanionAdConfig.handleClick(context, MoPubBrowser.MOPUB_BROWSER_REQUEST_CODE, null, mVastVideoConfig.getDspCreativeId());
             }
         });
         companionView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                vastCompanionAdConfig.handleClick(context, MOPUB_BROWSER_REQUEST_CODE, url, mVastVideoConfig.getDspCreativeId());
+                vastCompanionAdConfig.handleClick(context, MoPubBrowser.MOPUB_BROWSER_REQUEST_CODE, url, mVastVideoConfig.getDspCreativeId());
                 return true;
             }
         });

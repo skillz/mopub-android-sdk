@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.skillz.mopub.common.Preconditions;
-import com.skillz.mopub.network.AdRequest;
+import com.skillz.mopub.common.VisibleForTesting;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -96,6 +96,12 @@ public class AdRequestStatusMapping {
         if (mAdUnitToAdRequestStatus.containsKey(adUnitId)) {
             mAdUnitToAdRequestStatus.get(adUnitId).setClickUrl(null);
         }
+    }
+
+    @Deprecated
+    @VisibleForTesting
+    void clearMapping() {
+        mAdUnitToAdRequestStatus.clear();
     }
 
     private static enum LoadingStatus { LOADING, LOADED, PLAYED }

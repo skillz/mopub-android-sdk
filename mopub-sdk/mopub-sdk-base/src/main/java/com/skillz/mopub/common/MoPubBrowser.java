@@ -21,15 +21,13 @@ import com.skillz.mopub.common.event.Event;
 import com.skillz.mopub.common.event.MoPubEvents;
 import com.skillz.mopub.mobileads.BaseWebView;
 import com.skillz.mopub.mobileads.util.WebViews;
+import com.skillz.mopub.common.util.Drawables;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
-import static com.skillz.mopub.common.event.BaseEvent.*;
-import static com.skillz.mopub.common.util.Drawables.BACKGROUND;
-import static com.skillz.mopub.common.util.Drawables.CLOSE;
-import static com.skillz.mopub.common.util.Drawables.LEFT_ARROW;
-import static com.skillz.mopub.common.util.Drawables.REFRESH;
-import static com.skillz.mopub.common.util.Drawables.RIGHT_ARROW;
+import static com.skillz.mopub.common.event.BaseEvent.Category;
+import static com.skillz.mopub.common.event.BaseEvent.Name;
+import static com.skillz.mopub.common.event.BaseEvent.SamplingRate;
 
 public class MoPubBrowser extends Activity {
     public static final String DESTINATION_URL_KEY = "URL";
@@ -172,7 +170,7 @@ public class MoPubBrowser extends Activity {
     protected void onResume() {
         super.onResume();
         CookieSyncManager.getInstance().startSync();
-        WebViews.onResume(mWebView);
+        mWebView.onResume();
 
         dwellTimeTracker.start();
     }
@@ -200,6 +198,7 @@ public class MoPubBrowser extends Activity {
                 .build());
     }
 
+    @SuppressWarnings("ResourceType") // Using XML resources causes issues in Unity
     private View getMoPubBrowserView() {
         LinearLayout moPubBrowserView = new LinearLayout(this);
         LinearLayout.LayoutParams browserLayoutParams = new LinearLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT);
@@ -216,13 +215,13 @@ public class MoPubBrowser extends Activity {
         RelativeLayout.LayoutParams innerLayoutParams = new RelativeLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT);
         innerLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         innerLayout.setLayoutParams(innerLayoutParams);
-        innerLayout.setBackgroundDrawable(BACKGROUND.createDrawable(this));
+        innerLayout.setBackgroundDrawable(Drawables.BACKGROUND.createDrawable(this));
         outerLayout.addView(innerLayout);
 
-        mBackButton = getButton(LEFT_ARROW.createDrawable(this));
-        mForwardButton = getButton(RIGHT_ARROW.createDrawable(this));
-        mRefreshButton = getButton(REFRESH.createDrawable(this));
-        mCloseButton = getButton(CLOSE.createDrawable(this));
+        mBackButton = getButton(Drawables.UNLEFT_ARROW.createDrawable(this));
+        mForwardButton = getButton(Drawables.UNRIGHT_ARROW.createDrawable(this));
+        mRefreshButton = getButton(Drawables.REFRESH.createDrawable(this));
+        mCloseButton = getButton(Drawables.CLOSE.createDrawable(this));
 
         innerLayout.addView(mBackButton);
         innerLayout.addView(mForwardButton);

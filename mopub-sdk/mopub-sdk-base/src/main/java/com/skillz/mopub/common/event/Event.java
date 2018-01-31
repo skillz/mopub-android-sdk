@@ -29,11 +29,11 @@ public class Event extends BaseEvent {
     /**
      * Creates a BaseEvent from the specified event and the metadata surrounding the event.
      *
-     * @param name         Event name: See {@link com.skillz.mopub.common.event.BaseEvent.Name} for
+     * @param name         Event name: See {@link BaseEvent.Name} for
      *                     constants.
-     * @param category     Category: See {@link com.skillz.mopub.common.event.BaseEvent.Category} for
+     * @param category     Category: See {@link BaseEvent.Category} for
      *                     constants.
-     * @param samplingRate The percentage of events to sample. See {@link com.skillz.mopub.common.event.BaseEvent.SamplingRate}
+     * @param samplingRate The percentage of events to sample. See {@link BaseEvent.SamplingRate}
      *                     for constants.
      * @param eventDetails Data object containing the remaining meta data around this event.
      * @return An {@link BaseEvent} with all the parts combined, or {@code null} if there is no

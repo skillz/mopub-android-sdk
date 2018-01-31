@@ -6,6 +6,8 @@ import com.skillz.mopub.common.AdUrlGenerator;
 import com.skillz.mopub.common.ClientMetadata;
 import com.skillz.mopub.common.Constants;
 
+import static com.skillz.mopub.common.ExternalViewabilitySessionManager.ViewabilityVendor;
+
 public class WebViewAdUrlGenerator extends AdUrlGenerator {
     private final boolean mIsStorePictureSupported;
 
@@ -26,6 +28,8 @@ public class WebViewAdUrlGenerator extends AdUrlGenerator {
         setMraidFlag(true);
 
         setExternalStoragePermission(mIsStorePictureSupported);
+
+        enableViewability(ViewabilityVendor.getEnabledVendorKey());
 
         return getFinalUrlString();
     }

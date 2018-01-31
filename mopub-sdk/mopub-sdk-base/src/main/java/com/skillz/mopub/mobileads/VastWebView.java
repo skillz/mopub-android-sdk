@@ -11,10 +11,7 @@ import com.skillz.mopub.common.Constants;
 import com.skillz.mopub.common.Preconditions;
 import com.skillz.mopub.common.VisibleForTesting;
 import com.skillz.mopub.common.util.Utils;
-import com.skillz.mopub.common.util.VersionCode;
 import com.skillz.mopub.network.Networking;
-
-import static com.skillz.mopub.common.util.VersionCode.currentApiLevel;
 
 /**
  * A WebView customized for Vast video needs.
@@ -32,9 +29,7 @@ class VastWebView extends BaseWebView {
         disableScrollingAndZoom();
         getSettings().setJavaScriptEnabled(true);
 
-        if (currentApiLevel().isAtLeast(VersionCode.ICE_CREAM_SANDWICH)) {
-            enablePlugins(true);
-        }
+        enablePlugins(true);
 
         setBackgroundColor(Color.TRANSPARENT);
         setOnTouchListener(new VastWebViewOnTouchListener());
@@ -56,7 +51,7 @@ class VastWebView extends BaseWebView {
         setVerticalScrollBarEnabled(false);
         setVerticalScrollbarOverlay(false);
         getSettings().setSupportZoom(false);
-        setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+        setScrollBarStyle(SCROLLBARS_INSIDE_OVERLAY);
     }
 
     /**

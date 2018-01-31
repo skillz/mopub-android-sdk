@@ -1,5 +1,7 @@
 package com.skillz.mopub.mobileads;
 
+import com.skillz.mopub.common.Constants;
+
 public enum MoPubErrorCode {
     NO_FILL("No ads found."),
     WARMUP("Ad unit is warming up. Try again in a few minutes."),
@@ -7,6 +9,9 @@ public enum MoPubErrorCode {
     INTERNAL_ERROR("Unable to serve ad due to invalid internal state."),
     CANCELLED("Ad request was cancelled."),
     NO_CONNECTION("No internet connection detected."),
+
+    /** see {@link Constants#AD_EXPIRATION_DELAY } */
+    EXPIRED("Ad expired since it was not shown within 4 hours."),
 
     ADAPTER_NOT_FOUND("Unable to find Native Network or Custom Event adapter."),
     ADAPTER_CONFIGURATION_ERROR("Native Network or Custom Event adapter was configured incorrectly."),
@@ -19,6 +24,9 @@ public enum MoPubErrorCode {
 
     VIDEO_NOT_AVAILABLE("No video loaded for ad unit."),
     VIDEO_PLAYBACK_ERROR("Error playing a video."),
+
+    REWARDED_CURRENCIES_PARSING_ERROR("Error parsing rewarded currencies JSON header."),
+    REWARD_NOT_SELECTED("Reward not selected for rewarded ad."),
 
     UNSPECIFIED("Unspecified error.");
 
