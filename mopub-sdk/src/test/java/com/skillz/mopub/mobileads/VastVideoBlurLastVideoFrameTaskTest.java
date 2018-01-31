@@ -1,13 +1,11 @@
-package com.skillz.mopub.mobileads;
+package com.mopub.mobileads;
 
-import android.annotation.TargetApi;
 import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
-import android.os.Build;
 import android.widget.ImageView;
 
-import com.skillz.mopub.TestSdkHelper;
-import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.VastVideoBlurLastVideoFrameTask;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -37,7 +35,6 @@ public class VastVideoBlurLastVideoFrameTaskTest {
     private String videoPath;
     private int videoDuration;
 
-    @TargetApi(Build.VERSION_CODES.GINGERBREAD_MR1)
     @Before
     public void setUp() throws Exception {
         videoPath = "disk_video_path";
@@ -50,17 +47,7 @@ public class VastVideoBlurLastVideoFrameTaskTest {
     }
 
     @Test
-    public void doInBackground_beforeGingerbreadMr1_shouldReturnFalse() throws Exception {
-        TestSdkHelper.setReportedSdkLevel(Build.VERSION_CODES.GINGERBREAD);
-        assertThat(subject.doInBackground(videoPath)).isFalse();
-        verifyNoMoreInteractions(mockMediaMetadataRetriever);
-        assertThat(subject.getBlurredLastVideoFrame()).isNull();
-    }
-
-    @TargetApi(Build.VERSION_CODES.GINGERBREAD_MR1)
-    @Test
-    public void doInBackground_atLeastGingerbreadMr1_shouldSetVideoPath_shouldUseVideoDurationMinusOffset_shouldReturnTrue() throws Exception {
-        TestSdkHelper.setReportedSdkLevel(Build.VERSION_CODES.GINGERBREAD_MR1);
+    public void doInBackground_shouldSetVideoPath_shouldUseVideoDurationMinusOffset_shouldReturnTrue() throws Exception {
         assertThat(subject.doInBackground(videoPath)).isTrue();
         verify(mockMediaMetadataRetriever).setDataSource(videoPath);
         verify(mockMediaMetadataRetriever).getFrameAtTime(9800000,
@@ -69,7 +56,6 @@ public class VastVideoBlurLastVideoFrameTaskTest {
         assertThat(subject.getBlurredLastVideoFrame()).isEqualTo(mockBitmap);
     }
 
-    @TargetApi(Build.VERSION_CODES.GINGERBREAD_MR1)
     @Test
     public void doInBackground_whenSetDataSourceThrowsRuntimeException_shouldCatchExceptionAndReturnFalse() throws Exception {
         doThrow(new RuntimeException()).when(mockMediaMetadataRetriever).setDataSource(anyString());
@@ -78,7 +64,6 @@ public class VastVideoBlurLastVideoFrameTaskTest {
         assertThat(subject.getBlurredLastVideoFrame()).isNull();
     }
 
-    @TargetApi(Build.VERSION_CODES.GINGERBREAD_MR1)
     @Test
     public void doInBackground_whenGetLastFrameReturnsNull_shouldReturnFalse() throws Exception {
         when(mockMediaMetadataRetriever.getFrameAtTime(anyLong(), anyInt())).thenReturn(null);

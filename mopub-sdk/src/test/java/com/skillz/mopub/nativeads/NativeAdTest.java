@@ -1,12 +1,12 @@
-package com.skillz.mopub.nativeads;
+package com.mopub.nativeads;
 
 import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.skillz.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.BuildConfig;
-import com.skillz.mopub.nativeads.BaseNativeAd.NativeEventListener;
+import com.mopub.common.test.support.SdkTestRunner;
+import com.mopub.mobileads.BuildConfig;
+import com.mopub.nativeads.BaseNativeAd.NativeEventListener;
 import com.skillz.mopub.network.MoPubRequestQueue;
 import com.skillz.mopub.network.Networking;
 
@@ -20,8 +20,8 @@ import org.robolectric.annotation.Config;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.skillz.mopub.common.VolleyRequestMatcher.isUrl;
-import static com.skillz.mopub.nativeads.NativeAd.MoPubNativeEventListener;
+import static com.mopub.common.VolleyRequestMatcher.isUrl;
+import static com.mopub.nativeads.NativeAd.MoPubNativeEventListener;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.argThat;

@@ -1,12 +1,14 @@
-package com.skillz.mopub.mobileads;
+package com.mopub.mobileads;
 
-import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.VastExtensionXmlManager;
+import com.skillz.mopub.mobileads.VideoViewabilityTracker;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.annotation.Config;
 
-import static com.skillz.mopub.mobileads.test.support.VastUtils.createNode;
+import static com.mopub.mobileads.test.support.VastUtils.createNode;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 @RunWith(SdkTestRunner.class)
@@ -39,7 +41,7 @@ public class VastExtensionXmlManagerTest {
         assertThat(tracker).isNotNull();
         assertThat(tracker.getViewablePlaytimeMS()).isEqualTo(2500);
         assertThat(tracker.getPercentViewable()).isEqualTo(50);
-        assertThat(tracker.getTrackingUrl()).isEqualTo("https://ad.server.com/impression/dot.gif");
+        assertThat(tracker.getContent()).isEqualTo("https://ad.server.com/impression/dot.gif");
     }
 
     @Test

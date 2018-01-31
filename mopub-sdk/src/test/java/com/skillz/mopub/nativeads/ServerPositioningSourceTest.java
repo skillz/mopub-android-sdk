@@ -1,4 +1,4 @@
-package com.skillz.mopub.nativeads;
+package com.mopub.nativeads;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,11 +7,11 @@ import android.content.pm.PackageManager;
 import com.skillz.mopub.common.ClientMetadata;
 import com.skillz.mopub.common.DownloadResponse;
 import com.skillz.mopub.common.logging.MoPubLog;
-import com.skillz.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.BuildConfig;
+import com.mopub.common.test.support.SdkTestRunner;
+import com.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.mobileads.MoPubErrorCode;
-import com.skillz.mopub.nativeads.MoPubNativeAdPositioning.MoPubClientPositioning;
-import com.skillz.mopub.nativeads.PositioningSource.PositioningListener;
+import com.mopub.nativeads.MoPubNativeAdPositioning.MoPubClientPositioning;
+import com.mopub.nativeads.PositioningSource.PositioningListener;
 import com.skillz.mopub.network.MoPubRequestQueue;
 import com.skillz.mopub.network.Networking;
 import com.mopub.volley.NoConnectionError;
@@ -29,6 +29,7 @@ import org.robolectric.Robolectric;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLog;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -204,9 +205,13 @@ public class ServerPositioningSourceTest {
 
         verify(mockPositioningListener).onFailed();
 
-        final List<ShadowLog.LogItem> allLogMessages = ShadowLog.getLogs();
-        final ShadowLog.LogItem latestLogMessage = allLogMessages.get(allLogMessages.size() - 2);
-        // All log messages end with a newline character.
-        assertThat(latestLogMessage.msg.trim()).isEqualTo(MoPubErrorCode.NO_CONNECTION.toString());
+        final List<ShadowLog.LogItem> allLogItems = ShadowLog.getLogs();
+        HashSet<String> allLogMessages = new HashSet<>(allLogItems.size());
+
+        for (ShadowLog.LogItem logItem : allLogItems) {
+            allLogMessages.add(logItem.msg.trim());
+        }
+
+        assertThat(allLogMessages).contains(MoPubErrorCode.NO_CONNECTION.toString());
     }
 }

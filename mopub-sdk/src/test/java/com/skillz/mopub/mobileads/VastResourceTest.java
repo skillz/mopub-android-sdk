@@ -1,6 +1,9 @@
-package com.skillz.mopub.mobileads;
+package com.mopub.mobileads;
 
-import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.VastResource;
+import com.skillz.mopub.mobileads.VastResourceXmlManager;
+import com.skillz.mopub.mobileads.VastWebView;
 
 import org.junit.Before;
 import org.junit.Test;

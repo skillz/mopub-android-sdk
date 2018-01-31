@@ -2,6 +2,8 @@ package com.skillz.mopub.common.util;
 
 import android.app.Activity;
 
+import com.skillz.mopub.common.util.Files;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

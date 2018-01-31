@@ -1,13 +1,13 @@
-package com.skillz.mopub.network;
+package com.mopub.network;
 
 import android.app.Activity;
 import android.os.Handler;
 
 import com.skillz.mopub.common.ClientMetadata;
 import com.skillz.mopub.common.Constants;
-import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.mopub.common.test.support.SdkTestRunner;
 import com.skillz.mopub.common.util.DeviceUtils;
-import com.skillz.mopub.mobileads.BuildConfig;
+import com.mopub.mobileads.BuildConfig;
 import com.mopub.volley.Cache;
 import com.mopub.volley.Network;
 import com.mopub.volley.Request;
@@ -16,6 +16,11 @@ import com.mopub.volley.toolbox.BasicNetwork;
 import com.mopub.volley.toolbox.DiskBasedCache;
 import com.mopub.volley.toolbox.HttpStack;
 import com.mopub.volley.toolbox.HurlStack;
+import com.skillz.mopub.network.MoPubRequestQueue;
+import com.skillz.mopub.network.Networking;
+import com.skillz.mopub.network.PlayServicesUrlRewriter;
+import com.skillz.mopub.network.RequestQueueHttpStack;
+import com.skillz.mopub.network.ScribeRequest;
 
 import org.junit.After;
 import org.junit.Before;
@@ -56,8 +61,7 @@ public class MoPubRequestQueueTest {
         final HurlStack.UrlRewriter urlRewriter = new PlayServicesUrlRewriter(clientMetadata.getDeviceId(), activity);
         // No Custom SSL Factory
 
-        final String userAgent = Networking.getUserAgent(activity.getApplicationContext());
-        HttpStack httpStack = new RequestQueueHttpStack(userAgent, urlRewriter);
+        HttpStack httpStack = new RequestQueueHttpStack("test_user_agent", urlRewriter);
 
         Network network = new BasicNetwork(httpStack);
         File volleyCacheDir = new File(activity.getCacheDir().getPath() + File.separator

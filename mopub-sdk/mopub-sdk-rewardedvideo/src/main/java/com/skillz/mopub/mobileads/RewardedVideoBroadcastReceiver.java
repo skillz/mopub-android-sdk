@@ -1,4 +1,4 @@
-package com.skillz.mopub.mobileads;
+package com.mopub.mobileads;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,16 +7,18 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.skillz.mopub.common.IntentActions;
+import com.skillz.mopub.common.Preconditions;
+import com.skillz.mopub.mobileads.BaseBroadcastReceiver;
 
 public class RewardedVideoBroadcastReceiver extends BaseBroadcastReceiver {
 
     private static IntentFilter sIntentFilter;
 
     @Nullable
-    private RewardedVastVideoInterstitial.CustomEventRewardedVideoInterstitialListener mRewardedVideoListener;
+    private RewardedVastVideoInterstitial.RewardedVideoInterstitialListener mRewardedVideoListener;
 
     public RewardedVideoBroadcastReceiver(
-            @Nullable RewardedVastVideoInterstitial.CustomEventRewardedVideoInterstitialListener rewardedVideoListener,
+            @Nullable RewardedVastVideoInterstitial.RewardedVideoInterstitialListener rewardedVideoListener,
             final long broadcastIdentifier) {
         super(broadcastIdentifier);
         mRewardedVideoListener = rewardedVideoListener;
@@ -34,6 +36,9 @@ public class RewardedVideoBroadcastReceiver extends BaseBroadcastReceiver {
 
     @Override
     public void onReceive(@NonNull final Context context, @NonNull final Intent intent) {
+        Preconditions.checkNotNull(context);
+        Preconditions.checkNotNull(intent);
+
         if (mRewardedVideoListener == null) {
             return;
         }

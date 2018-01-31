@@ -1,4 +1,4 @@
-package com.skillz.mopub.nativeads;
+package com.mopub.nativeads;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -7,14 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.skillz.mopub.common.VisibleForTesting;
-import com.skillz.mopub.nativeads.MoPubCustomEventNative.MoPubStaticNativeAd;
+import com.mopub.nativeads.MoPubCustomEventNative.MoPubStaticNativeAd;
 import com.skillz.mopub.network.AdResponse;
 import com.skillz.mopub.network.TrackingRequest;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.skillz.mopub.nativeads.BaseNativeAd.NativeEventListener;
+import static com.mopub.nativeads.BaseNativeAd.NativeEventListener;
 
 /**
  * This class represents a native ad instance returned from the MoPub Ad Server, MoPub Exchange, or
@@ -32,8 +32,8 @@ import static com.skillz.mopub.nativeads.BaseNativeAd.NativeEventListener;
  * When you have a {@link NativeAd} instance and wish to show a view you should:
  *
  * 1. Call {@link #createAdView(Context, ViewGroup)} to inflate a {@link View} that can show this ad.
- * 2. Call {@link #renderAdView(View)} with a compatible {@link View} to render the ad data into the view.
- * 3. Just before the ad is shown to the user, call {@link #prepare(View)}.
+ * 2. Just before the ad is shown to the user, call {@link #prepare(View)}.
+ * 3. Call {@link #renderAdView(View)} with a compatible {@link View} to render the ad data into the view.
  * 4. When the ad view is no longer shown to the user, call {@link #clear(View)}. You can later
  *    call {@link #prepare(View)} again if the ad will be shown to users.
  * 5. When the ad will never be shown again, call {@link #destroy()}.

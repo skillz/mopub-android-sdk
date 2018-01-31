@@ -1,4 +1,4 @@
-package com.skillz.mopub.mraid;
+package com.mopub.mraid;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -10,11 +10,16 @@ import android.webkit.WebViewClient;
 
 import com.skillz.mopub.common.AdReport;
 import com.skillz.mopub.common.Constants;
-import com.skillz.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.BuildConfig;
+import com.mopub.common.test.support.SdkTestRunner;
+import com.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.mraid.MraidBridge;
 import com.skillz.mopub.mraid.MraidBridge.MraidBridgeListener;
 import com.skillz.mopub.mraid.MraidBridge.MraidWebView;
+import com.skillz.mopub.mraid.MraidCommandException;
+import com.skillz.mopub.mraid.MraidJavascriptCommand;
+import com.skillz.mopub.mraid.MraidNativeCommandHandler;
 import com.skillz.mopub.mraid.MraidNativeCommandHandler.MraidCommandFailureListener;
+import com.skillz.mopub.mraid.PlacementType;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -48,7 +53,8 @@ import static org.mockito.Mockito.when;
 @RunWith(SdkTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class MraidBridgeTest {
-    @Mock MraidNativeCommandHandler mockNativeCommandHandler;
+    @Mock
+    MraidNativeCommandHandler mockNativeCommandHandler;
     @Mock MraidBridgeListener mockBridgeListener;
     @Mock AdReport mockAdReport;
     @Mock(answer = Answers.RETURNS_DEEP_STUBS) MraidWebView mockBannerWebView;
@@ -93,7 +99,6 @@ public class MraidBridgeTest {
         verify(mockWebSettings, never()).setMediaPlaybackRequiresUserGesture(anyBoolean());
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Config(sdk = Build.VERSION_CODES.JELLY_BEAN)
     @Test
     public void attachView_belowJellyBeanMr1_withInterstitial_shouldNotAutoPlayVideo() {
@@ -107,7 +112,6 @@ public class MraidBridgeTest {
         verifyNoMoreInteractions(mockWebSettings);
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Config(sdk = Build.VERSION_CODES.JELLY_BEAN)
     @Test
     public void attachView_belowJellyBeanMr1_withInline_shouldNotAutoPlayVideo() {

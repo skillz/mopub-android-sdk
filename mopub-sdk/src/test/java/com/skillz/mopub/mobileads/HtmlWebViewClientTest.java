@@ -1,4 +1,4 @@
-package com.skillz.mopub.mobileads;
+package com.mopub.mobileads;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -9,7 +9,10 @@ import android.net.Uri;
 import android.webkit.WebView;
 
 import com.skillz.mopub.common.MoPubBrowser;
-import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BaseHtmlWebView;
+import com.skillz.mopub.mobileads.HtmlWebViewClient;
+import com.skillz.mopub.mobileads.HtmlWebViewListener;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -71,11 +74,12 @@ public class HtmlWebViewClientTest {
     }
 
     @Test
-    public void shouldOverrideUrlLoading_withMoPubFailLoad_shouldCallLoadFailUrl() throws Exception {
+    public void shouldOverrideUrlLoading_withMoPubFailLoad_shouldCallLoadFailUrl_shouldStopCurrentLoad() throws Exception {
         boolean didOverrideUrl = subject.shouldOverrideUrlLoading(htmlWebView, "mopub://failLoad");
 
         assertThat(didOverrideUrl).isTrue();
         verify(htmlWebViewListener).onFailed(UNSPECIFIED);
+        verify(htmlWebView).stopLoading();
     }
 
     @Test
@@ -143,7 +147,7 @@ public class HtmlWebViewClientTest {
         verify(htmlWebViewListener).onClicked();
 
         Intent startedActivity = ShadowApplication.getInstance().getNextStartedActivity();
-        assertThat(startedActivity.getComponent().getClassName()).isEqualTo("com.skillz.mopub.common.MoPubBrowser");
+        assertThat(startedActivity.getComponent().getClassName()).isEqualTo("MoPubBrowser");
         assertThat(startedActivity.getStringExtra(MoPubBrowser.DESTINATION_URL_KEY)).isEqualTo(validUrl);
         assertThat(startedActivity.getStringExtra(MoPubBrowser.DSP_CREATIVE_ID)).isEqualTo("dsp_creative_id");
         assertThat(startedActivity.getData()).isNull();
@@ -362,7 +366,7 @@ public class HtmlWebViewClientTest {
         assertThat(intent.getStringExtra(MoPubBrowser.DESTINATION_URL_KEY)).isEqualTo(url);
         assertThat(intent.getStringExtra(MoPubBrowser.DSP_CREATIVE_ID)).isEqualTo("dsp_creative_id");
         assertThat(intent.getFlags() & Intent.FLAG_ACTIVITY_NEW_TASK).isNotEqualTo(0);
-        assertThat(intent.getComponent().getClassName()).isEqualTo("com.skillz.mopub.common.MoPubBrowser");
+        assertThat(intent.getComponent().getClassName()).isEqualTo("MoPubBrowser");
     }
 
     @Test
@@ -390,7 +394,7 @@ public class HtmlWebViewClientTest {
         Intent intent = ShadowApplication.getInstance().getNextStartedActivity();
         assertThat(intent.getStringExtra(MoPubBrowser.DESTINATION_URL_KEY)).isEqualTo(url);
         assertThat(intent.getFlags() & Intent.FLAG_ACTIVITY_NEW_TASK).isNotEqualTo(0);
-        assertThat(intent.getComponent().getClassName()).isEqualTo("com.skillz.mopub.common.MoPubBrowser");
+        assertThat(intent.getComponent().getClassName()).isEqualTo("MoPubBrowser");
     }
 
     @Test

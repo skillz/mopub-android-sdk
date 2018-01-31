@@ -1,16 +1,16 @@
-package com.skillz.mopub.nativeads;
+package com.mopub.nativeads;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.view.View;
 
-import com.skillz.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.BuildConfig;
-import com.skillz.mopub.nativeads.BaseNativeAd.NativeEventListener;
-import com.skillz.mopub.nativeads.CustomEventNative.CustomEventNativeListener;
-import com.skillz.mopub.nativeads.MoPubCustomEventNative.MoPubStaticNativeAd;
-import com.skillz.mopub.nativeads.test.support.MoPubShadowBitmap;
-import com.skillz.mopub.nativeads.test.support.MoPubShadowDisplay;
+import com.mopub.common.test.support.SdkTestRunner;
+import com.mopub.mobileads.BuildConfig;
+import com.mopub.nativeads.BaseNativeAd.NativeEventListener;
+import com.mopub.nativeads.CustomEventNative.CustomEventNativeListener;
+import com.mopub.nativeads.MoPubCustomEventNative.MoPubStaticNativeAd;
+import com.mopub.nativeads.test.support.MoPubShadowBitmap;
+import com.mopub.nativeads.test.support.MoPubShadowDisplay;
 import com.skillz.mopub.network.MaxWidthImageLoader;
 import com.skillz.mopub.network.MoPubRequestQueue;
 import com.skillz.mopub.network.Networking;
@@ -18,7 +18,6 @@ import com.mopub.volley.VolleyError;
 import com.mopub.volley.toolbox.ImageLoader;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,7 +35,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static com.skillz.mopub.nativeads.MoPubCustomEventNative.MoPubStaticNativeAd.Parameter;
+import static com.mopub.nativeads.MoPubCustomEventNative.MoPubStaticNativeAd.Parameter;
 import static com.mopub.volley.toolbox.ImageLoader.ImageListener;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.fest.assertions.api.Assertions.fail;

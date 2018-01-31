@@ -1,8 +1,10 @@
-package com.skillz.mopub.mobileads;
+package com.mopub.mobileads;
 
 import android.os.Handler;
 
-import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.VastVideoViewController;
+import com.skillz.mopub.mobileads.VastVideoViewCountdownRunnable;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +20,8 @@ import static org.mockito.Mockito.when;
 @Config(constants = BuildConfig.class)
 public class VastVideoViewCountdownRunnableTest {
 
-    @Mock VastVideoViewController mockVideoViewController;
+    @Mock
+    VastVideoViewController mockVideoViewController;
     @Mock Handler mockHandler;
 
     VastVideoViewCountdownRunnable subject;

@@ -3,6 +3,8 @@ package com.skillz.mopub.common.util;
 import android.app.Activity;
 import android.view.View;
 
+import com.skillz.mopub.common.util.Reflection;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

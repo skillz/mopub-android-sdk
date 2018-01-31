@@ -1,9 +1,9 @@
-package com.skillz.mopub.nativeads;
+package com.mopub.nativeads;
 
 import com.skillz.mopub.common.Preconditions.NoThrow;
-import com.skillz.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.BuildConfig;
-import com.skillz.mopub.nativeads.MoPubNativeAdPositioning.MoPubClientPositioning;
+import com.mopub.common.test.support.SdkTestRunner;
+import com.mopub.mobileads.BuildConfig;
+import com.mopub.nativeads.MoPubNativeAdPositioning.MoPubClientPositioning;
 
 import org.fest.util.Lists;
 import org.junit.Before;
@@ -11,7 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.annotation.Config;
 
-import static com.skillz.mopub.nativeads.MoPubNativeAdPositioning.MoPubClientPositioning.NO_REPEAT;
+import static com.mopub.nativeads.MoPubNativeAdPositioning.MoPubClientPositioning.NO_REPEAT;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 @RunWith(SdkTestRunner.class)

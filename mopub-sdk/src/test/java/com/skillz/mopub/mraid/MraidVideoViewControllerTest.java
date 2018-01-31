@@ -1,13 +1,14 @@
-package com.skillz.mopub.mraid;
+package com.mopub.mraid;
 
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.widget.ImageButton;
 
-import com.skillz.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.BuildConfig;
+import com.mopub.common.test.support.SdkTestRunner;
+import com.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.mobileads.EventForwardingBroadcastReceiver;
+import com.skillz.mopub.mraid.MraidVideoViewController;
 
 import org.apache.http.HttpRequest;
 import org.junit.After;
@@ -130,10 +131,6 @@ public class MraidVideoViewControllerTest {
         getShadowVideoView().getOnCompletionListener().onCompletion(null);
 
         assertThat(getCloseButton().getVisibility()).isEqualTo(VISIBLE);
-    }
-
-    @Test
-    public void onCompletionListener_withNullBaseVideoViewControllerListener_shouldNotCallOnFinish() throws Exception {
     }
 
     @Test

@@ -1,4 +1,7 @@
-package com.skillz.mopub.mobileads;
+package com.mopub.mobileads;
+
+import com.skillz.mopub.mobileads.MoPubErrorCode;
+import com.skillz.mopub.mobileads.MoPubView;
 
 import static com.skillz.mopub.mobileads.MoPubView.BannerAdListener;
 

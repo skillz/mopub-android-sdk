@@ -1,11 +1,11 @@
-package com.skillz.mopub.mobileads;
+package com.mopub.mobileads;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentFilter;
 
 import com.skillz.mopub.common.IntentActions;
-import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.mopub.common.test.support.SdkTestRunner;
 
 import org.fest.util.Sets;
 import org.junit.Before;
@@ -24,17 +24,17 @@ import static org.mockito.Mockito.verify;
 @Config(constants = BuildConfig.class)
 public class RewardedVideoBroadcastReceiverTest {
 
-    private RewardedVastVideoInterstitial.CustomEventRewardedVideoInterstitialListener customEventRewardedVideoInterstitialListener;
+    private RewardedVastVideoInterstitial.RewardedVideoInterstitialListener mRewardedVideoInterstitialListener;
     private RewardedVideoBroadcastReceiver subject;
     private Activity context;
     private long broadcastIdentifier;
 
     @Before
     public void setUp() throws Exception {
-        customEventRewardedVideoInterstitialListener = mock(
-                RewardedVastVideoInterstitial.CustomEventRewardedVideoInterstitialListener.class);
+        mRewardedVideoInterstitialListener = mock(
+                RewardedVastVideoInterstitial.RewardedVideoInterstitialListener.class);
         broadcastIdentifier = 123456L;
-        subject = new RewardedVideoBroadcastReceiver(customEventRewardedVideoInterstitialListener,
+        subject = new RewardedVideoBroadcastReceiver(mRewardedVideoInterstitialListener,
                 broadcastIdentifier);
         context = new Activity();
     }
@@ -63,6 +63,6 @@ public class RewardedVideoBroadcastReceiverTest {
 
         subject.onReceive(context, rewardedVideoCompleteIntent);
 
-        verify(customEventRewardedVideoInterstitialListener).onVideoComplete();
+        verify(mRewardedVideoInterstitialListener).onVideoComplete();
     }
 }

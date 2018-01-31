@@ -1,4 +1,4 @@
-package com.skillz.mopub.nativeads;
+package com.mopub.nativeads;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,9 +12,9 @@ import com.skillz.mopub.common.Preconditions;
 import com.skillz.mopub.common.Preconditions.NoThrow;
 import com.skillz.mopub.common.VisibleForTesting;
 import com.skillz.mopub.common.logging.MoPubLog;
-import com.skillz.mopub.nativeads.MoPubNativeAdPositioning.MoPubClientPositioning;
-import com.skillz.mopub.nativeads.MoPubNativeAdPositioning.MoPubServerPositioning;
-import com.skillz.mopub.nativeads.PositioningSource.PositioningListener;
+import com.mopub.nativeads.MoPubNativeAdPositioning.MoPubClientPositioning;
+import com.mopub.nativeads.MoPubNativeAdPositioning.MoPubServerPositioning;
+import com.mopub.nativeads.PositioningSource.PositioningListener;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;

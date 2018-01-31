@@ -2,6 +2,8 @@ package com.skillz.mopub.common.util;
 
 import android.app.Activity;
 
+import com.skillz.mopub.common.util.Numbers;
+
 import org.junit.Test;
 
 import static org.fest.assertions.api.Assertions.assertThat;

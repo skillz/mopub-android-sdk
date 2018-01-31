@@ -1,4 +1,4 @@
-package com.skillz.mopub.mobileads;
+package com.mopub.mobileads;
 
 import android.Manifest;
 import android.app.Activity;
@@ -9,10 +9,13 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.skillz.mopub.common.AdFormat;
-import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.mopub.common.test.support.SdkTestRunner;
 import com.skillz.mopub.common.util.Reflection;
-import com.skillz.mopub.common.util.test.support.TestMethodBuilderFactory;
-import com.skillz.mopub.mobileads.test.support.ThreadUtils;
+import com.mopub.common.util.test.support.TestMethodBuilderFactory;
+import com.mopub.mobileads.test.support.ThreadUtils;
+import com.skillz.mopub.mobileads.AdViewController;
+import com.skillz.mopub.mobileads.MoPubErrorCode;
+import com.skillz.mopub.mobileads.MoPubView;
 import com.skillz.mopub.network.AdRequest;
 import com.skillz.mopub.network.AdResponse;
 import com.skillz.mopub.network.MoPubNetworkError;
@@ -38,7 +41,7 @@ import org.robolectric.shadows.ShadowLooper;
 import java.util.Collections;
 import java.util.Map;
 
-import static com.skillz.mopub.common.VolleyRequestMatcher.isUrl;
+import static com.mopub.common.VolleyRequestMatcher.isUrl;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyMap;
@@ -176,14 +179,14 @@ public class AdViewControllerTest {
     }
 
     @Test
-    public void scheduleRefreshTimer_shouldNotScheduleRefreshIfAutorefreshIsOff() throws Exception {
+    public void scheduleRefreshTimer_shouldNotScheduleRefreshIfAutoRefreshIsOff() throws Exception {
         response = response.toBuilder().setRefreshTimeMilliseconds(30).build();
         subject.onAdLoadSuccess(response);
 
         ShadowLooper.pauseMainLooper();
         assertThat(Robolectric.getForegroundThreadScheduler().size()).isEqualTo(1);
 
-        subject.forceSetAutorefreshEnabled(false);
+        subject.setShouldAllowAutoRefresh(false);
 
         subject.scheduleRefreshTimerIfEnabled();
 
@@ -206,42 +209,53 @@ public class AdViewControllerTest {
     }
 
     @Test
-    public void forceSetAutoRefreshEnabled_shouldSetAutoRefreshSetting() throws Exception {
-        assertThat(subject.getAutorefreshEnabled()).isTrue();
+    public void setShouldAllowAutoRefresh_shouldSetCurrentAutoRefreshStatus() throws Exception {
+        assertThat(subject.getCurrentAutoRefreshStatus()).isTrue();
 
-        subject.forceSetAutorefreshEnabled(false);
-        assertThat(subject.getAutorefreshEnabled()).isFalse();
+        subject.setShouldAllowAutoRefresh(false);
+        assertThat(subject.getCurrentAutoRefreshStatus()).isFalse();
 
-        subject.forceSetAutorefreshEnabled(true);
-        assertThat(subject.getAutorefreshEnabled()).isTrue();
+        subject.setShouldAllowAutoRefresh(true);
+        assertThat(subject.getCurrentAutoRefreshStatus()).isTrue();
     }
 
     @Test
-    public void pauseRefresh_shouldDisableAutorefresh() throws Exception {
-        assertThat(subject.getAutorefreshEnabled()).isTrue();
+    public void pauseRefresh_shouldDisableAutoRefresh() throws Exception {
+        assertThat(subject.getCurrentAutoRefreshStatus()).isTrue();
 
         subject.pauseRefresh();
-        assertThat(subject.getAutorefreshEnabled()).isFalse();
+        assertThat(subject.getCurrentAutoRefreshStatus()).isFalse();
     }
 
     @Test
-    public void unpauseRefresh_afterUnpauseRefresh_shouldEnableRefresh() throws Exception {
+    public void resumeRefresh_afterPauseRefresh_shouldEnableRefresh() throws Exception {
         subject.pauseRefresh();
 
-        subject.unpauseRefresh();
-        assertThat(subject.getAutorefreshEnabled()).isTrue();
+        subject.resumeRefresh();
+        assertThat(subject.getCurrentAutoRefreshStatus()).isTrue();
     }
 
     @Test
-    public void pauseAndUnpauseRefresh_withRefreshForceDisabled_shouldAlwaysHaveRefreshFalse() throws Exception {
-        subject.forceSetAutorefreshEnabled(false);
-        assertThat(subject.getAutorefreshEnabled()).isFalse();
+    public void pauseAndResumeRefresh_withShouldAllowAutoRefreshFalse_shouldAlwaysHaveRefreshFalse() throws Exception {
+        subject.setShouldAllowAutoRefresh(false);
+        assertThat(subject.getCurrentAutoRefreshStatus()).isFalse();
 
         subject.pauseRefresh();
-        assertThat(subject.getAutorefreshEnabled()).isFalse();
+        assertThat(subject.getCurrentAutoRefreshStatus()).isFalse();
 
-        subject.unpauseRefresh();
-        assertThat(subject.getAutorefreshEnabled()).isFalse();
+        subject.resumeRefresh();
+        assertThat(subject.getCurrentAutoRefreshStatus()).isFalse();
+    }
+
+    @Test
+    public void multiplePausesBeforeResumeRefresh_shouldEnableAutoRefresh() {
+        assertThat(subject.getCurrentAutoRefreshStatus()).isTrue();
+
+        subject.pauseRefresh();
+        subject.pauseRefresh();
+        subject.resumeRefresh();
+
+        assertThat(subject.getCurrentAutoRefreshStatus()).isTrue();
     }
 
     @Test
@@ -250,7 +264,7 @@ public class AdViewControllerTest {
         final AdViewController adViewControllerSpy = spy(subject);
 
         adViewControllerSpy.loadAd();
-        adViewControllerSpy.forceSetAutorefreshEnabled(true);
+        adViewControllerSpy.setShouldAllowAutoRefresh(true);
         verify(adViewControllerSpy).scheduleRefreshTimerIfEnabled();
     }
 
@@ -258,7 +272,7 @@ public class AdViewControllerTest {
     public void enablingAutoRefresh_withoutCallingLoadAd_shouldNotScheduleNewRefreshTimer() throws Exception {
         final AdViewController adViewControllerSpy = spy(subject);
 
-        adViewControllerSpy.forceSetAutorefreshEnabled(true);
+        adViewControllerSpy.setShouldAllowAutoRefresh(true);
         verify(adViewControllerSpy, never()).scheduleRefreshTimerIfEnabled();
     }
 
@@ -269,10 +283,10 @@ public class AdViewControllerTest {
         ShadowLooper.pauseMainLooper();
 
         subject.loadAd();
-        subject.forceSetAutorefreshEnabled(true);
+        subject.setShouldAllowAutoRefresh(true);
         assertThat(Robolectric.getForegroundThreadScheduler().size()).isEqualTo(1);
 
-        subject.forceSetAutorefreshEnabled(false);
+        subject.setShouldAllowAutoRefresh(false);
         assertThat(Robolectric.getForegroundThreadScheduler().size()).isEqualTo(0);
     }
 

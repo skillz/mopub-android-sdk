@@ -1,12 +1,13 @@
-package com.skillz.mopub.mobileads;
+package com.mopub.mobileads;
 
 import android.app.Activity;
 import android.content.Context;
 
 import com.skillz.mopub.common.CacheService;
-import com.skillz.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.common.util.test.support.ShadowAsyncTasks;
-import com.skillz.mopub.common.util.test.support.ShadowMoPubHttpUrlConnection;
+import com.mopub.common.test.support.SdkTestRunner;
+import com.mopub.common.util.test.support.ShadowAsyncTasks;
+import com.mopub.common.util.test.support.ShadowMoPubHttpUrlConnection;
+import com.skillz.mopub.mobileads.VideoDownloader;
 import com.skillz.mopub.mobileads.VideoDownloader.VideoDownloaderListener;
 import com.skillz.mopub.mobileads.VideoDownloader.VideoDownloaderTask;
 

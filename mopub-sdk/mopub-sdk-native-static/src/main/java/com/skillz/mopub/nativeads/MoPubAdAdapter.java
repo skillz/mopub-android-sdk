@@ -1,4 +1,4 @@
-package com.skillz.mopub.nativeads;
+package com.mopub.nativeads;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,8 +16,8 @@ import android.widget.ListView;
 import com.skillz.mopub.common.Preconditions;
 import com.skillz.mopub.common.Preconditions.NoThrow;
 import com.skillz.mopub.common.VisibleForTesting;
-import com.skillz.mopub.nativeads.MoPubNativeAdPositioning.MoPubClientPositioning;
-import com.skillz.mopub.nativeads.MoPubNativeAdPositioning.MoPubServerPositioning;
+import com.mopub.nativeads.MoPubNativeAdPositioning.MoPubClientPositioning;
+import com.mopub.nativeads.MoPubNativeAdPositioning.MoPubServerPositioning;
 
 import java.util.List;
 import java.util.WeakHashMap;
@@ -25,7 +25,7 @@ import java.util.WeakHashMap;
 import static android.widget.AdapterView.OnItemClickListener;
 import static android.widget.AdapterView.OnItemLongClickListener;
 import static android.widget.AdapterView.OnItemSelectedListener;
-import static com.skillz.mopub.nativeads.VisibilityTracker.VisibilityTrackerListener;
+import static com.mopub.nativeads.VisibilityTracker.VisibilityTrackerListener;
 
 /**
  * {@code MoPubAdAdapter} facilitates placing ads into an Android {@link android.widget.ListView} or
@@ -34,7 +34,7 @@ import static com.skillz.mopub.nativeads.VisibilityTracker.VisibilityTrackerList
  * For your content items, this class will call your original adapter with the original position of
  * content before ads were loaded.
  *
- * This adapter uses a {@link com.skillz.mopub.nativeads.MoPubStreamAdPlacer} object internally. If you
+ * This adapter uses a {@link com.mopub.nativeads.MoPubStreamAdPlacer} object internally. If you
  * wish to avoid wrapping your original adapter, you can use {@code MoPubStreamAdPlacer} directly.
  */
 public class MoPubAdAdapter extends BaseAdapter {
@@ -342,7 +342,7 @@ public class MoPubAdAdapter extends BaseAdapter {
                     mStreamAdPlacer.getOriginalPosition(position), view, viewGroup);
         }
         mViewPositionMap.put(resultView, position);
-        mVisibilityTracker.addView(resultView, 0);
+        mVisibilityTracker.addView(resultView, 0, null);
 
         return resultView;
     }

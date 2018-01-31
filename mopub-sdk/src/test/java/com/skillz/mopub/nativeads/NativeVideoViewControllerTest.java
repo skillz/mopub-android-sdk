@@ -1,12 +1,10 @@
-package com.skillz.mopub.nativeads;
+package com.mopub.nativeads;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.media.AudioManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.TextureView;
 import android.view.View;
@@ -14,15 +12,15 @@ import android.view.ViewGroup.LayoutParams;
 
 import com.skillz.mopub.common.Constants;
 import com.skillz.mopub.common.MoPubBrowser;
-import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.mopub.common.test.support.SdkTestRunner;
 import com.skillz.mopub.mobileads.BaseVideoViewController.BaseVideoViewControllerListener;
-import com.skillz.mopub.mobileads.BuildConfig;
+import com.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.mobileads.VastVideoConfig;
 import com.skillz.mopub.mobileads.resource.CtaButtonDrawable;
-import com.skillz.mopub.nativeads.MoPubCustomEventVideoNative.MoPubVideoNativeAd;
-import com.skillz.mopub.nativeads.NativeFullScreenVideoView.Mode;
-import com.skillz.mopub.nativeads.NativeVideoController.NativeVideoProgressRunnable.ProgressListener;
-import com.skillz.mopub.nativeads.NativeVideoViewController.VideoState;
+import com.mopub.nativeads.MoPubCustomEventVideoNative.MoPubVideoNativeAd;
+import com.mopub.nativeads.NativeFullScreenVideoView.Mode;
+import com.mopub.nativeads.NativeVideoController.NativeVideoProgressRunnable.ProgressListener;
+import com.mopub.nativeads.NativeVideoViewController.VideoState;
 
 import org.junit.After;
 import org.junit.Before;
@@ -43,7 +41,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
-@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 @RunWith(SdkTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class NativeVideoViewControllerTest {
@@ -257,9 +254,6 @@ public class NativeVideoViewControllerTest {
 
     @Test
     public void onStateChanged_shouldAppropriatelySetVideoState() {
-        subject.onStateChanged(true, NativeVideoController.STATE_PREPARING);
-        assertThat(subject.getVideoState()).isEqualTo(VideoState.LOADING);
-
         subject.onStateChanged(true, NativeVideoController.STATE_IDLE);
         assertThat(subject.getVideoState()).isEqualTo(VideoState.LOADING);
 

@@ -1,9 +1,14 @@
-package com.skillz.mopub.common.event;
+package com.mopub.common.event;
 
 import android.os.Handler;
 
-import com.skillz.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.BuildConfig;
+import com.mopub.common.test.support.SdkTestRunner;
+import com.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.common.event.BaseEvent;
+import com.skillz.mopub.common.event.Event;
+import com.skillz.mopub.common.event.EventSampler;
+import com.skillz.mopub.common.event.EventSerializer;
+import com.skillz.mopub.common.event.ScribeEventRecorder;
 import com.skillz.mopub.network.ScribeBackoffPolicy;
 import com.skillz.mopub.network.ScribeRequest;
 import com.skillz.mopub.network.ScribeRequestManager;

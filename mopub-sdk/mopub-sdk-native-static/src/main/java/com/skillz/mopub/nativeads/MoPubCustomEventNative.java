@@ -1,13 +1,14 @@
-package com.skillz.mopub.nativeads;
+package com.mopub.nativeads;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 
+import com.skillz.mopub.common.DataKeys;
 import com.skillz.mopub.common.VisibleForTesting;
 import com.skillz.mopub.common.logging.MoPubLog;
-import com.skillz.mopub.nativeads.NativeImageHelper.ImageListener;
+import com.mopub.nativeads.NativeImageHelper.ImageListener;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -22,7 +23,7 @@ import java.util.Set;
 
 import static com.skillz.mopub.common.DataKeys.JSON_BODY_KEY;
 import static com.skillz.mopub.common.util.Numbers.parseDouble;
-import static com.skillz.mopub.nativeads.NativeImageHelper.preCacheImages;
+import static com.mopub.nativeads.NativeImageHelper.preCacheImages;
 
 public class MoPubCustomEventNative extends CustomEventNative {
 
@@ -45,6 +46,36 @@ public class MoPubCustomEventNative extends CustomEventNative {
                         new ImpressionTracker(context),
                         new NativeClickHandler(context),
                         customEventNativeListener);
+
+        if (serverExtras.containsKey(DataKeys.IMPRESSION_MIN_VISIBLE_PERCENT)) {
+            try {
+                moPubStaticNativeAd.setImpressionMinPercentageViewed(Integer.parseInt(
+                        serverExtras.get(DataKeys.IMPRESSION_MIN_VISIBLE_PERCENT)));
+            } catch (final NumberFormatException e) {
+                MoPubLog.d("Unable to format min visible percent: " +
+                        serverExtras.get(DataKeys.IMPRESSION_MIN_VISIBLE_PERCENT));
+            }
+        }
+
+        if (serverExtras.containsKey(DataKeys.IMPRESSION_VISIBLE_MS)) {
+            try {
+                moPubStaticNativeAd.setImpressionMinTimeViewed(
+                        Integer.parseInt(serverExtras.get(DataKeys.IMPRESSION_VISIBLE_MS)));
+            } catch (final NumberFormatException e) {
+                MoPubLog.d("Unable to format min time: " +
+                        serverExtras.get(DataKeys.IMPRESSION_VISIBLE_MS));
+            }
+        }
+
+        if (serverExtras.containsKey(DataKeys.IMPRESSION_MIN_VISIBLE_PX)) {
+            try {
+                moPubStaticNativeAd.setImpressionMinVisiblePx(Integer.parseInt(
+                        serverExtras.get(DataKeys.IMPRESSION_MIN_VISIBLE_PX)));
+            } catch (final NumberFormatException e) {
+                MoPubLog.d("Unable to format min visible px: " +
+                        serverExtras.get(DataKeys.IMPRESSION_MIN_VISIBLE_PX));
+            }
+        }
 
         try {
             moPubStaticNativeAd.loadAd();

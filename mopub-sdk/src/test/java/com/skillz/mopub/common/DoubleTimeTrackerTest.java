@@ -1,7 +1,8 @@
-package com.skillz.mopub.common;
+package com.mopub.common;
 
-import com.skillz.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.BuildConfig;
+import com.mopub.common.test.support.SdkTestRunner;
+import com.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.common.DoubleTimeTracker;
 
 import org.junit.Before;
 import org.junit.Test;

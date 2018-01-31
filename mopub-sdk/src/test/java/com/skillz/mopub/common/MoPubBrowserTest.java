@@ -1,12 +1,11 @@
-package com.skillz.mopub.common;
+package com.mopub.common;
 
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.webkit.CookieSyncManager;
 import android.webkit.WebView;
 
-import com.skillz.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.BuildConfig;
+import com.mopub.common.test.support.SdkTestRunner;
+import com.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.common.MoPubBrowser;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -34,7 +33,6 @@ public class MoPubBrowserTest {
         subject.setWebView(mockWebView);
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR1)
     @Test
     public void onPause_withIsFinishingTrue_shouldStopLoading_shouldLoadBlankUrl_shouldPauseWebView() throws Exception {
         // We have to manually call #onPause here after #finish since the activity is not being managed by Android
@@ -48,7 +46,6 @@ public class MoPubBrowserTest {
         verify(mockWebView).onPause();
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR1)
     @Test
     public void onPause_withIsFinishingFalse_shouldPauseWebView() throws Exception {
         subject.onPause();
@@ -58,7 +55,6 @@ public class MoPubBrowserTest {
         verify(mockWebView).onPause();
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR1)
     @Test
     public void onResume_shouldResumeWebView() throws Exception {
         subject.onResume();

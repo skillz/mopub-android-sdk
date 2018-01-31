@@ -2,6 +2,9 @@ package com.skillz.mopub.common;
 
 import android.graphics.Bitmap;
 
+import com.skillz.mopub.common.DownloadResponse;
+import com.skillz.mopub.common.HttpResponses;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Before;

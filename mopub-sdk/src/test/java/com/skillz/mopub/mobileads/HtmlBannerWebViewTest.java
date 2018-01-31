@@ -1,10 +1,11 @@
-package com.skillz.mopub.mobileads;
+package com.mopub.mobileads;
 
 import android.app.Activity;
 import android.webkit.WebViewClient;
 
 import com.skillz.mopub.common.AdReport;
-import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.HtmlWebViewClient;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +15,7 @@ import org.robolectric.Robolectric;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 
-import static com.skillz.mopub.mobileads.CustomEventBanner.CustomEventBannerListener;
+import static com.mopub.mobileads.CustomEventBanner.CustomEventBannerListener;
 import static com.skillz.mopub.mobileads.MoPubErrorCode.NETWORK_INVALID_STATE;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Matchers.eq;

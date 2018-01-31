@@ -1,4 +1,4 @@
-package com.skillz.mopub.common.util;
+package com.mopub.common.util;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,7 +8,11 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.skillz.mopub.common.MoPub;
+import com.skillz.mopub.common.MoPub.BrowserAgent;
 import com.skillz.mopub.common.MoPubBrowser;
+import com.skillz.mopub.common.util.Intents;
+import com.skillz.mopub.common.util.Utils;
 import com.skillz.mopub.exceptions.IntentNotResolvableException;
 import com.skillz.mopub.exceptions.UrlParseException;
 
@@ -38,6 +42,7 @@ public class IntentsTest {
     public void setUp() {
         activityContext = Robolectric.buildActivity(Activity.class).create().get();
         applicationContext = activityContext.getApplicationContext();
+        MoPub.resetBrowserAgent();
     }
 
     @Test
@@ -152,6 +157,53 @@ public class IntentsTest {
     }
 
     @Test
+    public void intentForNativeBrowserScheme_whenBrowserAgentSetToNative_whenSchemeIsMoPubNativeBrowser_shouldProperlyHandleEncodedUrls() throws UrlParseException {
+        MoPub.setBrowserAgent(BrowserAgent.NATIVE);
+
+        intentForNativeBrowserScheme_shouldProperlyHandleEncodedUrls();
+    }
+
+    @Test(expected = UrlParseException.class)
+    public void intentForNativeBrowserScheme_whenBrowserAgentSetToNative_whenSchemeIsMoPubNativeBrowser_whenHostIsNotNavigate_shouldThrowException() throws UrlParseException {
+        MoPub.setBrowserAgent(BrowserAgent.NATIVE);
+
+        intentForNativeBrowserScheme_whenNotNavigate_shouldThrowException();
+    }
+
+    @Test(expected = UrlParseException.class)
+    public void intentForNativeBrowserScheme_whenBrowserAgentSetToNative_whenSchemeIsMoPubNativeBrowserButUrlParameterMissing_shouldThrowException() throws UrlParseException {
+        MoPub.setBrowserAgent(BrowserAgent.NATIVE);
+
+        intentForNativeBrowserScheme_whenUrlParameterMissing_shouldThrowException();
+    }
+
+    @Test
+    public void intentForNativeBrowserScheme_whenBrowserAgentSetToNative_whenSchemeIsHttpOrHttps_shouldProperlyHandleEncodedUrls() throws UrlParseException {
+        MoPub.setBrowserAgent(BrowserAgent.NATIVE);
+
+        Intent intent;
+
+        intent = Intents.intentForNativeBrowserScheme(Uri.parse("http://www.example.com"));
+        assertThat(intent.getAction()).isEqualTo(Intent.ACTION_VIEW);
+        assertThat(intent.getDataString()).isEqualTo("http://www.example.com");
+
+        intent = Intents.intentForNativeBrowserScheme(Uri.parse("https://www.example.com/?query=1&two=2"));
+        assertThat(intent.getAction()).isEqualTo(Intent.ACTION_VIEW);
+        assertThat(intent.getDataString()).isEqualTo("https://www.example.com/?query=1&two=2");
+
+        intent = Intents.intentForNativeBrowserScheme(Uri.parse("https://www.example.com/?query=1%26two%3D2"));
+        assertThat(intent.getAction()).isEqualTo(Intent.ACTION_VIEW);
+        assertThat(intent.getDataString()).isEqualTo("https://www.example.com/?query=1%26two%3D2");
+    }
+
+    @Test(expected = UrlParseException.class)
+    public void intentForNativeBrowserScheme_whenBrowserAgentSetToNative_whenSchemeNotMoPubNativeBrowserOrHttpOrHttps_shouldThrowException() throws UrlParseException {
+        MoPub.setBrowserAgent(BrowserAgent.NATIVE);
+
+        Intents.intentForNativeBrowserScheme(Uri.parse("foo://www.example.com"));
+    }
+
+    @Test
     public void intentForShareTweetScheme_whenValidUri_shouldReturnShareTweetIntent() throws UrlParseException {
         Intent intent;
         final String shareMessage = "Check out @SpaceX's Tweet: https://twitter.com/SpaceX/status/596026229536460802";
@@ -227,7 +279,7 @@ public class IntentsTest {
     @Test
     public void getPlayStoreUri_shouldBuildUriFromIntentPackage() throws Exception {
         final Intent intent = new Intent();
-        final String appPackage = "com.skillz.mopub.test";
+        final String appPackage = "com.mopub.test";
         intent.setPackage(appPackage);
 
         assertThat(Intents.getPlayStoreUri(intent).toString()).isEqualTo("market://details?id="

@@ -1,12 +1,16 @@
-package com.skillz.mopub.mobileads;
+package com.mopub.mobileads;
 
 import android.app.Activity;
 
 import com.skillz.mopub.common.CacheService;
-import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.mopub.common.test.support.SdkTestRunner;
 import com.skillz.mopub.common.util.DeviceUtils;
-import com.skillz.mopub.common.util.test.support.ShadowMoPubHttpUrlConnection;
-import com.skillz.mopub.mobileads.test.support.VastUtils;
+import com.mopub.common.util.test.support.ShadowMoPubHttpUrlConnection;
+import com.mopub.mobileads.test.support.VastUtils;
+import com.skillz.mopub.mobileads.VastCompanionAdConfig;
+import com.skillz.mopub.mobileads.VastManager;
+import com.skillz.mopub.mobileads.VastResource;
+import com.skillz.mopub.mobileads.VastVideoConfig;
 
 import org.junit.After;
 import org.junit.Before;
@@ -103,7 +107,7 @@ public class VastManagerTest {
         assertThat(mVastVideoConfig.getAbsoluteTrackers().get(0).getTrackingMilliseconds())
                 .isEqualTo(0);
         assertThat(mVastVideoConfig.getAbsoluteTrackers().get(1).getTrackingMilliseconds())
-                .isEqualTo(2000);
+                .isEqualTo(0);
         assertThat(mVastVideoConfig.getAbsoluteTrackers().get(2).getTrackingMilliseconds())
                 .isEqualTo(3100);
 
@@ -158,9 +162,9 @@ public class VastManagerTest {
         assertThat(mVastVideoConfig.getAbsoluteTrackers().get(0).getTrackingMilliseconds()).isEqualTo(0);
         assertThat(mVastVideoConfig.getAbsoluteTrackers().get(1).getTrackingMilliseconds()).isEqualTo(0);
         assertThat(mVastVideoConfig.getAbsoluteTrackers().get(2).getTrackingMilliseconds()).isEqualTo(0);
-        assertThat(mVastVideoConfig.getAbsoluteTrackers().get(3).getTrackingMilliseconds()).isEqualTo(2000);
-        assertThat(mVastVideoConfig.getAbsoluteTrackers().get(4).getTrackingMilliseconds()).isEqualTo(2000);
-        assertThat(mVastVideoConfig.getAbsoluteTrackers().get(5).getTrackingMilliseconds()).isEqualTo(2000);
+        assertThat(mVastVideoConfig.getAbsoluteTrackers().get(3).getTrackingMilliseconds()).isEqualTo(0);
+        assertThat(mVastVideoConfig.getAbsoluteTrackers().get(4).getTrackingMilliseconds()).isEqualTo(0);
+        assertThat(mVastVideoConfig.getAbsoluteTrackers().get(5).getTrackingMilliseconds()).isEqualTo(0);
         assertThat(mVastVideoConfig.getAbsoluteTrackers().get(6).getTrackingMilliseconds()).isEqualTo(3100);
         assertThat(mVastVideoConfig.getAbsoluteTrackers().get(7).getTrackingMilliseconds()).isEqualTo(3100);
         assertThat(mVastVideoConfig.getAbsoluteTrackers().get(8).getTrackingMilliseconds()).isEqualTo(3100);

@@ -1,9 +1,14 @@
-package com.skillz.mopub.mobileads;
+package com.mopub.mobileads;
 
 import android.content.Context;
 import android.os.Handler;
 
-import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.VastAbsoluteProgressTracker;
+import com.skillz.mopub.mobileads.VastTracker;
+import com.skillz.mopub.mobileads.VastVideoConfig;
+import com.skillz.mopub.mobileads.VastVideoViewController;
+import com.skillz.mopub.mobileads.VastVideoViewProgressRunnable;
 import com.skillz.mopub.network.MoPubRequestQueue;
 import com.skillz.mopub.network.Networking;
 import com.skillz.mopub.network.TrackingRequest;
@@ -29,11 +34,13 @@ import static org.mockito.Mockito.when;
 @RunWith(SdkTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class VastVideoViewProgressRunnableTest {
-    @Mock VastVideoViewController mockVastVideoViewController;
+    @Mock
+    VastVideoViewController mockVastVideoViewController;
     @Mock Context mockContext;
     @Mock Handler mockHandler;
     @Mock MoPubRequestQueue mockRequestQueue;
-    @Mock VastVideoConfig mockVideoConfig;
+    @Mock
+    VastVideoConfig mockVideoConfig;
     @Captor ArgumentCaptor<TrackingRequest> requestCaptor;
     VastVideoViewProgressRunnable subject;
 

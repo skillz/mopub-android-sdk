@@ -1,4 +1,4 @@
-package com.skillz.mopub.common;
+package com.mopub.common;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,13 +7,15 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 
-import com.skillz.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.BuildConfig;
+import com.mopub.common.test.support.SdkTestRunner;
+import com.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.common.MoPubBrowser;
+import com.skillz.mopub.common.UrlAction;
+import com.skillz.mopub.common.UrlHandler;
 import com.skillz.mopub.network.MoPubRequestQueue;
 import com.skillz.mopub.network.Networking;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -34,7 +36,7 @@ import static com.skillz.mopub.common.UrlAction.NOOP;
 import static com.skillz.mopub.common.UrlAction.OPEN_APP_MARKET;
 import static com.skillz.mopub.common.UrlAction.OPEN_IN_APP_BROWSER;
 import static com.skillz.mopub.common.UrlAction.OPEN_NATIVE_BROWSER;
-import static com.skillz.mopub.common.VolleyRequestMatcher.isUrl;
+import static com.mopub.common.VolleyRequestMatcher.isUrl;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.never;

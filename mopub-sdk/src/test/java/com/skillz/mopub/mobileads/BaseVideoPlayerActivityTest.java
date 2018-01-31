@@ -1,12 +1,16 @@
-package com.skillz.mopub.mobileads;
+package com.mopub.mobileads;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 
-import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.mopub.common.test.support.SdkTestRunner;
 import com.skillz.mopub.common.util.Utils;
+import com.skillz.mopub.mobileads.BaseVideoPlayerActivity;
+import com.skillz.mopub.mobileads.MraidVideoPlayerActivity;
+import com.skillz.mopub.mobileads.VastVideoConfig;
+import com.skillz.mopub.mobileads.VastVideoViewController;
 
 import org.junit.Before;
 import org.junit.Test;

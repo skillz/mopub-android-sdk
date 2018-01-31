@@ -1,4 +1,4 @@
-package com.skillz.mopub.mobileads;
+package com.mopub.mobileads;
 
 import android.app.Activity;
 import android.content.Context;
@@ -20,13 +20,15 @@ import android.view.WindowManager;
 
 import com.skillz.mopub.common.ClientMetadata;
 import com.skillz.mopub.common.GpsHelper;
-import com.skillz.mopub.common.GpsHelperTest;
+import com.mopub.common.GpsHelperTest;
+import com.skillz.mopub.common.LocationService;
 import com.skillz.mopub.common.MoPub;
-import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.mopub.common.test.support.SdkTestRunner;
 import com.skillz.mopub.common.util.Reflection.MethodBuilder;
 import com.skillz.mopub.common.util.Utils;
-import com.skillz.mopub.common.util.test.support.TestMethodBuilderFactory;
-import com.skillz.mopub.mobileads.test.support.MoPubShadowTelephonyManager;
+import com.mopub.common.util.test.support.TestMethodBuilderFactory;
+import com.mopub.mobileads.test.support.MoPubShadowTelephonyManager;
+import com.skillz.mopub.mobileads.WebViewAdUrlGenerator;
 import com.skillz.mopub.mraid.MraidNativeCommandHandler;
 import com.skillz.mopub.network.PlayServicesUrlRewriter;
 
@@ -127,6 +129,8 @@ public class WebViewAdUrlGeneratorTest {
         shadowTelephonyManager = (MoPubShadowTelephonyManager) Shadows.shadowOf((TelephonyManager) RuntimeEnvironment.application.getSystemService(Context.TELEPHONY_SERVICE));
         shadowConnectivityManager = Shadows.shadowOf((ConnectivityManager) RuntimeEnvironment.application.getSystemService(Context.CONNECTIVITY_SERVICE));
         methodBuilder = TestMethodBuilderFactory.getSingletonMock();
+
+        LocationService.clearLastKnownLocation();
     }
 
     @After
@@ -729,11 +733,12 @@ public class WebViewAdUrlGeneratorTest {
                     paramIfNotEmpty("iso", countryIso) +
                     paramIfNotEmpty("cn", carrierName) +
                     "&ct=" + networkType +
-                    "&av=" + BuildConfig.VERSION_NAME +
+                    "&av=" + Uri.encode(BuildConfig.VERSION_NAME) +
                     "&udid=" + PlayServicesUrlRewriter.UDID_TEMPLATE +
                     "&dnt=" + PlayServicesUrlRewriter.DO_NOT_TRACK_TEMPLATE +
                     "&mr=1" +
-                    "&android_perms_ext_storage=" + externalStoragePermission;
+                    "&android_perms_ext_storage=" + externalStoragePermission +
+                    "&vv=3";
         }
 
         public AdUrlBuilder withAdUnitId(String adUnitId) {

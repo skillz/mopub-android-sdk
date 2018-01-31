@@ -1,11 +1,11 @@
-package com.skillz.mopub.nativeads.factories;
+package com.mopub.nativeads.factories;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.skillz.mopub.common.Preconditions;
-import com.skillz.mopub.nativeads.CustomEventNative;
-import com.skillz.mopub.nativeads.MoPubCustomEventNative;
+import com.mopub.nativeads.CustomEventNative;
+import com.mopub.nativeads.MoPubCustomEventNative;
 
 import java.lang.reflect.Constructor;
 

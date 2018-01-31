@@ -1,4 +1,4 @@
-package com.skillz.mopub.mobileads;
+package com.mopub.mobileads;
 
 import android.app.Activity;
 import android.os.Build.VERSION_CODES;
@@ -6,9 +6,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.skillz.mopub.TestSdkHelper;
+import com.mopub.TestSdkHelper;
 import com.skillz.mopub.common.AdReport;
-import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BaseHtmlWebView;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -55,8 +56,8 @@ public class BaseHtmlWebViewTest {
     }
 
     @Test
-    public void pluginState_atLeastIcsButBelowJellybeanMr2_shouldDefaultToOn_shouldAllowToggling() {
-        TestSdkHelper.setReportedSdkLevel(VERSION_CODES.ICE_CREAM_SANDWICH);
+    public void pluginState_BelowJellybeanMr2_shouldDefaultToOn_shouldAllowToggling() {
+        TestSdkHelper.setReportedSdkLevel(VERSION_CODES.JELLY_BEAN);
         subject = new BaseHtmlWebView(testActivity, mockAdReport);
         assertThat(subject.getSettings().getPluginState()).isEqualTo(PluginState.ON);
 
@@ -65,20 +66,6 @@ public class BaseHtmlWebViewTest {
 
         subject.enablePlugins(true);
         assertThat(subject.getSettings().getPluginState()).isEqualTo(PluginState.ON);
-    }
-
-    @Test
-    public void pluginState_beforeIcs_shouldDefaultToOff_shouldAllowToggling() {
-        TestSdkHelper.setReportedSdkLevel(VERSION_CODES.GINGERBREAD_MR1);
-
-        subject = new BaseHtmlWebView(testActivity, mockAdReport);
-        assertThat(subject.getSettings().getPluginState()).isEqualTo(PluginState.OFF);
-
-        subject.enablePlugins(true);
-        assertThat(subject.getSettings().getPluginState()).isEqualTo(PluginState.ON);
-
-        subject.enablePlugins(false);
-        assertThat(subject.getSettings().getPluginState()).isEqualTo(PluginState.OFF);
     }
 
     @Test

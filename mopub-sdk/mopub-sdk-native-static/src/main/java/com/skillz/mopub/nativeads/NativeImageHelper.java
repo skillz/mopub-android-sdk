@@ -1,4 +1,4 @@
-package com.skillz.mopub.nativeads;
+package com.mopub.nativeads;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -8,7 +8,7 @@ import android.widget.ImageView;
 
 import com.skillz.mopub.common.Preconditions;
 import com.skillz.mopub.common.logging.MoPubLog;
-import com.skillz.mopub.nativeads.CustomEventNative.CustomEventNativeListener;
+import com.mopub.nativeads.CustomEventNative.CustomEventNativeListener;
 import com.skillz.mopub.network.Networking;
 import com.mopub.volley.VolleyError;
 import com.mopub.volley.toolbox.ImageLoader;

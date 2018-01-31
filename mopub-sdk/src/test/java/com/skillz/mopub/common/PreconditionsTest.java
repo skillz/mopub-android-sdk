@@ -1,6 +1,7 @@
-package com.skillz.mopub.common;
+package com.mopub.common;
 
 
+import com.skillz.mopub.common.Preconditions;
 import com.skillz.mopub.common.Preconditions.NoThrow;
 
 import org.junit.Before;

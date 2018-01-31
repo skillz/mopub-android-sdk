@@ -1,8 +1,10 @@
-package com.skillz.mopub.mobileads;
+package com.mopub.mobileads;
 
 import android.support.annotation.NonNull;
 
-import com.skillz.mopub.common.MoPubReward;
+import com.mopub.common.MoPubReward;
+import com.skillz.mopub.common.MoPub;
+import com.skillz.mopub.mobileads.MoPubErrorCode;
 
 import java.util.Set;
 
@@ -14,7 +16,7 @@ public interface MoPubRewardedVideoListener {
 
     /**
      * Called when the adUnitId has loaded. At this point you should be able to call
-     * {@link com.skillz.mopub.common.MoPub#showRewardedVideo(String)} to show the video.
+     * {@link MoPub#showRewardedVideo(String)} to show the video.
      */
     public void onRewardedVideoLoadSuccess(@NonNull String adUnitId);
 
@@ -33,6 +35,11 @@ public interface MoPubRewardedVideoListener {
      * Called when there is an error during video playback.
      */
     public void onRewardedVideoPlaybackError(@NonNull String adUnitId, @NonNull MoPubErrorCode errorCode);
+
+    /**
+     * Called when a rewarded video is clicked.
+     */
+    public void onRewardedVideoClicked(@NonNull String adUnitId);
 
     /**
      * Called when a rewarded video is closed. At this point your application should resume.

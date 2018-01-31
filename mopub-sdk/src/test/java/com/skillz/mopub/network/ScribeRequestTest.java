@@ -1,14 +1,16 @@
-package com.skillz.mopub.network;
+package com.mopub.network;
 
 import android.app.Activity;
 
 import com.skillz.mopub.common.event.BaseEvent;
 import com.skillz.mopub.common.event.EventSerializer;
-import com.skillz.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.BuildConfig;
+import com.mopub.common.test.support.SdkTestRunner;
+import com.mopub.mobileads.BuildConfig;
 import com.mopub.volley.DefaultRetryPolicy;
 import com.mopub.volley.NetworkResponse;
 import com.mopub.volley.Response;
+import com.skillz.mopub.network.Networking;
+import com.skillz.mopub.network.ScribeRequest;
 
 import org.json.JSONArray;
 import org.junit.Before;

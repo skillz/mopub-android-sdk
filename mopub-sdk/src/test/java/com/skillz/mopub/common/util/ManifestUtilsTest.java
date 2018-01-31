@@ -1,4 +1,4 @@
-package com.skillz.mopub.common.util;
+package com.mopub.common.util;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -7,13 +7,13 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.ResolveInfo;
-import android.os.Build;
 
-import com.skillz.mopub.TestSdkHelper;
 import com.skillz.mopub.common.MoPubBrowser;
 import com.skillz.mopub.mobileads.MoPubActivity;
 import com.skillz.mopub.mobileads.MraidActivity;
+import com.skillz.mopub.common.util.ManifestUtils;
 import com.skillz.mopub.mobileads.MraidVideoPlayerActivity;
+import com.mopub.mobileads.RewardedMraidActivity;
 
 import org.junit.After;
 import org.junit.Before;
@@ -73,10 +73,11 @@ public class ManifestUtilsTest {
         ManifestUtils.checkWebViewActivitiesDeclared(context);
 
         assertLogIncludes(
-                "com.skillz.mopub.mobileads.MoPubActivity",
-                "com.skillz.mopub.mobileads.MraidActivity",
-                "com.skillz.mopub.mobileads.MraidVideoPlayerActivity",
-                "com.skillz.mopub.common.MoPubBrowser"
+                "MoPubActivity",
+                "MraidActivity",
+                "com.mopub.mobileads.RewardedMraidActivity",
+                "MraidVideoPlayerActivity",
+                "MoPubBrowser"
         );
     }
 
@@ -86,11 +87,11 @@ public class ManifestUtilsTest {
 
         ManifestUtils.checkNativeActivitiesDeclared(context);
 
-        assertLogIncludes("com.skillz.mopub.common.MoPubBrowser");
+        assertLogIncludes("MoPubBrowser");
         assertLogDoesntInclude(
-                "com.skillz.mopub.mobileads.MoPubActivity",
-                "com.skillz.mopub.mobileads.MraidActivity",
-                "com.skillz.mopub.mobileads.MraidVideoPlayerActivity"
+                "MoPubActivity",
+                "MraidActivity",
+                "MraidVideoPlayerActivity"
         );
     }
 
@@ -98,6 +99,7 @@ public class ManifestUtilsTest {
     public void displayWarningForMissingActivities_withAllActivitiesDeclared_shouldNotShowLogOrToast() throws Exception {
         RuntimeEnvironment.getRobolectricPackageManager().addResolveInfoForIntent(new Intent(context, MoPubActivity.class), mockResolveInfo);
         RuntimeEnvironment.getRobolectricPackageManager().addResolveInfoForIntent(new Intent(context, MraidActivity.class), mockResolveInfo);
+        RuntimeEnvironment.getRobolectricPackageManager().addResolveInfoForIntent(new Intent(context, RewardedMraidActivity.class), mockResolveInfo);
         RuntimeEnvironment.getRobolectricPackageManager().addResolveInfoForIntent(new Intent(context, MraidVideoPlayerActivity.class), mockResolveInfo);
         RuntimeEnvironment.getRobolectricPackageManager().addResolveInfoForIntent(new Intent(context, MoPubBrowser.class), mockResolveInfo);
 
@@ -129,6 +131,7 @@ public class ManifestUtilsTest {
      public void displayWarningForMissingActivities_withOneMissingActivity_shouldLogOnlyThatOne() throws Exception {
         RuntimeEnvironment.getRobolectricPackageManager().addResolveInfoForIntent(new Intent(context, MoPubActivity.class), mockResolveInfo);
         RuntimeEnvironment.getRobolectricPackageManager().addResolveInfoForIntent(new Intent(context, MraidActivity.class), mockResolveInfo);
+        RuntimeEnvironment.getRobolectricPackageManager().addResolveInfoForIntent(new Intent(context, RewardedMraidActivity.class), mockResolveInfo);
         RuntimeEnvironment.getRobolectricPackageManager().addResolveInfoForIntent(new Intent(context, MraidVideoPlayerActivity.class), mockResolveInfo);
         // Here, we leave out MoPubBrowser on purpose
 
@@ -136,11 +139,12 @@ public class ManifestUtilsTest {
 
         ManifestUtils.displayWarningForMissingActivities(context, requiredWebViewSdkActivities);
 
-        assertLogIncludes("com.skillz.mopub.common.MoPubBrowser");
+        assertLogIncludes("MoPubBrowser");
         assertLogDoesntInclude(
-                "com.skillz.mopub.mobileads.MoPubActivity",
-                "com.skillz.mopub.mobileads.MraidActivity",
-                "com.skillz.mopub.mobileads.MraidVideoPlayerActivity"
+                "MoPubActivity",
+                "MraidActivity",
+                "com.mopub.mobileads.RewardedMraidActivity",
+                "MraidVideoPlayerActivity"
         );
     }
 
@@ -154,10 +158,11 @@ public class ManifestUtilsTest {
         final List<ShadowLog.LogItem> logs = ShadowLog.getLogs();
 
         assertLogIncludes(
-                "com.skillz.mopub.mobileads.MoPubActivity",
-                "com.skillz.mopub.mobileads.MraidActivity",
-                "com.skillz.mopub.mobileads.MraidVideoPlayerActivity",
-                "com.skillz.mopub.common.MoPubBrowser"
+                "MoPubActivity",
+                "MraidActivity",
+                "com.mopub.mobileads.RewardedMraidActivity",
+                "MraidVideoPlayerActivity",
+                "MoPubBrowser"
         );
     }
 
@@ -182,7 +187,6 @@ public class ManifestUtilsTest {
     }
 
     @SuppressWarnings("unchecked")
-    @TargetApi(13)
     @Test
     public void displayWarningForMisconfiguredActivities_withAllActivitiesConfigured_shouldNotLogOrShowToast() throws Exception {
         ManifestUtils.FlagCheckUtil mockActivitiyConfigCheck = mock(ManifestUtils.FlagCheckUtil.class);
@@ -193,6 +197,7 @@ public class ManifestUtilsTest {
 
         RuntimeEnvironment.getRobolectricPackageManager().addResolveInfoForIntent(new Intent(context, MoPubActivity.class), mockResolveInfo);
         RuntimeEnvironment.getRobolectricPackageManager().addResolveInfoForIntent(new Intent(context, MraidActivity.class), mockResolveInfo);
+        RuntimeEnvironment.getRobolectricPackageManager().addResolveInfoForIntent(new Intent(context, RewardedMraidActivity.class), mockResolveInfo);
         RuntimeEnvironment.getRobolectricPackageManager().addResolveInfoForIntent(new Intent(context, MraidVideoPlayerActivity.class), mockResolveInfo);
         RuntimeEnvironment.getRobolectricPackageManager().addResolveInfoForIntent(new Intent(context, MoPubBrowser.class), mockResolveInfo);
 
@@ -226,6 +231,7 @@ public class ManifestUtilsTest {
 
         RuntimeEnvironment.getRobolectricPackageManager().addResolveInfoForIntent(new Intent(context, MoPubActivity.class), mockResolveInfo);
         RuntimeEnvironment.getRobolectricPackageManager().addResolveInfoForIntent(new Intent(context, MraidActivity.class), mockResolveInfo);
+        RuntimeEnvironment.getRobolectricPackageManager().addResolveInfoForIntent(new Intent(context, RewardedMraidActivity.class), mockResolveInfo);
         RuntimeEnvironment.getRobolectricPackageManager().addResolveInfoForIntent(new Intent(context, MraidVideoPlayerActivity.class), mockResolveInfo);
         RuntimeEnvironment.getRobolectricPackageManager().addResolveInfoForIntent(new Intent(context, MoPubBrowser.class), mockResolveInfo);
 
@@ -233,19 +239,19 @@ public class ManifestUtilsTest {
 
         ManifestUtils.displayWarningForMisconfiguredActivities(context, requiredWebViewSdkActivities);
 
-        assertLogIncludes("com.skillz.mopub.mobileads.MoPubActivity");
+        assertLogIncludes("MoPubActivity");
         assertLogIncludes("The android:configChanges param for activity " + MoPubActivity.class.getName() + " must include keyboardHidden.");
         assertLogDoesntInclude(
-                "com.skillz.mopub.mobileads.MraidActivity",
-                "com.skillz.mopub.mobileads.MraidVideoPlayerActivity",
-                "com.skillz.mopub.common.MoPubBrowser"
+                "MraidActivity",
+                "com.mopub.mobileads.RewardedMraidActivity",
+                "MraidVideoPlayerActivity",
+                "MoPubBrowser"
         );
         assertLogDoesntInclude("The android:configChanges param for activity " + MoPubActivity.class.getName() + " must include orientation.");
         assertLogDoesntInclude("The android:configChanges param for activity " + MoPubActivity.class.getName() + " must include screenSize.");
     }
 
     @SuppressWarnings("unchecked")
-    @TargetApi(13)
     @Test
     public void displayWarningForMisconfiguredActivities_withOneMisconfiguredActivity_withMissingAllConfigChangesValues_shouldLogAllConfigChangesValues() throws Exception {
         ManifestUtils.FlagCheckUtil mockActivitiyConfigCheck = mock(ManifestUtils.FlagCheckUtil.class);
@@ -267,56 +273,6 @@ public class ManifestUtilsTest {
     }
 
     @SuppressWarnings("unchecked")
-
-    @TargetApi(13)
-    @Test
-    public void displayWarningForMisconfiguredActivities_withMissingScreenSize_withApiLessThan13_shouldNotLogOrShowToast() throws Exception {
-        TestSdkHelper.setReportedSdkLevel(Build.VERSION_CODES.HONEYCOMB);
-        ManifestUtils.FlagCheckUtil mockActivitiyConfigCheck = mock(ManifestUtils.FlagCheckUtil.class);
-        when(mockActivitiyConfigCheck.hasFlag(any(Class.class), anyInt(), eq(ActivityInfo.CONFIG_KEYBOARD_HIDDEN))).thenReturn(true);
-        when(mockActivitiyConfigCheck.hasFlag(any(Class.class), anyInt(), eq(ActivityInfo.CONFIG_ORIENTATION))).thenReturn(true);
-        when(mockActivitiyConfigCheck.hasFlag(any(Class.class), anyInt(), eq(ActivityInfo.CONFIG_SCREEN_SIZE))).thenReturn(false);
-        ManifestUtils.setFlagCheckUtil(mockActivitiyConfigCheck);
-
-        RuntimeEnvironment.getRobolectricPackageManager().addResolveInfoForIntent(new Intent(context, MoPubActivity.class), mockResolveInfo);
-
-        ShadowLog.setupLogging();
-        setDebugMode(true);
-
-        ManifestUtils.displayWarningForMisconfiguredActivities(context, requiredWebViewSdkActivities);
-
-        assertThat(ShadowToast.getLatestToast()).isNull();
-        assertThat(ShadowLog.getLogs()).isEmpty();
-    }
-
-    @SuppressWarnings("unchecked")
-    @TargetApi(13)
-    @Test
-    public void displayWarningForMisconfiguredActivities_withMissingScreenSize_withTargetApiLessThan13_shouldNotLogOrShowToast() throws Exception {
-        // Set target API to < 13
-        ApplicationInfo applicationInfo = context.getApplicationInfo();
-        applicationInfo.targetSdkVersion = Build.VERSION_CODES.HONEYCOMB_MR1;
-        when(context.getApplicationInfo()).thenReturn(applicationInfo);
-
-        ManifestUtils.FlagCheckUtil mockActivitiyConfigCheck = mock(ManifestUtils.FlagCheckUtil.class);
-        when(mockActivitiyConfigCheck.hasFlag(any(Class.class), anyInt(), eq(ActivityInfo.CONFIG_KEYBOARD_HIDDEN))).thenReturn(true);
-        when(mockActivitiyConfigCheck.hasFlag(any(Class.class), anyInt(), eq(ActivityInfo.CONFIG_ORIENTATION))).thenReturn(true);
-        when(mockActivitiyConfigCheck.hasFlag(any(Class.class), anyInt(), eq(ActivityInfo.CONFIG_SCREEN_SIZE))).thenReturn(false);
-        ManifestUtils.setFlagCheckUtil(mockActivitiyConfigCheck);
-
-        RuntimeEnvironment.getRobolectricPackageManager().addResolveInfoForIntent(new Intent(context, MoPubActivity.class), mockResolveInfo);
-
-        ShadowLog.setupLogging();
-        setDebugMode(true);
-
-        ManifestUtils.displayWarningForMisconfiguredActivities(context, requiredWebViewSdkActivities);
-
-        assertThat(ShadowToast.getLatestToast()).isNull();
-        assertThat(ShadowLog.getLogs()).isEmpty();
-    }
-
-    @SuppressWarnings("unchecked")
-    @TargetApi(13)
     @Test
     public void displayWarningForMisconfiguredActivities_withMisconfiguredActivities_withDebugTrue_shouldShowToast() throws Exception {
         ManifestUtils.FlagCheckUtil mockActivitiyConfigCheck = mock(ManifestUtils.FlagCheckUtil.class);
@@ -337,7 +293,6 @@ public class ManifestUtilsTest {
     }
 
     @SuppressWarnings("unchecked")
-    @TargetApi(13)
     @Test
     public void displayWarningForMisconfiguredActivities_withMisconfiguredActivities_withDebugFalse_shouldNotShowToast() throws Exception {
         ManifestUtils.FlagCheckUtil mockActivitiyConfigCheck = mock(ManifestUtils.FlagCheckUtil.class);
@@ -375,6 +330,7 @@ public class ManifestUtilsTest {
         assertThat(requiredWebViewSdkActivities).containsOnly(
                 MoPubActivity.class,
                 MraidActivity.class,
+                RewardedMraidActivity.class,
                 MraidVideoPlayerActivity.class,
                 MoPubBrowser.class
         );
@@ -398,21 +354,27 @@ public class ManifestUtilsTest {
     }
 
     private void addInterstitialModule() {
-        Class moPubActivityClass = com.skillz.mopub.mobileads.MoPubActivity.class;
-        Class mraidActivityClass = com.skillz.mopub.mobileads.MraidActivity.class;
+        Class moPubActivityClass = MoPubActivity.class;
+        Class mraidActivityClass = MraidActivity.class;
+        Class rewardedMraidActivityClass = com.mopub.mobileads.RewardedMraidActivity.class;
         if (!ManifestUtils.getRequiredWebViewSdkActivities().contains(moPubActivityClass)) {
             ManifestUtils.getRequiredWebViewSdkActivities().add(moPubActivityClass);
         }
         if (!ManifestUtils.getRequiredWebViewSdkActivities().contains(mraidActivityClass)) {
             ManifestUtils.getRequiredWebViewSdkActivities().add(mraidActivityClass);
         }
+        if (!ManifestUtils.getRequiredWebViewSdkActivities().contains(rewardedMraidActivityClass)) {
+            ManifestUtils.getRequiredWebViewSdkActivities().add(rewardedMraidActivityClass);
+        }
     }
 
     private void removeInterstitialModule() {
-        Class moPubActivityClass = com.skillz.mopub.mobileads.MoPubActivity.class;
-        Class mraidActivityClass = com.skillz.mopub.mobileads.MraidActivity.class;
+        Class moPubActivityClass = MoPubActivity.class;
+        Class mraidActivityClass = MraidActivity.class;
+        Class rewardedMraidActivityClass = com.mopub.mobileads.RewardedMraidActivity.class;
         ManifestUtils.getRequiredWebViewSdkActivities().remove(moPubActivityClass);
         ManifestUtils.getRequiredWebViewSdkActivities().remove(mraidActivityClass);
+        ManifestUtils.getRequiredWebViewSdkActivities().remove(rewardedMraidActivityClass);
     }
 
     private void setDebugMode(boolean enabled) {

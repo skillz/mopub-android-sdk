@@ -1,4 +1,6 @@
-package com.skillz.mopub.common.util.test.support;
+package com.mopub.common.util.test.support;
+
+import android.support.annotation.NonNull;
 
 import com.skillz.mopub.common.util.Reflection;
 
@@ -17,7 +19,7 @@ public class ShadowReflection {
     }
 
     @Implementation
-    public static boolean classFound(final String className) throws Exception {
+    public static boolean classFound(@NonNull final String className) {
         if (sNextClassNotFound) {
             sNextClassNotFound = false;
             return false;

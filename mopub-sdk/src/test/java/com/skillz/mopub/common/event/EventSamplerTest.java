@@ -1,7 +1,9 @@
-package com.skillz.mopub.common.event;
+package com.mopub.common.event;
 
-import com.skillz.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.BuildConfig;
+import com.mopub.common.test.support.SdkTestRunner;
+import com.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.common.event.BaseEvent;
+import com.skillz.mopub.common.event.EventSampler;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +23,8 @@ public class EventSamplerTest {
 
     private EventSampler subject;
     @Mock Random mockRandom;
-    @Mock BaseEvent mockBaseEvent;
+    @Mock
+    BaseEvent mockBaseEvent;
 
     @Before
     public void setUp() {

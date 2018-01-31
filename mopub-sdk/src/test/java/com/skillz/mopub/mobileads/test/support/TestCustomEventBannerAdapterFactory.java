@@ -1,11 +1,11 @@
-package com.skillz.mopub.mobileads.test.support;
+package com.mopub.mobileads.test.support;
 
 import android.support.annotation.NonNull;
 
 import com.skillz.mopub.common.AdReport;
-import com.skillz.mopub.mobileads.CustomEventBannerAdapter;
+import com.mopub.mobileads.CustomEventBannerAdapter;
 import com.skillz.mopub.mobileads.MoPubView;
-import com.skillz.mopub.mobileads.factories.CustomEventBannerAdapterFactory;
+import com.mopub.mobileads.factories.CustomEventBannerAdapterFactory;
 
 import java.util.Map;
 

@@ -1,5 +1,7 @@
 package com.skillz.mopub.common;
 
+import com.skillz.mopub.common.CreativeOrientation;
+
 import org.junit.Test;
 
 import static org.fest.assertions.api.Assertions.assertThat;

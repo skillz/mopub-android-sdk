@@ -1,4 +1,4 @@
-package com.skillz.mopub.mobileads;
+package com.mopub.mobileads;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,9 +7,23 @@ import android.graphics.Point;
 import android.view.Display;
 import android.view.WindowManager;
 
-import com.skillz.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.common.util.test.support.ShadowMoPubHttpUrlConnection;
-import com.skillz.mopub.mobileads.test.support.VastUtils;
+import com.mopub.common.test.support.SdkTestRunner;
+import com.mopub.common.util.test.support.ShadowMoPubHttpUrlConnection;
+import com.mopub.mobileads.test.support.VastUtils;
+import com.skillz.mopub.mobileads.VastAbsoluteProgressTracker;
+import com.skillz.mopub.mobileads.VastCompanionAdConfig;
+import com.skillz.mopub.mobileads.VastCompanionAdXmlManager;
+import com.skillz.mopub.mobileads.VastFractionalProgressTracker;
+import com.skillz.mopub.mobileads.VastIconConfig;
+import com.skillz.mopub.mobileads.VastIconXmlManager;
+import com.skillz.mopub.mobileads.VastMediaXmlManager;
+import com.skillz.mopub.mobileads.VastResource;
+import com.skillz.mopub.mobileads.VastResourceXmlManager;
+import com.skillz.mopub.mobileads.VastTracker;
+import com.skillz.mopub.mobileads.VastVideoConfig;
+import com.skillz.mopub.mobileads.VastVideoViewController;
+import com.skillz.mopub.mobileads.VastXmlManagerAggregator;
+import com.skillz.mopub.mobileads.VideoViewabilityTracker;
 import com.skillz.mopub.network.MoPubRequestQueue;
 import com.skillz.mopub.network.Networking;
 
@@ -28,7 +42,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
 
-import static com.skillz.mopub.common.VolleyRequestMatcher.isUrl;
+import static com.mopub.common.VolleyRequestMatcher.isUrl;
 import static com.skillz.mopub.mobileads.VastXmlManagerAggregator.VastXmlManagerAggregatorListener;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
@@ -1620,7 +1634,7 @@ public class VastXmlManagerAggregatorTest {
         VideoViewabilityTracker tracker = vastVideoConfig.getVideoViewabilityTracker();
         assertThat(tracker.getPercentViewable()).isEqualTo(70);
         assertThat(tracker.getViewablePlaytimeMS()).isEqualTo(3500);
-        assertThat(tracker.getTrackingUrl()).isEqualTo("https://ad.server.com/impression/dot.png");
+        assertThat(tracker.getContent()).isEqualTo("https://ad.server.com/impression/dot.png");
     }
 
     @Test
@@ -1632,7 +1646,7 @@ public class VastXmlManagerAggregatorTest {
         VideoViewabilityTracker tracker = vastVideoConfig.getVideoViewabilityTracker();
         assertThat(tracker.getPercentViewable()).isEqualTo(50);
         assertThat(tracker.getViewablePlaytimeMS()).isEqualTo(2500);
-        assertThat(tracker.getTrackingUrl()).isEqualTo("https://ad.server.com/impression/dot.gif");
+        assertThat(tracker.getContent()).isEqualTo("https://ad.server.com/impression/dot.gif");
     }
 
     @Test
@@ -1645,7 +1659,7 @@ public class VastXmlManagerAggregatorTest {
         VideoViewabilityTracker tracker = vastVideoConfig.getVideoViewabilityTracker();
         assertThat(tracker.getPercentViewable()).isEqualTo(70);
         assertThat(tracker.getViewablePlaytimeMS()).isEqualTo(3500);
-        assertThat(tracker.getTrackingUrl()).isEqualTo("https://ad.server.com/impression/dot.png");
+        assertThat(tracker.getContent()).isEqualTo("https://ad.server.com/impression/dot.png");
     }
 
     @Test

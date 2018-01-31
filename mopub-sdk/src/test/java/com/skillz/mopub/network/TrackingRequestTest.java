@@ -1,12 +1,15 @@
-package com.skillz.mopub.network;
+package com.mopub.network;
 
 import android.app.Activity;
 import android.content.Context;
 
-import com.skillz.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.BuildConfig;
+import com.mopub.common.test.support.SdkTestRunner;
+import com.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.mobileads.VastErrorCode;
 import com.skillz.mopub.mobileads.VastTracker;
+import com.skillz.mopub.network.MoPubRequestQueue;
+import com.skillz.mopub.network.Networking;
+import com.skillz.mopub.network.TrackingRequest;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +20,7 @@ import org.robolectric.annotation.Config;
 
 import java.util.Arrays;
 
-import static com.skillz.mopub.common.VolleyRequestMatcher.isUrl;
+import static com.mopub.common.VolleyRequestMatcher.isUrl;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.never;

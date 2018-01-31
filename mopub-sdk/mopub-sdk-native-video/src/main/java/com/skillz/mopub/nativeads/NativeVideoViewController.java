@@ -1,13 +1,11 @@
-package com.skillz.mopub.nativeads;
+package com.mopub.nativeads;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.SurfaceTexture;
 import android.media.AudioManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -24,11 +22,10 @@ import com.skillz.mopub.common.VisibleForTesting;
 import com.skillz.mopub.common.logging.MoPubLog;
 import com.skillz.mopub.mobileads.BaseVideoViewController;
 import com.skillz.mopub.mobileads.VastVideoConfig;
-import com.skillz.mopub.nativeads.MoPubCustomEventVideoNative.MoPubVideoNativeAd;
-import com.skillz.mopub.nativeads.NativeFullScreenVideoView.Mode;
-import com.skillz.mopub.nativeads.NativeVideoController.NativeVideoProgressRunnable;
+import com.mopub.nativeads.MoPubCustomEventVideoNative.MoPubVideoNativeAd;
+import com.mopub.nativeads.NativeFullScreenVideoView.Mode;
+import com.mopub.nativeads.NativeVideoController.NativeVideoProgressRunnable;
 
-@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 public class NativeVideoViewController extends BaseVideoViewController implements TextureView
         .SurfaceTextureListener, NativeVideoController.Listener,
         AudioManager.OnAudioFocusChangeListener {
@@ -244,8 +241,7 @@ public class NativeVideoViewController extends BaseVideoViewController implement
         } else if (mEnded) {
             newState = VideoState.ENDED;
         } else {
-            if (mLatestVideoControllerState == NativeVideoController.STATE_PREPARING
-                    || mLatestVideoControllerState == NativeVideoController.STATE_IDLE) {
+            if (mLatestVideoControllerState == NativeVideoController.STATE_IDLE) {
                 newState = VideoState.LOADING;
             } else if (mLatestVideoControllerState == NativeVideoController.STATE_BUFFERING) {
                 newState = VideoState.BUFFERING;
@@ -259,7 +255,6 @@ public class NativeVideoViewController extends BaseVideoViewController implement
 
         applyState(newState);
     }
-
 
     @VisibleForTesting
     void applyState(@NonNull final VideoState videoState) {

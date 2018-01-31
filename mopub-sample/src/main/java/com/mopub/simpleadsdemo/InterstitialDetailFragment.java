@@ -1,4 +1,4 @@
-package com.skillz.mopub.simpleadsdemo;
+package com.mopub.simpleadsdemo;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,8 +11,8 @@ import com.skillz.mopub.mobileads.MoPubErrorCode;
 import com.skillz.mopub.mobileads.MoPubInterstitial;
 
 import static com.skillz.mopub.mobileads.MoPubInterstitial.InterstitialAdListener;
-import static com.skillz.mopub.simpleadsdemo.Utils.hideSoftKeyboard;
-import static com.skillz.mopub.simpleadsdemo.Utils.logToast;
+import static com.mopub.simpleadsdemo.Utils.hideSoftKeyboard;
+import static com.mopub.simpleadsdemo.Utils.logToast;
 
 public class InterstitialDetailFragment extends Fragment implements InterstitialAdListener {
     private MoPubInterstitial mMoPubInterstitial;
@@ -25,6 +25,7 @@ public class InterstitialDetailFragment extends Fragment implements Interstitial
                 MoPubSampleAdUnit.fromBundle(getArguments());
         final View view = inflater.inflate(R.layout.interstitial_detail_fragment, container, false);
         final DetailFragmentViewHolder views = DetailFragmentViewHolder.fromView(view);
+        views.mKeywordsField.setText(getArguments().getString(MoPubListFragment.KEYWORDS_KEY, ""));
         hideSoftKeyboard(views.mKeywordsField);
 
         final String adUnitId = adConfiguration.getAdUnitId();
@@ -43,7 +44,7 @@ public class InterstitialDetailFragment extends Fragment implements Interstitial
                 mMoPubInterstitial.load();
             }
         });
-        mShowButton = (Button) view.findViewById(R.id.interstitial_show_button);
+        mShowButton = views.mShowButton;
         mShowButton.setEnabled(false);
         mShowButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +75,7 @@ public class InterstitialDetailFragment extends Fragment implements Interstitial
 
     @Override
     public void onInterstitialFailed(MoPubInterstitial interstitial, MoPubErrorCode errorCode) {
+        mShowButton.setEnabled(false);
         final String errorMessage = (errorCode != null) ? errorCode.toString() : "";
         logToast(getActivity(), "Interstitial failed to load: " + errorMessage);
     }

@@ -1,4 +1,4 @@
-package com.skillz.mopub.common;
+package com.mopub.common;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,8 +7,11 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.webkit.WebView;
 
-import com.skillz.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.BuildConfig;
+import com.mopub.common.test.support.SdkTestRunner;
+import com.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.common.BrowserWebViewClient;
+import com.skillz.mopub.common.MoPubBrowser;
+import com.skillz.mopub.network.Networking;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -49,6 +52,7 @@ public class BrowserWebViewClientTest {
 
         mockMoPubBrowser.setWebView(mockWebView);
         subject = new BrowserWebViewClient(mockMoPubBrowser);
+        Networking.setUserAgentForTesting("user_agent");
     }
 
     @Test
@@ -153,7 +157,7 @@ public class BrowserWebViewClientTest {
 
     @Test
     public void shouldOverrideUrlLoading_withNullUrl_shouldReturnFalse_shouldDoNothing() {
-        assertThat(subject.shouldOverrideUrlLoading(MOOT_WEB_VIEW, null)).isFalse();
+        assertThat(subject.shouldOverrideUrlLoading(MOOT_WEB_VIEW, (String) null)).isFalse();
         verify(mockWebView, never()).loadUrl(anyString());
         verify(mockMoPubBrowser, never()).finish();
     }

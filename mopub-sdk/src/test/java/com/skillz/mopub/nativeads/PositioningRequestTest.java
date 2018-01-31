@@ -1,7 +1,7 @@
-package com.skillz.mopub.nativeads;
+package com.mopub.nativeads;
 
-import com.skillz.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.BuildConfig;
+import com.mopub.common.test.support.SdkTestRunner;
+import com.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.network.MoPubNetworkError;
 import com.mopub.volley.NetworkResponse;
 import com.mopub.volley.Response;

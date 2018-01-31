@@ -1,16 +1,24 @@
-package com.skillz.mopub.mobileads;
+package com.mopub.mobileads;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
 import com.skillz.mopub.common.AdReport;
-import com.skillz.mopub.common.CacheServiceTest;
+import com.mopub.common.CacheServiceTest;
 import com.skillz.mopub.common.DataKeys;
-import com.skillz.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.test.support.TestHttpResponseWithHeaders;
-import com.skillz.mopub.mobileads.test.support.TestVastManagerFactory;
-import com.skillz.mopub.mobileads.test.support.VastUtils;
+import com.mopub.common.test.support.SdkTestRunner;
+import com.mopub.mobileads.test.support.TestHttpResponseWithHeaders;
+import com.mopub.mobileads.test.support.TestVastManagerFactory;
+import com.mopub.mobileads.test.support.VastUtils;
+import com.skillz.mopub.mobileads.MoPubErrorCode;
+import com.skillz.mopub.mobileads.MraidVideoPlayerActivity;
+import com.skillz.mopub.mobileads.VastAbsoluteProgressTracker;
+import com.skillz.mopub.mobileads.VastCompanionAdConfig;
+import com.skillz.mopub.mobileads.VastFractionalProgressTracker;
+import com.skillz.mopub.mobileads.VastManager;
+import com.skillz.mopub.mobileads.VastVideoConfig;
+import com.skillz.mopub.mobileads.VastVideoInterstitial;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -31,7 +39,7 @@ import static com.skillz.mopub.common.DataKeys.HTML_RESPONSE_BODY_KEY;
 import static com.skillz.mopub.mobileads.CustomEventInterstitial.CustomEventInterstitialListener;
 import static com.skillz.mopub.common.IntentActions.ACTION_INTERSTITIAL_DISMISS;
 import static com.skillz.mopub.common.IntentActions.ACTION_INTERSTITIAL_SHOW;
-import static com.skillz.mopub.mobileads.EventForwardingBroadcastReceiverTest.getIntentForActionAndIdentifier;
+import static com.mopub.mobileads.EventForwardingBroadcastReceiverTest.getIntentForActionAndIdentifier;
 import static com.skillz.mopub.mobileads.MoPubErrorCode.NETWORK_INVALID_STATE;
 import static com.skillz.mopub.mobileads.VastManager.VastManagerListener;
 import static org.fest.assertions.api.Assertions.assertThat;

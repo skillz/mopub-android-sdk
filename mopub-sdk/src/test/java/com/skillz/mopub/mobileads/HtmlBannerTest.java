@@ -1,18 +1,21 @@
-package com.skillz.mopub.mobileads;
+package com.mopub.mobileads;
 
 import android.app.Activity;
 import android.view.Gravity;
 import android.widget.FrameLayout;
 
-import com.skillz.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.test.support.TestHtmlBannerWebViewFactory;
-import com.skillz.mopub.mobileads.test.support.TestMoPubViewFactory;
+import com.mopub.common.test.support.SdkTestRunner;
+import com.mopub.mobileads.test.support.TestHtmlBannerWebViewFactory;
+import com.mopub.mobileads.test.support.TestMoPubViewFactory;
+import com.skillz.mopub.mobileads.AdViewController;
+import com.skillz.mopub.mobileads.MoPubView;
 import com.skillz.mopub.network.AdResponse;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
+import org.robolectric.Robolectric;
 import org.robolectric.annotation.Config;
 
 import java.util.HashMap;
@@ -48,7 +51,7 @@ public class HtmlBannerTest {
         subject = new HtmlBanner();
         htmlBannerWebView = TestHtmlBannerWebViewFactory.getSingletonMock();
         customEventBannerListener = mock(CustomEventBanner.CustomEventBannerListener.class);
-        context = new Activity();
+        context = Robolectric.buildActivity(Activity.class).create().get();
         localExtras = new HashMap<String, Object>();
         serverExtras = new HashMap<String, String>();
         responseBody = "expected response body";
@@ -121,5 +124,14 @@ public class HtmlBannerTest {
         assertThat(layoutParams.width).isEqualTo(320);
         assertThat(layoutParams.height).isEqualTo(50);
         assertThat(layoutParams.gravity).isEqualTo(Gravity.CENTER);
+    }
+
+    @Test
+    public void trackMpxAndThirdPartyImpressions_shouldFireJavascriptWebViewDidAppear() throws Exception {
+        subject.loadBanner(context, customEventBannerListener, localExtras, serverExtras);
+        subject.trackMpxAndThirdPartyImpressions();
+
+        verify(htmlBannerWebView).loadHtmlResponse(responseBody);
+        verify(htmlBannerWebView).loadUrl(eq("javascript:webviewDidAppear();"));
     }
 }

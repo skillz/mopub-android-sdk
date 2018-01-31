@@ -1,10 +1,11 @@
-package com.skillz.mopub.mobileads;
+package com.mopub.mobileads;
 
 import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 
-import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.VastVideoRadialCountdownWidget;
 import com.skillz.mopub.mobileads.resource.RadialCountdownDrawable;
 
 import org.junit.Before;

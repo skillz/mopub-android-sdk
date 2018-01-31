@@ -1,11 +1,11 @@
-package com.skillz.mopub.mobileads.factories;
+package com.mopub.mobileads.factories;
 
 import android.content.Context;
 
 import com.skillz.mopub.common.AdReport;
-import com.skillz.mopub.mobileads.HtmlBannerWebView;
+import com.mopub.mobileads.HtmlBannerWebView;
 
-import static com.skillz.mopub.mobileads.CustomEventBanner.CustomEventBannerListener;
+import static com.mopub.mobileads.CustomEventBanner.CustomEventBannerListener;
 
 public class HtmlBannerWebViewFactory {
     protected static HtmlBannerWebViewFactory instance = new HtmlBannerWebViewFactory();

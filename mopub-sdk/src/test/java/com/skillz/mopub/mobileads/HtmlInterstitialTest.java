@@ -1,10 +1,12 @@
-package com.skillz.mopub.mobileads;
+package com.mopub.mobileads;
 
 import android.app.Activity;
 import android.content.Intent;
 
-import com.skillz.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.test.support.TestHtmlInterstitialWebViewFactory;
+import com.mopub.common.test.support.SdkTestRunner;
+import com.mopub.mobileads.test.support.TestHtmlInterstitialWebViewFactory;
+import com.skillz.mopub.mobileads.HtmlInterstitial;
+import com.skillz.mopub.mobileads.HtmlInterstitialWebView;
 
 import org.junit.Before;
 import org.junit.Ignore;
@@ -25,7 +27,7 @@ import static com.skillz.mopub.common.DataKeys.SCROLLABLE_KEY;
 import static com.skillz.mopub.mobileads.CustomEventInterstitial.CustomEventInterstitialListener;
 import static com.skillz.mopub.common.IntentActions.ACTION_INTERSTITIAL_DISMISS;
 import static com.skillz.mopub.common.IntentActions.ACTION_INTERSTITIAL_SHOW;
-import static com.skillz.mopub.mobileads.EventForwardingBroadcastReceiverTest.getIntentForActionAndIdentifier;
+import static com.mopub.mobileads.EventForwardingBroadcastReceiverTest.getIntentForActionAndIdentifier;
 import static com.skillz.mopub.mobileads.MoPubErrorCode.NETWORK_INVALID_STATE;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Matchers.anyString;
@@ -93,7 +95,7 @@ public class HtmlInterstitialTest extends ResponseBodyInterstitialTest {
         assertThat(nextStartedActivity.getStringExtra(REDIRECT_URL_KEY)).isNull();
         assertThat(nextStartedActivity.getStringExtra(CLICKTHROUGH_URL_KEY)).isNull();
         assertThat(nextStartedActivity.getFlags() & Intent.FLAG_ACTIVITY_NEW_TASK).isNotEqualTo(0);
-        assertThat(nextStartedActivity.getComponent().getClassName()).isEqualTo("com.skillz.mopub.mobileads.MoPubActivity");
+        assertThat(nextStartedActivity.getComponent().getClassName()).isEqualTo("MoPubActivity");
     }
 
     @Test
@@ -111,7 +113,7 @@ public class HtmlInterstitialTest extends ResponseBodyInterstitialTest {
         assertThat(nextStartedActivity.getStringExtra(REDIRECT_URL_KEY)).isEqualTo("redirectUrl");
         assertThat(nextStartedActivity.getStringExtra(CLICKTHROUGH_URL_KEY)).isEqualTo("clickthroughUrl");
         assertThat(nextStartedActivity.getFlags() & Intent.FLAG_ACTIVITY_NEW_TASK).isNotEqualTo(0);
-        assertThat(nextStartedActivity.getComponent().getClassName()).isEqualTo("com.skillz.mopub.mobileads.MoPubActivity");
+        assertThat(nextStartedActivity.getComponent().getClassName()).isEqualTo("MoPubActivity");
     }
 
     @Test

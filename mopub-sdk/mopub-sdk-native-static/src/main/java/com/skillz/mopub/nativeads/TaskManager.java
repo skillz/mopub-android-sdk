@@ -1,10 +1,8 @@
-package com.skillz.mopub.nativeads;
+package com.mopub.nativeads;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import com.skillz.mopub.common.Preconditions;
-import com.skillz.mopub.common.Preconditions.NoThrow;
 
 import java.util.Collections;
 import java.util.HashMap;

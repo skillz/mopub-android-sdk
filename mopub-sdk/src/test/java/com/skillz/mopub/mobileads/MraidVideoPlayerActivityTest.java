@@ -1,12 +1,10 @@
-package com.skillz.mopub.mobileads;
+package com.mopub.mobileads;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.TextureView;
 import android.view.View;
@@ -14,11 +12,16 @@ import android.widget.ImageView;
 
 import com.skillz.mopub.common.Constants;
 import com.skillz.mopub.common.MoPubBrowser;
-import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BaseVideoPlayerActivity;
+import com.skillz.mopub.mobileads.BaseVideoViewController;
+import com.skillz.mopub.mobileads.MraidVideoPlayerActivity;
+import com.skillz.mopub.mobileads.VastVideoConfig;
+import com.skillz.mopub.mobileads.VastVideoViewController;
 import com.skillz.mopub.mraid.MraidVideoViewController;
-import com.skillz.mopub.nativeads.NativeFullScreenVideoView;
-import com.skillz.mopub.nativeads.NativeVideoController;
-import com.skillz.mopub.nativeads.NativeVideoViewController;
+import com.mopub.nativeads.NativeFullScreenVideoView;
+import com.mopub.nativeads.NativeVideoController;
+import com.mopub.nativeads.NativeVideoViewController;
 
 import org.junit.Before;
 import org.junit.Ignore;
@@ -44,7 +47,7 @@ public class MraidVideoPlayerActivityTest {
     private static final String VAST = "vast";
     private static final String MRAID = "mraid";
     private static final String NATIVE_VIDEO_VIEW_CONTROLLER =
-            "com.skillz.mopub.nativeads.NativeVideoViewController";
+            "com.mopub.nativeads.NativeVideoViewController";
 
     private MraidVideoPlayerActivity subject;
     private long testBroadcastIdentifier;
@@ -149,7 +152,7 @@ public class MraidVideoPlayerActivityTest {
 
         subject.onSetRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 
-       // assertThat(subject.getRequestedOrientation()).isEqualTo(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+      //  assertThat(subject.getRequestedOrientation()).isEqualTo(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
     }
 
     @Test
@@ -172,7 +175,7 @@ public class MraidVideoPlayerActivityTest {
 
         final ShadowActivity.IntentForResult intentForResult = Shadows.shadowOf(subject).getNextStartedActivityForResult();
 
-        assertThat(intentForResult.intent.getComponent().getClassName()).isEqualTo("com.skillz.mopub.common.MoPubBrowser");
+        assertThat(intentForResult.intent.getComponent().getClassName()).isEqualTo("MoPubBrowser");
         assertThat(intentForResult.intent.getExtras()).isEqualTo(expectedExtras);
         assertThat(intentForResult.requestCode).isEqualTo(100);
     }
@@ -218,7 +221,6 @@ public class MraidVideoPlayerActivityTest {
                 .get();
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void initializeSubjectForNative() {
         intent.putExtra(BaseVideoPlayerActivity.VIDEO_CLASS_EXTRAS_KEY, "native");
 

@@ -1,11 +1,15 @@
-package com.skillz.mopub.common.event;
+package com.mopub.common.event;
 
 import android.app.Activity;
 import android.content.Context;
 
 import com.skillz.mopub.common.ClientMetadata;
-import com.skillz.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.BuildConfig;
+import com.mopub.common.test.support.SdkTestRunner;
+import com.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.common.event.BaseEvent;
+import com.skillz.mopub.common.event.ErrorEvent;
+import com.skillz.mopub.common.event.Event;
+import com.skillz.mopub.common.event.EventSerializer;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -118,7 +122,7 @@ public class EventSerializerTest {
         when(mockBaseEvent.getDspCreativeId()).thenReturn("jack!fake234");
         when(mockBaseEvent.getAppPlatform()).thenReturn(BaseEvent.AppPlatform.ANDROID);
         when(mockBaseEvent.getAppName()).thenReturn("MoPub Sample App");
-        when(mockBaseEvent.getAppPackageName()).thenReturn("com.skillz.mopub.simpleadsdemo");
+        when(mockBaseEvent.getAppPackageName()).thenReturn("com.mopub.simpleadsdemo");
         when(mockBaseEvent.getAppVersion()).thenReturn("1.0");
         when(mockBaseEvent.getObfuscatedClientAdvertisingId()).thenCallRealMethod();
         when(mockBaseEvent.getClientAdvertisingId()).thenReturn("38400000-8cf0-11bd-b23e-10b96e40000d");
@@ -171,7 +175,7 @@ public class EventSerializerTest {
         // App Details
         assertThat(jsonObject.getInt("app_platform")).isEqualTo(2);
         assertThat(jsonObject.getString("app_name")).isEqualTo("MoPub Sample App");
-        assertThat(jsonObject.getString("app_package_name")).isEqualTo("com.skillz.mopub.simpleadsdemo");
+        assertThat(jsonObject.getString("app_package_name")).isEqualTo("com.mopub.simpleadsdemo");
         assertThat(jsonObject.getString("app_version")).isEqualTo("1.0");
 
         // Client Details

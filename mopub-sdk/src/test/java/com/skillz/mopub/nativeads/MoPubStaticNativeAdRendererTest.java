@@ -1,4 +1,4 @@
-package com.skillz.mopub.nativeads;
+package com.mopub.nativeads;
 
 import android.graphics.Bitmap;
 import android.view.View;
@@ -7,10 +7,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.mopub.common.test.support.SdkTestRunner;
 import com.skillz.mopub.common.util.Utils;
-import com.skillz.mopub.mobileads.BuildConfig;
-import com.skillz.mopub.nativeads.MoPubCustomEventNative.MoPubStaticNativeAd;
+import com.mopub.mobileads.BuildConfig;
+import com.mopub.nativeads.MoPubCustomEventNative.MoPubStaticNativeAd;
 import com.skillz.mopub.network.MaxWidthImageLoader;
 import com.skillz.mopub.network.MoPubRequestQueue;
 import com.skillz.mopub.network.Networking;

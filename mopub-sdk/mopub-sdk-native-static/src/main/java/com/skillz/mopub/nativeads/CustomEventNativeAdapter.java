@@ -1,4 +1,4 @@
-package com.skillz.mopub.nativeads;
+package com.mopub.nativeads;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 import com.skillz.mopub.common.DataKeys;
 import com.skillz.mopub.common.event.EventDetails;
 import com.skillz.mopub.common.logging.MoPubLog;
-import com.skillz.mopub.nativeads.factories.CustomEventNativeFactory;
+import com.mopub.nativeads.factories.CustomEventNativeFactory;
 import com.skillz.mopub.network.AdResponse;
 
 import java.util.Map;

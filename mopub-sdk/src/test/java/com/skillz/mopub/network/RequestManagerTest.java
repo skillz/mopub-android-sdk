@@ -5,6 +5,11 @@ import android.os.Looper;
 import com.skillz.mopub.common.test.support.SdkTestRunner;
 import com.skillz.mopub.mobileads.BuildConfig;
 import com.mopub.volley.Request;
+import com.skillz.mopub.network.MoPubRequestQueue;
+import com.skillz.mopub.network.Networking;
+import com.skillz.mopub.network.ScribeBackoffPolicy;
+import com.skillz.mopub.network.ScribeRequest;
+import com.skillz.mopub.network.ScribeRequestManager;
 
 import org.junit.Before;
 import org.junit.Test;

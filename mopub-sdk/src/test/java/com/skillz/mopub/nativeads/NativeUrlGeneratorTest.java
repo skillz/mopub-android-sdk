@@ -1,4 +1,4 @@
-package com.skillz.mopub.nativeads;
+package com.mopub.nativeads;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,10 +14,11 @@ import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
 
+import com.skillz.mopub.common.LocationService;
 import com.skillz.mopub.common.MoPub;
-import com.skillz.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.BuildConfig;
-import com.skillz.mopub.mobileads.test.support.MoPubShadowTelephonyManager;
+import com.mopub.common.test.support.SdkTestRunner;
+import com.mopub.mobileads.BuildConfig;
+import com.mopub.mobileads.test.support.MoPubShadowTelephonyManager;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -92,6 +93,8 @@ public class NativeUrlGeneratorTest {
             when(spyApplicationContext.getSystemService(Context.WINDOW_SERVICE)).thenReturn(mockWindowManager);
             when(context.getApplicationContext()).thenReturn(spyApplicationContext);
         }
+
+        LocationService.clearLastKnownLocation();
     }
 
     @Test
@@ -301,7 +304,7 @@ public class NativeUrlGeneratorTest {
                         TEST_SCREEN_HEIGHT +
                         "&sc_a=" +
                         TEST_DENSITY +
-                        "&ct=3&av=" + BuildConfig.VERSION_NAME +
+                        "&ct=3&av=" + Uri.encode(BuildConfig.VERSION_NAME) +
                         "&udid=mp_tmpl_advertising_id&dnt=mp_tmpl_do_not_track");
     }
 

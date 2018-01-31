@@ -1,15 +1,15 @@
-package com.skillz.mopub.nativeads;
+package com.mopub.nativeads;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.skillz.mopub.common.logging.MoPubLog;
-import com.skillz.mopub.nativeads.MoPubNativeAdPositioning.MoPubClientPositioning;
+import com.mopub.nativeads.MoPubNativeAdPositioning.MoPubClientPositioning;
 
 import java.util.List;
 
 /**
- * A data that represents placed ads in a {@link com.skillz.mopub.nativeads.MoPubStreamAdPlacer},
+ * A data that represents placed ads in a {@link com.mopub.nativeads.MoPubStreamAdPlacer},
  * useful for tracking insertion and placed ad positions.
  *
  * It maintains four lists of integers
@@ -259,7 +259,7 @@ class PlacementData {
     }
 
     /**
-     * @see {@link com.skillz.mopub.nativeads.MoPubStreamAdPlacer#isAd(int)}
+     * @see {@link com.mopub.nativeads.MoPubStreamAdPlacer#isAd(int)}
      */
     boolean isPlacedAd(final int position) {
         final int index = binarySearch(mAdjustedAdPositions, 0, mPlacedCount, position);
@@ -291,7 +291,7 @@ class PlacementData {
     }
 
     /**
-     * @see com.skillz.mopub.nativeads.MoPubStreamAdPlacer#getOriginalPosition(int)
+     * @see com.mopub.nativeads.MoPubStreamAdPlacer#getOriginalPosition(int)
      */
     int getOriginalPosition(final int position) {
         final int index = binarySearch(mAdjustedAdPositions, 0, mPlacedCount, position);
@@ -306,7 +306,7 @@ class PlacementData {
     }
 
     /**
-     * @see com.skillz.mopub.nativeads.MoPubStreamAdPlacer#getAdjustedPosition(int)
+     * @see com.mopub.nativeads.MoPubStreamAdPlacer#getAdjustedPosition(int)
      */
     int getAdjustedPosition(final int originalPosition) {
         // This is an ad. Since binary search doesn't properly handle dups, find the first non-ad.
@@ -315,7 +315,7 @@ class PlacementData {
     }
 
     /**
-     * @see com.skillz.mopub.nativeads.MoPubStreamAdPlacer#getOriginalCount(int)
+     * @see com.mopub.nativeads.MoPubStreamAdPlacer#getOriginalCount(int)
      */
     int getOriginalCount(final int count) {
         if (count == 0) {
@@ -328,7 +328,7 @@ class PlacementData {
     }
 
     /**
-     * @see com.skillz.mopub.nativeads.MoPubStreamAdPlacer#getAdjustedCount(int)
+     * @see com.mopub.nativeads.MoPubStreamAdPlacer#getAdjustedCount(int)
      */
     int getAdjustedCount(final int originalCount) {
         if (originalCount == 0) {
@@ -414,7 +414,7 @@ class PlacementData {
     }
 
     /**
-     * @see com.skillz.mopub.nativeads.MoPubStreamAdPlacer#insertItem(int)
+     * @see com.mopub.nativeads.MoPubStreamAdPlacer#insertItem(int)
      */
     void insertItem(final int originalPosition) {
 
@@ -436,7 +436,7 @@ class PlacementData {
     }
 
     /**
-     * @see com.skillz.mopub.nativeads.MoPubStreamAdPlacer#removeItem(int)
+     * @see com.mopub.nativeads.MoPubStreamAdPlacer#removeItem(int)
      */
     void removeItem(final int originalPosition) {
         // When removing items, we only decrement ad position values *greater* than the original
@@ -462,7 +462,7 @@ class PlacementData {
     }
 
     /**
-     * @see com.skillz.mopub.nativeads.MoPubStreamAdPlacer#moveItem(int, int)
+     * @see com.mopub.nativeads.MoPubStreamAdPlacer#moveItem(int, int)
      */
     void moveItem(final int originalPosition, final int newPosition) {
         removeItem(originalPosition);

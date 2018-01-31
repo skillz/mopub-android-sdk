@@ -1,18 +1,22 @@
-package com.skillz.mopub.mobileads;
+package com.mopub.mobileads;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build.VERSION_CODES;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 
-import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.CustomEventInterstitial;
+import com.skillz.mopub.mobileads.EventForwardingBroadcastReceiver;
+import com.skillz.mopub.mobileads.MoPubErrorCode;
+import com.skillz.mopub.mobileads.MraidActivity;
+import com.skillz.mopub.mobileads.ResponseBodyInterstitial;
 import com.skillz.mopub.mraid.MraidBridge;
 import com.skillz.mopub.mraid.MraidBridge.MraidWebView;
 import com.skillz.mopub.mraid.MraidController;
@@ -36,13 +40,14 @@ import static com.skillz.mopub.common.DataKeys.HTML_RESPONSE_BODY_KEY;
 import static com.skillz.mopub.common.IntentActions.ACTION_INTERSTITIAL_CLICK;
 import static com.skillz.mopub.common.IntentActions.ACTION_INTERSTITIAL_DISMISS;
 import static com.skillz.mopub.common.IntentActions.ACTION_INTERSTITIAL_SHOW;
-import static com.skillz.mopub.mobileads.EventForwardingBroadcastReceiverTest.getIntentForActionAndIdentifier;
+import static com.mopub.mobileads.EventForwardingBroadcastReceiverTest.getIntentForActionAndIdentifier;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 
 @RunWith(SdkTestRunner.class)
@@ -57,6 +62,8 @@ public class MraidActivityTest {
     @Mock CustomEventInterstitial.CustomEventInterstitialListener
             customEventInterstitialListener;
     @Mock BroadcastReceiver broadcastReceiver;
+    @Mock
+    ResponseBodyInterstitial mraidInterstitial;
 
     Context context;
 
@@ -70,25 +77,29 @@ public class MraidActivityTest {
     @Before
     public void setUp() throws Exception {
         context = Robolectric.buildActivity(Activity.class).create().get();
+        when(mockMraidWebView.getContext()).thenReturn(context);
     }
 
     @Test
     public void preRenderHtml_shouldEnableJavascriptCachingForDummyWebView() {
-        MraidActivity.preRenderHtml(customEventInterstitialListener, HTML_DATA, mockMraidWebView);
+        MraidActivity.preRenderHtml(mraidInterstitial, customEventInterstitialListener, HTML_DATA,
+                mockMraidWebView, testBroadcastIdentifier);
 
         verify(mockMraidWebView).enableJavascriptCaching();
     }
 
     @Test
     public void preRenderHtml_shouldDisablePluginsForDummyWebView() {
-        MraidActivity.preRenderHtml(customEventInterstitialListener, HTML_DATA, mockMraidWebView);
+        MraidActivity.preRenderHtml(mraidInterstitial, customEventInterstitialListener, HTML_DATA,
+                mockMraidWebView, testBroadcastIdentifier);
 
         verify(mockMraidWebView).enablePlugins(false);
     }
 
     @Test
     public void preRenderHtml_shouldLoadHtml() {
-        MraidActivity.preRenderHtml(customEventInterstitialListener, HTML_DATA, mockMraidWebView);
+        MraidActivity.preRenderHtml(mraidInterstitial, customEventInterstitialListener, HTML_DATA,
+                mockMraidWebView, testBroadcastIdentifier);
 
         verify(mockMraidWebView).loadDataWithBaseURL(
                 "http://ads.mopub.com/",
@@ -102,7 +113,8 @@ public class MraidActivityTest {
     @Ignore("Mraid 2.0")
     @Test
     public void preRenderHtml_shouldSetWebViewClient() throws Exception {
-        MraidActivity.preRenderHtml(subject, customEventInterstitialListener, "3:27");
+        MraidActivity.preRenderHtml(mraidInterstitial, subject, customEventInterstitialListener,
+                "3:27", testBroadcastIdentifier);
 
         verify(mockMraidWebView).enablePlugins(eq(false));
         verify(mraidController).setMraidListener(any(MraidListener.class));
@@ -113,7 +125,8 @@ public class MraidActivityTest {
     @Ignore("Mraid 2.0")
     @Test
     public void preRenderHtml_shouldCallCustomEventInterstitialOnInterstitialLoaded_whenMraidListenerOnReady() throws Exception {
-        MraidActivity.preRenderHtml(subject, customEventInterstitialListener, "");
+        MraidActivity.preRenderHtml(mraidInterstitial, subject, customEventInterstitialListener, "",
+                testBroadcastIdentifier);
 
         ArgumentCaptor<MraidListener> mraidListenerArgumentCaptorr = ArgumentCaptor.forClass(MraidListener.class);
         verify(mraidController).setMraidListener(mraidListenerArgumentCaptorr.capture());
@@ -127,7 +140,8 @@ public class MraidActivityTest {
     @Ignore("Mraid 2.0")
     @Test
     public void preRenderHtml_shouldCallCustomEventInterstitialOnInterstitialFailed_whenMraidListenerOnFailure() throws Exception {
-        MraidActivity.preRenderHtml(subject, customEventInterstitialListener, "");
+        MraidActivity.preRenderHtml(mraidInterstitial, subject, customEventInterstitialListener, "",
+                testBroadcastIdentifier);
 
         ArgumentCaptor<MraidListener> mraidListenerArgumentCaptorr = ArgumentCaptor.forClass(MraidListener.class);
         verify(mraidController).setMraidListener(mraidListenerArgumentCaptorr.capture());
@@ -141,13 +155,14 @@ public class MraidActivityTest {
     @Ignore("Mraid 2.0")
     @Test
     public void preRenderHtml_whenWebViewClientShouldOverrideUrlLoading_shouldReturnTrue() throws Exception {
-        MraidActivity.preRenderHtml(subject, customEventInterstitialListener, "");
+        MraidActivity.preRenderHtml(mraidInterstitial, subject, customEventInterstitialListener, "",
+                testBroadcastIdentifier);
 
         ArgumentCaptor<WebViewClient> webViewClientArgumentCaptor = ArgumentCaptor.forClass(WebViewClient.class);
         verify(mockMraidWebView).setWebViewClient(webViewClientArgumentCaptor.capture());
         WebViewClient webViewClient = webViewClientArgumentCaptor.getValue();
 
-        boolean consumeUrlLoading = webViewClient.shouldOverrideUrlLoading(null, null);
+        boolean consumeUrlLoading = webViewClient.shouldOverrideUrlLoading(null, (String) null);
 
         assertThat(consumeUrlLoading).isTrue();
         verify(customEventInterstitialListener, never()).onInterstitialLoaded();
@@ -158,7 +173,8 @@ public class MraidActivityTest {
     @Ignore("Mraid 2.0")
     @Test
     public void preRenderHtml_shouldCallCustomEventInterstitialOnInterstitialLoaded_whenWebViewClientOnPageFinished() throws Exception {
-        MraidActivity.preRenderHtml(subject, customEventInterstitialListener, "");
+        MraidActivity.preRenderHtml(mraidInterstitial, subject, customEventInterstitialListener, "",
+                testBroadcastIdentifier);
 
         ArgumentCaptor<WebViewClient> webViewClientArgumentCaptor = ArgumentCaptor.forClass(WebViewClient.class);
         verify(mockMraidWebView).setWebViewClient(webViewClientArgumentCaptor.capture());
@@ -202,24 +218,13 @@ public class MraidActivityTest {
         assertThat(actualLayoutParams.height).isEqualTo(FrameLayout.LayoutParams.MATCH_PARENT);
     }
 
-    @Config(sdk = VERSION_CODES.ICE_CREAM_SANDWICH)
     @Ignore("Mraid 2.0")
     @Test
-    public void onCreate_atLeastIcs_shouldSetHardwareAcceleratedFlag() throws Exception {
+    public void onCreate_shouldSetHardwareAcceleratedFlag() throws Exception {
         subject.onCreate(null);
 
         boolean hardwareAccelerated = Shadows.shadowOf(subject.getWindow()).getFlag(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
         assertThat(hardwareAccelerated).isTrue();
-    }
-
-    @Config(sdk = VERSION_CODES.HONEYCOMB_MR2)
-    @Ignore("Mraid 2.0")
-    @Test
-    public void onCreate_beforeIcs_shouldNotSetHardwareAcceleratedFlag() throws Exception {
-        subject.onCreate(null);
-
-        boolean hardwareAccelerated = Shadows.shadowOf(subject.getWindow()).getFlag(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
-        assertThat(hardwareAccelerated).isFalse();
     }
 
     @Ignore("Mraid 2.0")

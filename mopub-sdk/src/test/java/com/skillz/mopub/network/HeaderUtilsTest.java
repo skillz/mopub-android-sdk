@@ -1,8 +1,9 @@
-package com.skillz.mopub.network;
+package com.mopub.network;
 
-import com.skillz.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.BuildConfig;
-import com.skillz.mopub.mobileads.test.support.TestHttpResponseWithHeaders;
+import com.mopub.common.test.support.SdkTestRunner;
+import com.mopub.mobileads.BuildConfig;
+import com.mopub.mobileads.test.support.TestHttpResponseWithHeaders;
+import com.skillz.mopub.network.HeaderUtils;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -2,6 +2,8 @@ package com.skillz.mopub.common.util;
 
 import android.app.Activity;
 
+import com.skillz.mopub.common.util.Drawables;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;

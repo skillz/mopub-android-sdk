@@ -1,5 +1,7 @@
 package com.skillz.mopub.mobileads;
 
+import com.skillz.mopub.mobileads.ResponseBodyInterstitial;
+
 import org.junit.Ignore;
 import org.junit.Test;
 

@@ -1,6 +1,5 @@
-package com.skillz.mopub.nativeads;
+package com.mopub.nativeads;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -9,22 +8,21 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.SurfaceTexture;
 import android.graphics.drawable.GradientDrawable;
-import android.os.Build;
 import android.view.TextureView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
-import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.mopub.common.test.support.SdkTestRunner;
 import com.skillz.mopub.common.util.Dips;
 import com.skillz.mopub.common.util.Drawables;
-import com.skillz.mopub.mobileads.BuildConfig;
+import com.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.mobileads.VastVideoProgressBarWidget;
 import com.skillz.mopub.mobileads.resource.CloseButtonDrawable;
 import com.skillz.mopub.mobileads.resource.CtaButtonDrawable;
-import com.skillz.mopub.nativeads.NativeFullScreenVideoView.LoadingBackground;
-import com.skillz.mopub.nativeads.NativeFullScreenVideoView.Mode;
+import com.mopub.nativeads.NativeFullScreenVideoView.LoadingBackground;
+import com.mopub.nativeads.NativeFullScreenVideoView.Mode;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -44,7 +42,6 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 @RunWith(SdkTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class NativeFullScreenVideoViewTest {

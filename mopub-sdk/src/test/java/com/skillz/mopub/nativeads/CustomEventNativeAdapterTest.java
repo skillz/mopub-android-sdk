@@ -1,12 +1,12 @@
-package com.skillz.mopub.nativeads;
+package com.mopub.nativeads;
 
 import android.app.Activity;
 
 import com.skillz.mopub.common.AdType;
 import com.skillz.mopub.common.DataKeys;
-import com.skillz.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.BuildConfig;
-import com.skillz.mopub.nativeads.test.support.TestCustomEventNativeFactory;
+import com.mopub.common.test.support.SdkTestRunner;
+import com.mopub.mobileads.BuildConfig;
+import com.mopub.nativeads.test.support.TestCustomEventNativeFactory;
 import com.skillz.mopub.network.AdResponse;
 
 import org.junit.Before;
@@ -44,7 +44,7 @@ public class CustomEventNativeAdapterTest {
 
         testAdResponse = new AdResponse.Builder()
                 .setAdType(AdType.STATIC_NATIVE)
-                .setCustomEventClassName("com.skillz.mopub.nativeads.MoPubCustomEventNative")
+                .setCustomEventClassName("com.mopub.nativeads.MoPubCustomEventNative")
                 .setClickTrackingUrl("clicktrackingurl")
                 .setResponseBody("body")
                 .setServerExtras(serverExtras)
@@ -68,7 +68,7 @@ public class CustomEventNativeAdapterTest {
     @Test
     public void loadNativeAd_withInvalidClassName_shouldNotifyListenerOfOnNativeAdFailedAndReturn() throws Exception {
         testAdResponse = testAdResponse.toBuilder()
-                .setCustomEventClassName("com.skillz.mopub.baaad.invalidinvalid123143")
+                .setCustomEventClassName("com.mopub.baaad.invalidinvalid123143")
                 .build();
 
         CustomEventNativeAdapter.loadNativeAd(context, localExtras, testAdResponse, mCustomEventNativeListener);

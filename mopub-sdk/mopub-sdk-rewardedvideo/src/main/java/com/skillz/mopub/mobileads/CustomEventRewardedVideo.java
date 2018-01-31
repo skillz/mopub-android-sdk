@@ -1,10 +1,9 @@
-package com.skillz.mopub.mobileads;
+package com.mopub.mobileads;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.skillz.mopub.common.DataKeys;
 import com.skillz.mopub.common.LifecycleListener;
 import com.skillz.mopub.common.MoPubLifecycleManager;
 import com.skillz.mopub.common.VisibleForTesting;
@@ -13,23 +12,9 @@ import com.skillz.mopub.common.logging.MoPubLog;
 import java.util.Map;
 
 /**
- *
+ * The base class when dealing with rewarded formats.
  */
-public abstract class CustomEventRewardedVideo {
-
-    /**
-     * This marker interface is used to indicate that an object is a listener for a 3rd party SDKs
-     * rewarded video system.
-     */
-    @VisibleForTesting
-    protected static interface CustomEventRewardedVideoListener {}
-
-    /**
-     * Called by the {@link MoPubRewardedVideoManager} after loading the custom event.
-     */
-    @Nullable
-    @VisibleForTesting
-    protected abstract CustomEventRewardedVideoListener getVideoListenerForSdk();
+public abstract class CustomEventRewardedAd {
 
     /**
      * Provides a {@link LifecycleListener} if the custom event's ad network wishes to be notified of
@@ -42,36 +27,20 @@ public abstract class CustomEventRewardedVideo {
     protected abstract LifecycleListener getLifecycleListener();
 
     /**
-     * Called by the {@link MoPubRewardedVideoManager} after loading the custom event.
-     * This should return the "ad unit id", "zone id" or similar identifier for the network.
-     * May be empty if the network does not have anything more specific than an application ID.
-     *
-     * @return the id string for this ad unit with the ad network.
-     */
-    @NonNull
-    protected abstract String getAdNetworkId();
-
-    /**
-     * Called to when the custom event is no longer used. Implementers should cancel any
-     * pending requests. The initialized SDK may be reused by another CustomEvent instance
-     * and should not be shut down or cleaned up.
-     */
-    protected abstract void onInvalidate();
-
-    /**
      * The MoPub ad loading system calls this after MoPub indicates that this custom event should
      * be loaded.
      *
      * @param launcherActivity the "main activity" of the app. Useful for initializing sdks.
-     * @param localExtras a map containing additional custom data set in app
-     * @param serverExtras a map containing additional custom data configurable on the mopub website
+     * @param localExtras      a map containing additional custom data set in app
+     * @param serverExtras     a map containing additional custom data configurable on the mopub website
      */
     final void loadCustomEvent(@NonNull Activity launcherActivity,
             @NonNull Map<String, Object> localExtras,
             @NonNull Map<String, String> serverExtras) {
         try {
             if (checkAndInitializeSdk(launcherActivity, localExtras, serverExtras)) {
-                MoPubLifecycleManager.getInstance(launcherActivity).addLifecycleListener(getLifecycleListener());
+                MoPubLifecycleManager.getInstance(launcherActivity).addLifecycleListener(
+                        getLifecycleListener());
             }
             loadWithSdkInitialized(launcherActivity, localExtras, serverExtras);
         } catch (Exception e) {
@@ -94,16 +63,15 @@ public abstract class CustomEventRewardedVideo {
     /**
      * Runs the ad-loading logic for the 3rd party SDK. localExtras & serverExtras should together
      * contain all the data needed to load an ad.
-     *
+     * <p/>
      * Implementers should also use this method (or checkAndInitializeSdk)
-     * to register a listener for their SDK, wrap it in a
-     * {@link com.skillz.mopub.mobileads.CustomEventRewardedVideo.CustomEventRewardedVideoListener}
-     *
+     * to register a listener for their SDK.
+     * <p/>
      * This method should not call any {@link MoPubRewardedVideoManager} event methods directly
      * (onAdLoadSuccess, etc). Instead the SDK delegate/listener should call these methods.
      *
-     * @param activity the "main activity" of the app. Useful for initializing sdks.
-     * @param localExtras a map containing additional custom data set in app
+     * @param activity     the "main activity" of the app. Useful for initializing sdks.
+     * @param localExtras  a map containing additional custom data set in app
      * @param serverExtras a map containing additional custom data configurable on the mopub website
      */
     protected abstract void loadWithSdkInitialized(@NonNull Activity activity,
@@ -112,15 +80,32 @@ public abstract class CustomEventRewardedVideo {
             throws Exception;
 
     /**
-     * Implementers should query the 3rd party SDK for whether there is a video available for the
-     * 3rd party SDK & ID represented by the custom event.
+     * Called by the {@link MoPubRewardedVideoManager} after loading the custom event.
+     * This should return the "ad unit id", "zone id" or similar identifier for the network.
+     * May be empty if the network does not have anything more specific than an application ID.
+     *
+     * @return the id string for this ad unit with the ad network.
+     */
+    @NonNull
+    protected abstract String getAdNetworkId();
+
+    /**
+     * Called to when the custom event is no longer used. Implementers should cancel any
+     * pending requests. The initialized SDK may be reused by another CustomEvent instance
+     * and should not be shut down or cleaned up.
+     */
+    protected abstract void onInvalidate();
+
+    /**
+     * Implementers should query the 3rd party SDK for whether the 3rd party SDK & ID represented
+     * by the custom event is ready to be shown.
      *
      * @return true iff a video is available to play.
      */
-    protected abstract boolean hasVideoAvailable();
+    protected abstract boolean isReady();
 
     /**
-     * Implementers should now play the rewarded video for this custom event.
+     * Implementers should now play the rewarded item for this custom event.
      */
-    protected abstract void showVideo();
+    protected abstract void show();
 }

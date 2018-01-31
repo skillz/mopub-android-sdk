@@ -1,11 +1,12 @@
-package com.skillz.mopub.common.util;
+package com.mopub.common.util;
 
 import android.app.Activity;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
 
-import com.skillz.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.BuildConfig;
+import com.mopub.common.test.support.SdkTestRunner;
+import com.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.common.util.Dips;
 
 import org.junit.Before;
 import org.junit.Test;
