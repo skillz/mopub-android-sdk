@@ -1,15 +1,13 @@
-package com.mopub.network;
+package com.skillz.mopub.network;
 
 import android.app.Activity;
 import android.content.Context;
 
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.common.VolleyRequestMatcher;
 import com.skillz.mopub.mobileads.VastErrorCode;
 import com.skillz.mopub.mobileads.VastTracker;
-import com.skillz.mopub.network.MoPubRequestQueue;
-import com.skillz.mopub.network.Networking;
-import com.skillz.mopub.network.TrackingRequest;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +18,6 @@ import org.robolectric.annotation.Config;
 
 import java.util.Arrays;
 
-import static com.mopub.common.VolleyRequestMatcher.isUrl;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.never;
@@ -76,7 +73,7 @@ public class TrackingRequestTest {
                 context
         );
 
-        verify(mockRequestQueue).add(argThat(isUrl(
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl(
                 "uri?errorcode=900&contentplayhead=00:00:00.123&asseturi=assetUri")));
 
         TrackingRequest.makeVastTrackingHttpRequest(
@@ -101,7 +98,7 @@ public class TrackingRequestTest {
                 context
         );
 
-        verify(mockRequestQueue).add(argThat(isUrl(
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl(
                 "uri?errorcode=900&contentplayhead=00:00:00.123&asseturi=assetUri")));
 
         TrackingRequest.makeVastTrackingHttpRequest(
@@ -112,7 +109,7 @@ public class TrackingRequestTest {
                 context
         );
 
-        verify(mockRequestQueue).add(argThat(isUrl(
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl(
                 "uri?errorcode=900&contentplayhead=00:00:00.123&asseturi=assetUri")));
     }
 }

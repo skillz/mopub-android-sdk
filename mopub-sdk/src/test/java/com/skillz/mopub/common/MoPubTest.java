@@ -1,16 +1,14 @@
-package com.mopub.common;
+package com.skillz.mopub.common;
 
 import android.app.Activity;
 
-import com.skillz.mopub.common.MediationSettings;
-import com.skillz.mopub.common.MoPub;
 import com.skillz.mopub.common.MoPub.BrowserAgent;
-import com.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
 import com.skillz.mopub.common.util.Reflection;
-import com.mopub.mobileads.BuildConfig;
-import com.mopub.mobileads.MoPubRewardedVideoListener;
-import com.mopub.mobileads.MoPubRewardedVideoManager;
-import com.mopub.mobileads.MoPubRewardedVideos;
+import com.skillz.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.mobileads.MoPubRewardedVideoListener;
+import com.skillz.mopub.mobileads.MoPubRewardedVideoManager;
+import com.skillz.mopub.mobileads.MoPubRewardedVideos;
 
 import org.junit.Before;
 import org.junit.Rule;

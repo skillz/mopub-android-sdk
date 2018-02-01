@@ -1,17 +1,14 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.mobileads.test.support.VastUtils;
-import com.skillz.mopub.mobileads.VastAdXmlManager;
-import com.skillz.mopub.mobileads.VastInLineXmlManager;
-import com.skillz.mopub.mobileads.VastWrapperXmlManager;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.mobileads.test.support.VastUtils;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.annotation.Config;
 import org.w3c.dom.Node;
 
-import static com.mopub.mobileads.test.support.VastUtils.createNode;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 @RunWith(SdkTestRunner.class)
@@ -35,7 +32,7 @@ public class VastAdXmlManagerTest {
                 "    </Wrapper>" +
                 "</Ad>";
 
-        Node adNode = createNode(adXml);
+        Node adNode = VastUtils.createNode(adXml);
         subject = new VastAdXmlManager(adNode);
 
         VastInLineXmlManager vastInLineXmlManager = subject.getInLineXmlManager();
@@ -63,7 +60,7 @@ public class VastAdXmlManagerTest {
                 "    </Wrapper>" +
                 "</Ad>";
 
-        Node adNode = createNode(adXml);
+        Node adNode = VastUtils.createNode(adXml);
         subject = new VastAdXmlManager(adNode);
 
         VastInLineXmlManager vastInLineXmlManager = subject.getInLineXmlManager();
@@ -81,7 +78,7 @@ public class VastAdXmlManagerTest {
                 "    </Wrapper>" +
                 "</Ad>";
 
-        Node adNode = createNode(adXml);
+        Node adNode = VastUtils.createNode(adXml);
         subject = new VastAdXmlManager(adNode);
 
         assertThat(subject.getInLineXmlManager()).isNull();
@@ -102,7 +99,7 @@ public class VastAdXmlManagerTest {
                 "    </Wrapper>" +
                 "</Ad>";
 
-        Node adNode = createNode(adXml);
+        Node adNode = VastUtils.createNode(adXml);
         subject = new VastAdXmlManager(adNode);
 
         VastWrapperXmlManager vastWrapperXmlManager = subject.getWrapperXmlManager();
@@ -130,7 +127,7 @@ public class VastAdXmlManagerTest {
                 "    </Wrapper>" +
                 "</Ad>";
 
-        Node adNode = createNode(adXml);
+        Node adNode = VastUtils.createNode(adXml);
         subject = new VastAdXmlManager(adNode);
 
         VastWrapperXmlManager vastWrapperXmlManager = subject.getWrapperXmlManager();
@@ -148,7 +145,7 @@ public class VastAdXmlManagerTest {
                 "    </InLine>" +
                 "</Ad>";
 
-        Node adNode = createNode(adXml);
+        Node adNode = VastUtils.createNode(adXml);
         subject = new VastAdXmlManager(adNode);
 
         assertThat(subject.getWrapperXmlManager()).isNull();
@@ -169,7 +166,7 @@ public class VastAdXmlManagerTest {
                 "    </Wrapper>" +
                 "</Ad>";
 
-        Node adNode = createNode(adXml);
+        Node adNode = VastUtils.createNode(adXml);
         subject = new VastAdXmlManager(adNode);
 
         assertThat(subject.getSequence()).isEqualTo("42");

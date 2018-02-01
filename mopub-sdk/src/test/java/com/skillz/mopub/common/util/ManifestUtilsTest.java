@@ -1,4 +1,4 @@
-package com.mopub.common.util;
+package com.skillz.mopub.common.util;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -13,7 +13,7 @@ import com.skillz.mopub.mobileads.MoPubActivity;
 import com.skillz.mopub.mobileads.MraidActivity;
 import com.skillz.mopub.common.util.ManifestUtils;
 import com.skillz.mopub.mobileads.MraidVideoPlayerActivity;
-import com.mopub.mobileads.RewardedMraidActivity;
+import com.skillz.mopub.mobileads.RewardedMraidActivity;
 
 import org.junit.After;
 import org.junit.Before;
@@ -75,7 +75,7 @@ public class ManifestUtilsTest {
         assertLogIncludes(
                 "MoPubActivity",
                 "MraidActivity",
-                "com.mopub.mobileads.RewardedMraidActivity",
+                "RewardedMraidActivity",
                 "MraidVideoPlayerActivity",
                 "MoPubBrowser"
         );
@@ -143,7 +143,7 @@ public class ManifestUtilsTest {
         assertLogDoesntInclude(
                 "MoPubActivity",
                 "MraidActivity",
-                "com.mopub.mobileads.RewardedMraidActivity",
+                "RewardedMraidActivity",
                 "MraidVideoPlayerActivity"
         );
     }
@@ -160,7 +160,7 @@ public class ManifestUtilsTest {
         assertLogIncludes(
                 "MoPubActivity",
                 "MraidActivity",
-                "com.mopub.mobileads.RewardedMraidActivity",
+                "RewardedMraidActivity",
                 "MraidVideoPlayerActivity",
                 "MoPubBrowser"
         );
@@ -243,7 +243,7 @@ public class ManifestUtilsTest {
         assertLogIncludes("The android:configChanges param for activity " + MoPubActivity.class.getName() + " must include keyboardHidden.");
         assertLogDoesntInclude(
                 "MraidActivity",
-                "com.mopub.mobileads.RewardedMraidActivity",
+                "RewardedMraidActivity",
                 "MraidVideoPlayerActivity",
                 "MoPubBrowser"
         );
@@ -356,7 +356,7 @@ public class ManifestUtilsTest {
     private void addInterstitialModule() {
         Class moPubActivityClass = MoPubActivity.class;
         Class mraidActivityClass = MraidActivity.class;
-        Class rewardedMraidActivityClass = com.mopub.mobileads.RewardedMraidActivity.class;
+        Class rewardedMraidActivityClass = RewardedMraidActivity.class;
         if (!ManifestUtils.getRequiredWebViewSdkActivities().contains(moPubActivityClass)) {
             ManifestUtils.getRequiredWebViewSdkActivities().add(moPubActivityClass);
         }
@@ -371,7 +371,7 @@ public class ManifestUtilsTest {
     private void removeInterstitialModule() {
         Class moPubActivityClass = MoPubActivity.class;
         Class mraidActivityClass = MraidActivity.class;
-        Class rewardedMraidActivityClass = com.mopub.mobileads.RewardedMraidActivity.class;
+        Class rewardedMraidActivityClass = RewardedMraidActivity.class;
         ManifestUtils.getRequiredWebViewSdkActivities().remove(moPubActivityClass);
         ManifestUtils.getRequiredWebViewSdkActivities().remove(mraidActivityClass);
         ManifestUtils.getRequiredWebViewSdkActivities().remove(rewardedMraidActivityClass);

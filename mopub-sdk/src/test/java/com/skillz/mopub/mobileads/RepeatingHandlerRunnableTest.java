@@ -1,10 +1,10 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.os.Handler;
 import android.support.annotation.NonNull;
 
-import com.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.RepeatingHandlerRunnable;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
 
 import org.junit.Before;
 import org.junit.Test;

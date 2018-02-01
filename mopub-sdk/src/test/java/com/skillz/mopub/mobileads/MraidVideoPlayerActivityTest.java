@@ -1,4 +1,4 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,18 +10,14 @@ import android.view.TextureView;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.skillz.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.common.Constants;
 import com.skillz.mopub.common.MoPubBrowser;
-import com.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.BaseVideoPlayerActivity;
-import com.skillz.mopub.mobileads.BaseVideoViewController;
-import com.skillz.mopub.mobileads.MraidVideoPlayerActivity;
-import com.skillz.mopub.mobileads.VastVideoConfig;
-import com.skillz.mopub.mobileads.VastVideoViewController;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
 import com.skillz.mopub.mraid.MraidVideoViewController;
-import com.mopub.nativeads.NativeFullScreenVideoView;
-import com.mopub.nativeads.NativeVideoController;
-import com.mopub.nativeads.NativeVideoViewController;
+import com.skillz.mopub.nativeads.NativeFullScreenVideoView;
+import com.skillz.mopub.nativeads.NativeVideoController;
+import com.skillz.mopub.nativeads.NativeVideoViewController;
 
 import org.junit.Before;
 import org.junit.Ignore;
@@ -47,7 +43,7 @@ public class MraidVideoPlayerActivityTest {
     private static final String VAST = "vast";
     private static final String MRAID = "mraid";
     private static final String NATIVE_VIDEO_VIEW_CONTROLLER =
-            "com.mopub.nativeads.NativeVideoViewController";
+            "NativeVideoViewController";
 
     private MraidVideoPlayerActivity subject;
     private long testBroadcastIdentifier;

@@ -1,17 +1,13 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.content.Context;
 import android.location.Location;
 
+import com.skillz.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.common.AdReport;
 import com.skillz.mopub.common.DataKeys;
-import com.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.CustomEventInterstitial;
-import com.skillz.mopub.mobileads.CustomEventInterstitialAdapter;
-import com.skillz.mopub.mobileads.MoPubInterstitial;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
 import com.skillz.mopub.mobileads.factories.CustomEventInterstitialFactory;
-import com.skillz.mopub.mobileads.AdViewController;
-import com.skillz.mopub.mobileads.MoPubErrorCode;
 
 import org.junit.Before;
 import org.junit.Test;

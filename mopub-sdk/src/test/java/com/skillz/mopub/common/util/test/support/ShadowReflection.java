@@ -1,4 +1,4 @@
-package com.mopub.common.util.test.support;
+package com.skillz.mopub.common.util.test.support;
 
 import android.support.annotation.NonNull;
 

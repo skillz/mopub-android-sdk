@@ -1,4 +1,4 @@
-package com.mopub.nativeads;
+package com.skillz.mopub.nativeads;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,8 +16,6 @@ import android.widget.ListView;
 import com.skillz.mopub.common.Preconditions;
 import com.skillz.mopub.common.Preconditions.NoThrow;
 import com.skillz.mopub.common.VisibleForTesting;
-import com.mopub.nativeads.MoPubNativeAdPositioning.MoPubClientPositioning;
-import com.mopub.nativeads.MoPubNativeAdPositioning.MoPubServerPositioning;
 
 import java.util.List;
 import java.util.WeakHashMap;
@@ -25,7 +23,7 @@ import java.util.WeakHashMap;
 import static android.widget.AdapterView.OnItemClickListener;
 import static android.widget.AdapterView.OnItemLongClickListener;
 import static android.widget.AdapterView.OnItemSelectedListener;
-import static com.mopub.nativeads.VisibilityTracker.VisibilityTrackerListener;
+import static com.skillz.mopub.nativeads.VisibilityTracker.VisibilityTrackerListener;
 
 /**
  * {@code MoPubAdAdapter} facilitates placing ads into an Android {@link android.widget.ListView} or
@@ -34,7 +32,7 @@ import static com.mopub.nativeads.VisibilityTracker.VisibilityTrackerListener;
  * For your content items, this class will call your original adapter with the original position of
  * content before ads were loaded.
  *
- * This adapter uses a {@link com.mopub.nativeads.MoPubStreamAdPlacer} object internally. If you
+ * This adapter uses a {@link MoPubStreamAdPlacer} object internally. If you
  * wish to avoid wrapping your original adapter, you can use {@code MoPubStreamAdPlacer} directly.
  */
 public class MoPubAdAdapter extends BaseAdapter {
@@ -50,7 +48,7 @@ public class MoPubAdAdapter extends BaseAdapter {
      *
      * By default, the adapter will contact the server to determine ad positions. If you
      * wish to hard-code positions in your app, see {@link MoPubAdAdapter(Context,
-     * MoPubClientPositioning)}.
+     * MoPubNativeAdPositioning.MoPubClientPositioning )}.
      *
      * @param activity The activity.
      * @param originalAdapter Your original adapter.
@@ -69,7 +67,7 @@ public class MoPubAdAdapter extends BaseAdapter {
      */
     public MoPubAdAdapter(@NonNull final Activity activity,
             @NonNull final Adapter originalAdapter,
-            @NonNull final MoPubServerPositioning adPositioning) {
+            @NonNull final MoPubNativeAdPositioning.MoPubServerPositioning adPositioning) {
         this(new MoPubStreamAdPlacer(activity, adPositioning), originalAdapter,
                 new VisibilityTracker(activity));
     }
@@ -84,7 +82,7 @@ public class MoPubAdAdapter extends BaseAdapter {
      */
     public MoPubAdAdapter(@NonNull final Activity activity,
             @NonNull final Adapter originalAdapter,
-            @NonNull final MoPubClientPositioning adPositioning) {
+            @NonNull final MoPubNativeAdPositioning.MoPubClientPositioning adPositioning) {
         this(new MoPubStreamAdPlacer(activity, adPositioning), originalAdapter,
                 new VisibilityTracker(activity));
     }

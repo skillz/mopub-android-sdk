@@ -1,14 +1,13 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
-import com.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.VastExtensionXmlManager;
-import com.skillz.mopub.mobileads.VideoViewabilityTracker;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.mobileads.test.support.VastUtils;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.annotation.Config;
 
-import static com.mopub.mobileads.test.support.VastUtils.createNode;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 @RunWith(SdkTestRunner.class)
@@ -20,7 +19,7 @@ public class VastExtensionXmlManagerTest {
     public void getType_shouldReturnExtensionType() throws Exception {
         String extensionXml = "<Extension type=\"MyExtensionType\"></Extension>";
 
-        subject = new VastExtensionXmlManager(createNode(extensionXml));
+        subject = new VastExtensionXmlManager(VastUtils.createNode(extensionXml));
 
         assertThat(subject.getType()).isEqualTo("MyExtensionType");
     }
@@ -35,7 +34,7 @@ public class VastExtensionXmlManagerTest {
                 "                  </MoPubViewabilityTracker>" +
                 "              </Extension>";
 
-        subject = new VastExtensionXmlManager(createNode(extensionXml));
+        subject = new VastExtensionXmlManager(VastUtils.createNode(extensionXml));
         VideoViewabilityTracker tracker = subject.getVideoViewabilityTracker();
 
         assertThat(tracker).isNotNull();
@@ -48,7 +47,7 @@ public class VastExtensionXmlManagerTest {
     public void getVideoViewabilityTracker_withoutViewabilityTracker_shouldReturnNull() throws Exception {
         String extensionXml = "<Extension type=\"MoPub\"></Extension>";
 
-        subject = new VastExtensionXmlManager(createNode(extensionXml));
+        subject = new VastExtensionXmlManager(VastUtils.createNode(extensionXml));
         VideoViewabilityTracker tracker = subject.getVideoViewabilityTracker();
 
         assertThat(tracker).isNull();
@@ -63,7 +62,7 @@ public class VastExtensionXmlManagerTest {
                 "                  </MoPubViewabilityTracker>" +
                 "              </Extension>";
 
-        subject = new VastExtensionXmlManager(createNode(extensionXml));
+        subject = new VastExtensionXmlManager(VastUtils.createNode(extensionXml));
         VideoViewabilityTracker tracker = subject.getVideoViewabilityTracker();
 
         assertThat(tracker).isNull();
@@ -78,7 +77,7 @@ public class VastExtensionXmlManagerTest {
                 "                  </MoPubViewabilityTracker>" +
                 "              </Extension>";
 
-        subject = new VastExtensionXmlManager(createNode(extensionXml));
+        subject = new VastExtensionXmlManager(VastUtils.createNode(extensionXml));
         VideoViewabilityTracker tracker = subject.getVideoViewabilityTracker();
 
         assertThat(tracker).isNull();
@@ -93,7 +92,7 @@ public class VastExtensionXmlManagerTest {
                 "                  </MoPubViewabilityTracker>" +
                 "              </Extension>";
 
-        subject = new VastExtensionXmlManager(createNode(extensionXml));
+        subject = new VastExtensionXmlManager(VastUtils.createNode(extensionXml));
         VideoViewabilityTracker tracker = subject.getVideoViewabilityTracker();
 
         assertThat(tracker).isNull();

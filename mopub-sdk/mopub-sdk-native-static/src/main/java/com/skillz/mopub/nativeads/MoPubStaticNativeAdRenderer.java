@@ -15,7 +15,7 @@ import java.util.WeakHashMap;
 import static android.view.View.VISIBLE;
 
 /**
- * An implementation of {@link com.skillz.mopub.nativeads.MoPubAdRenderer} for rendering native ads.
+ * An implementation of {@link MoPubAdRenderer} for rendering native ads.
  */
 public class MoPubStaticNativeAdRenderer implements MoPubAdRenderer<StaticNativeAd> {
     @NonNull private final ViewBinder mViewBinder;

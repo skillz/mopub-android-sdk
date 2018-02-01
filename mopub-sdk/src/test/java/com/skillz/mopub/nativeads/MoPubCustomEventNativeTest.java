@@ -1,11 +1,11 @@
-package com.mopub.nativeads;
+package com.skillz.mopub.nativeads;
 
 import android.app.Activity;
 
 import com.skillz.mopub.common.DataKeys;
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.mobileads.BuildConfig;
-import com.mopub.nativeads.MoPubCustomEventNative.MoPubStaticNativeAd;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.nativeads.MoPubCustomEventNative.MoPubStaticNativeAd;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -18,7 +18,7 @@ import org.robolectric.annotation.Config;
 
 import java.util.HashMap;
 
-import static com.mopub.nativeads.CustomEventNative.CustomEventNativeListener;
+import static com.skillz.mopub.nativeads.CustomEventNative.CustomEventNativeListener;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;

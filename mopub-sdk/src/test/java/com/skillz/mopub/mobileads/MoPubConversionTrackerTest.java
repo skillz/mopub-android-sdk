@@ -1,9 +1,9 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.app.Activity;
 
-import com.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.MoPubConversionTracker;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.network.MoPubRequestQueue;
 import com.skillz.mopub.network.Networking;
 import com.skillz.mopub.network.TrackingRequest;

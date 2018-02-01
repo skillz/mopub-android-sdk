@@ -1,4 +1,4 @@
-package com.mopub.network;
+package com.skillz.mopub.network;
 
 import android.app.Activity;
 import android.location.Location;
@@ -10,14 +10,11 @@ import com.skillz.mopub.common.MoPub.BrowserAgent;
 import com.skillz.mopub.common.event.BaseEvent;
 import com.skillz.mopub.common.event.EventDispatcher;
 import com.skillz.mopub.common.event.MoPubEvents;
-import com.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
 import com.skillz.mopub.common.util.ResponseHeader;
-import com.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.mobileads.BuildConfig;
 import com.mopub.volley.NetworkResponse;
 import com.mopub.volley.Response;
-import com.skillz.mopub.network.AdRequest;
-import com.skillz.mopub.network.AdResponse;
-import com.skillz.mopub.network.MoPubNetworkError;
 
 import org.json.JSONException;
 import org.junit.After;

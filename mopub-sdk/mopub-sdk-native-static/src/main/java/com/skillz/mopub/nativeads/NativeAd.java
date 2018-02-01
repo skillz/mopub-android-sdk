@@ -1,4 +1,4 @@
-package com.mopub.nativeads;
+package com.skillz.mopub.nativeads;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -7,14 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.skillz.mopub.common.VisibleForTesting;
-import com.mopub.nativeads.MoPubCustomEventNative.MoPubStaticNativeAd;
 import com.skillz.mopub.network.AdResponse;
 import com.skillz.mopub.network.TrackingRequest;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.mopub.nativeads.BaseNativeAd.NativeEventListener;
+import static com.skillz.mopub.nativeads.BaseNativeAd.NativeEventListener;
 
 /**
  * This class represents a native ad instance returned from the MoPub Ad Server, MoPub Exchange, or
@@ -122,7 +121,7 @@ public class NativeAd {
      * Returns the {@link BaseNativeAd} object for this {@link NativeAd}. This object is created by
      * a {@link CustomEventNative} subclass after a successful ad request and is specific to the ad
      * source. If it comes from the MoPub Exchange or is a directly-served ad it will be of the type
-     * {@link MoPubStaticNativeAd} or MoPubVideoNativeAd. If it is returned by a mediated ad
+     * {@link MoPubCustomEventNative.MoPubStaticNativeAd} or MoPubVideoNativeAd. If it is returned by a mediated ad
      * network it may have another type.
      */
     @NonNull

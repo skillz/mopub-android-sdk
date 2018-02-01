@@ -35,7 +35,7 @@ public class MoPubView extends FrameLayout {
     }
 
     private static final String CUSTOM_EVENT_BANNER_ADAPTER_FACTORY =
-            "com.mopub.mobileads.factories.CustomEventBannerAdapterFactory";
+            "com.skillz.mopub.mobileads.factories.CustomEventBannerAdapterFactory";
 
     @Nullable
     protected AdViewController mAdViewController;

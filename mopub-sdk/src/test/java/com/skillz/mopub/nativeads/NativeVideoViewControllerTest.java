@@ -1,4 +1,4 @@
-package com.mopub.nativeads;
+package com.skillz.mopub.nativeads;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,15 +12,15 @@ import android.view.ViewGroup.LayoutParams;
 
 import com.skillz.mopub.common.Constants;
 import com.skillz.mopub.common.MoPubBrowser;
-import com.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
 import com.skillz.mopub.mobileads.BaseVideoViewController.BaseVideoViewControllerListener;
-import com.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.mobileads.VastVideoConfig;
 import com.skillz.mopub.mobileads.resource.CtaButtonDrawable;
-import com.mopub.nativeads.MoPubCustomEventVideoNative.MoPubVideoNativeAd;
-import com.mopub.nativeads.NativeFullScreenVideoView.Mode;
-import com.mopub.nativeads.NativeVideoController.NativeVideoProgressRunnable.ProgressListener;
-import com.mopub.nativeads.NativeVideoViewController.VideoState;
+import com.skillz.mopub.nativeads.MoPubCustomEventVideoNative.MoPubVideoNativeAd;
+import com.skillz.mopub.nativeads.NativeFullScreenVideoView.Mode;
+import com.skillz.mopub.nativeads.NativeVideoController.NativeVideoProgressRunnable.ProgressListener;
+import com.skillz.mopub.nativeads.NativeVideoViewController.VideoState;
 
 import org.junit.After;
 import org.junit.Before;

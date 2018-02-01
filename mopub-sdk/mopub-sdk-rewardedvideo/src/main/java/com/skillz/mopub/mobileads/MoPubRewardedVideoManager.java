@@ -1,4 +1,4 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,7 +17,7 @@ import com.skillz.mopub.common.ClientMetadata;
 import com.skillz.mopub.common.Constants;
 import com.skillz.mopub.common.DataKeys;
 import com.skillz.mopub.common.MediationSettings;
-import com.mopub.common.MoPubReward;
+import com.skillz.mopub.common.MoPubReward;
 import com.skillz.mopub.common.Preconditions;
 import com.skillz.mopub.common.SharedPreferencesHelper;
 import com.skillz.mopub.common.VisibleForTesting;
@@ -27,9 +27,6 @@ import com.skillz.mopub.common.util.MoPubCollections;
 import com.skillz.mopub.common.util.Reflection;
 import com.skillz.mopub.common.util.ReflectionTarget;
 import com.skillz.mopub.common.util.Utils;
-import com.skillz.mopub.mobileads.AdRequestStatusMapping;
-import com.skillz.mopub.mobileads.MoPubErrorCode;
-import com.skillz.mopub.mobileads.WebViewAdUrlGenerator;
 import com.skillz.mopub.network.AdRequest;
 import com.skillz.mopub.network.AdResponse;
 import com.skillz.mopub.network.MoPubNetworkError;

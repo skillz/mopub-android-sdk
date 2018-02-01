@@ -1,10 +1,9 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.support.annotation.NonNull;
 
-import com.mopub.common.MoPubReward;
+import com.skillz.mopub.common.MoPubReward;
 import com.skillz.mopub.common.MoPub;
-import com.skillz.mopub.mobileads.MoPubErrorCode;
 
 import java.util.Set;
 

@@ -1,4 +1,4 @@
-package com.mopub.nativeads;
+package com.skillz.mopub.nativeads;
 
 import android.content.Context;
 import android.os.Handler;
@@ -10,7 +10,6 @@ import com.skillz.mopub.common.VisibleForTesting;
 import com.skillz.mopub.common.logging.MoPubLog;
 import com.skillz.mopub.common.util.DeviceUtils;
 import com.skillz.mopub.mobileads.MoPubErrorCode;
-import com.mopub.nativeads.MoPubNativeAdPositioning.MoPubClientPositioning;
 import com.skillz.mopub.network.MoPubNetworkError;
 import com.skillz.mopub.network.Networking;
 import com.mopub.volley.RequestQueue;
@@ -59,7 +58,7 @@ class ServerPositioningSource implements PositioningSource {
     // Handler and runnable for retrying after a failed response.
     @NonNull private final Handler mRetryHandler;
     @NonNull private final Runnable mRetryRunnable;
-    private final Response.Listener<MoPubClientPositioning> mPositioningListener;
+    private final Response.Listener<MoPubNativeAdPositioning.MoPubClientPositioning> mPositioningListener;
     private final Response.ErrorListener mErrorListener;
 
     @Nullable private PositioningListener mListener;
@@ -78,9 +77,9 @@ class ServerPositioningSource implements PositioningSource {
             }
         };
 
-        mPositioningListener = new Response.Listener<MoPubClientPositioning>() {
+        mPositioningListener = new Response.Listener<MoPubNativeAdPositioning.MoPubClientPositioning>() {
             @Override
-            public void onResponse(final MoPubClientPositioning clientPositioning) {
+            public void onResponse(final MoPubNativeAdPositioning.MoPubClientPositioning clientPositioning) {
                 handleSuccess(clientPositioning);
             }
         };
@@ -131,7 +130,7 @@ class ServerPositioningSource implements PositioningSource {
         requestQueue.add(mRequest);
     }
 
-    private void handleSuccess(@NonNull MoPubClientPositioning positioning) {
+    private void handleSuccess(@NonNull MoPubNativeAdPositioning.MoPubClientPositioning positioning) {
         if (mListener != null) {
             mListener.onLoad(positioning);
         }

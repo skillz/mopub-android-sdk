@@ -1,4 +1,4 @@
-package com.mopub.nativeads;
+package com.skillz.mopub.nativeads;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -8,7 +8,6 @@ import android.widget.ImageView;
 
 import com.skillz.mopub.common.Preconditions;
 import com.skillz.mopub.common.logging.MoPubLog;
-import com.mopub.nativeads.CustomEventNative.CustomEventNativeListener;
 import com.skillz.mopub.network.Networking;
 import com.mopub.volley.VolleyError;
 import com.mopub.volley.toolbox.ImageLoader;
@@ -25,13 +24,13 @@ public class NativeImageHelper {
     public interface ImageListener {
         /**
          * Called when images are successfully cached. If you haven't already called {@link
-         * CustomEventNativeListener#onNativeAdLoaded}, you should typically do so now.
+         * CustomEventNative.CustomEventNativeListener#onNativeAdLoaded}, you should typically do so now.
          */
         void onImagesCached();
 
         /**
          * Called when images failed to cache. You should typically call {@link
-         * CustomEventNativeListener#onNativeAdFailed} from this callback.
+         * CustomEventNative.CustomEventNativeListener#onNativeAdFailed} from this callback.
          *
          * @param errorCode An enum value with the relevant error message.
          */
@@ -40,7 +39,7 @@ public class NativeImageHelper {
 
     /**
      * Pre caches the given set of image urls. We recommend using this method to warm the image
-     * cache before calling {@link CustomEventNativeListener#onNativeAdLoaded}. Doing so will
+     * cache before calling {@link CustomEventNative.CustomEventNativeListener#onNativeAdLoaded}. Doing so will
      * force images to cache before displaying the ad.
      */
     public static void preCacheImages(@NonNull final Context context,

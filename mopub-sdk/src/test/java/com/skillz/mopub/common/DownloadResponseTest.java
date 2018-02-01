@@ -1,10 +1,9 @@
-package com.mopub.common;
+package com.skillz.mopub.common;
 
-import com.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.common.DownloadResponse;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
 import com.skillz.mopub.common.util.ResponseHeader;
-import com.mopub.mobileads.BuildConfig;
-import com.mopub.mobileads.test.support.TestHttpResponseWithHeaders;
+import com.skillz.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.mobileads.test.support.TestHttpResponseWithHeaders;
 
 import org.apache.http.HttpResponse;
 import org.junit.Before;

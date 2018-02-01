@@ -1,4 +1,4 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 
 import com.skillz.mopub.common.IntentActions;
 import com.skillz.mopub.common.Preconditions;
-import com.skillz.mopub.mobileads.BaseBroadcastReceiver;
 
 public class RewardedVideoBroadcastReceiver extends BaseBroadcastReceiver {
 

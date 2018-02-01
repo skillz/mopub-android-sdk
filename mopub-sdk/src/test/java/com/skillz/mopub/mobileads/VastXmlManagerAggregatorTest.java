@@ -1,4 +1,4 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,23 +7,11 @@ import android.graphics.Point;
 import android.view.Display;
 import android.view.WindowManager;
 
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.common.util.test.support.ShadowMoPubHttpUrlConnection;
-import com.mopub.mobileads.test.support.VastUtils;
-import com.skillz.mopub.mobileads.VastAbsoluteProgressTracker;
-import com.skillz.mopub.mobileads.VastCompanionAdConfig;
-import com.skillz.mopub.mobileads.VastCompanionAdXmlManager;
-import com.skillz.mopub.mobileads.VastFractionalProgressTracker;
-import com.skillz.mopub.mobileads.VastIconConfig;
-import com.skillz.mopub.mobileads.VastIconXmlManager;
-import com.skillz.mopub.mobileads.VastMediaXmlManager;
-import com.skillz.mopub.mobileads.VastResource;
-import com.skillz.mopub.mobileads.VastResourceXmlManager;
-import com.skillz.mopub.mobileads.VastTracker;
-import com.skillz.mopub.mobileads.VastVideoConfig;
-import com.skillz.mopub.mobileads.VastVideoViewController;
-import com.skillz.mopub.mobileads.VastXmlManagerAggregator;
-import com.skillz.mopub.mobileads.VideoViewabilityTracker;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.common.util.test.support.ShadowMoPubHttpUrlConnection;
+import com.skillz.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.mobileads.test.support.VastUtils;
+import com.skillz.mopub.common.VolleyRequestMatcher;
 import com.skillz.mopub.network.MoPubRequestQueue;
 import com.skillz.mopub.network.Networking;
 
@@ -42,7 +30,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
 
-import static com.mopub.common.VolleyRequestMatcher.isUrl;
 import static com.skillz.mopub.mobileads.VastXmlManagerAggregator.VastXmlManagerAggregatorListener;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
@@ -1709,7 +1696,7 @@ public class VastXmlManagerAggregatorTest {
                 new ArrayList<VastTracker>());
 
         assertThat(vastVideoConfig).isNull();
-        verify(mockRequestQueue).add(argThat(isUrl("https://justErrorTracking?errorcode=900")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl("https://justErrorTracking?errorcode=900")));
         verifyNoMoreInteractions(mockRequestQueue);
     }
 
@@ -1720,7 +1707,7 @@ public class VastXmlManagerAggregatorTest {
                 TEST_VAST_XML_STRING, new ArrayList<VastTracker>());
 
         assertThat(vastVideoConfig).isNull();
-        verify(mockRequestQueue).add(argThat(isUrl("https://justErrorTracking?errorcode=303")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl("https://justErrorTracking?errorcode=303")));
         verifyNoMoreInteractions(mockRequestQueue);
     }
 
@@ -1741,8 +1728,8 @@ public class VastXmlManagerAggregatorTest {
                 TEST_VAST_XML_STRING, new ArrayList<VastTracker>());
 
         assertThat(vastVideoConfig).isNull();
-        verify(mockRequestQueue).add(argThat(isUrl("https://wrapperErrorOne?errorcode=100")));
-        verify(mockRequestQueue).add(argThat(isUrl("https://wrapperErrorTwo?errorcode=100")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl("https://wrapperErrorOne?errorcode=100")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl("https://wrapperErrorTwo?errorcode=100")));
         verifyNoMoreInteractions(mockRequestQueue);
     }
 
@@ -1752,8 +1739,8 @@ public class VastXmlManagerAggregatorTest {
                 TEST_VAST_XML_STRING, new ArrayList<VastTracker>());
 
         assertThat(vastVideoConfig).isNull();
-        verify(mockRequestQueue).add(argThat(isUrl("https://wrapperErrorOne?errorcode=301")));
-        verify(mockRequestQueue).add(argThat(isUrl("https://wrapperErrorTwo?errorcode=301")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl("https://wrapperErrorOne?errorcode=301")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl("https://wrapperErrorTwo?errorcode=301")));
         verifyNoMoreInteractions(mockRequestQueue);
     }
 

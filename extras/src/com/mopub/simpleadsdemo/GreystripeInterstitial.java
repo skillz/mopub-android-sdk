@@ -1,4 +1,4 @@
-package com.skillz.mopub.simpleadsdemo;
+package com.mopub.simpleadsdemo;
 
 import android.content.Context;
 import android.util.Log;

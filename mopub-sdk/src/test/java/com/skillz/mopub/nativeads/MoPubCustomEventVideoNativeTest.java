@@ -1,11 +1,11 @@
-package com.mopub.nativeads;
+package com.skillz.mopub.nativeads;
 
 import android.app.Activity;
 
 import com.skillz.mopub.common.DataKeys;
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.mobileads.BuildConfig;
-import com.mopub.nativeads.MoPubCustomEventVideoNative.VideoResponseHeaders;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.nativeads.MoPubCustomEventVideoNative.VideoResponseHeaders;
 import com.skillz.mopub.network.MaxWidthImageLoader;
 import com.skillz.mopub.network.Networking;
 

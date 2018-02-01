@@ -1,17 +1,15 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.app.Activity;
 
+import com.skillz.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.common.CacheService;
-import com.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
 import com.skillz.mopub.common.util.DeviceUtils;
-import com.mopub.common.util.test.support.ShadowMoPubHttpUrlConnection;
-import com.mopub.mobileads.test.support.VastUtils;
-import com.skillz.mopub.mobileads.VastCompanionAdConfig;
-import com.skillz.mopub.mobileads.VastManager;
-import com.skillz.mopub.mobileads.VastResource;
-import com.skillz.mopub.mobileads.VastVideoConfig;
+import com.skillz.mopub.common.util.test.support.ShadowMoPubHttpUrlConnection;
+import com.skillz.mopub.mobileads.test.support.VastUtils;
 
+import org.fest.assertions.api.Assertions;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -131,7 +129,7 @@ public class VastManagerTest {
                 .isEqualTo(VastResource.CreativeType.IMAGE);
         assertThat(vastCompanionAdConfig.getClickThroughUrl()).isEqualTo("https://www.tremormedia.com");
 
-        assertThat(VastUtils.vastTrackersToStrings(vastCompanionAdConfig.getClickTrackers()))
+        Assertions.assertThat(VastUtils.vastTrackersToStrings(vastCompanionAdConfig.getClickTrackers()))
                 .containsOnly("https://companionClickTracking1",
                         "https://companionClickTracking2");
     }

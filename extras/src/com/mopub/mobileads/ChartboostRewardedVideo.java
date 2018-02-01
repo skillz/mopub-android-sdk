@@ -1,4 +1,4 @@
-package com.skillz.mopub.mobileads;
+package com.skillz.mopub.mobileads.;
 
 import android.app.Activity;
 import android.os.Handler;
@@ -6,17 +6,17 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.chartboost.sdk.Chartboost;
-import com.skillz.mopub.common.DataKeys;
-import com.skillz.mopub.common.LifecycleListener;
-import com.skillz.mopub.common.MediationSettings;
-import com.skillz.mopub.common.logging.MoPubLog;
+import com.mopub.common.DataKeys;
+import com.mopub.common.LifecycleListener;
+import com.mopub.common.MediationSettings;
+import com.mopub.common.logging.MoPubLog;
 
 import java.util.Map;
 
 /**
  * A custom event for showing Chartboost rewarded videos.
  *
- * Certified with Chartboost 6.4.1
+ * Certified with Chartboost 7.0.1
  */
 public class ChartboostRewardedVideo extends CustomEventRewardedVideo {
     @NonNull private static final LifecycleListener sLifecycleListener =

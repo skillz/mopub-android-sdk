@@ -1,4 +1,4 @@
-package com.mopub.nativeads;
+package com.skillz.mopub.nativeads;
 
 import android.content.Context;
 import android.net.Uri;
@@ -18,6 +18,7 @@ import com.skillz.mopub.common.event.Event;
 import com.skillz.mopub.common.event.EventDetails;
 import com.skillz.mopub.common.event.MoPubEvents;
 import com.skillz.mopub.common.logging.MoPubLog;
+import com.skillz.mopub.nativeads.IntInterval;
 
 import org.json.JSONArray;
 import org.json.JSONException;

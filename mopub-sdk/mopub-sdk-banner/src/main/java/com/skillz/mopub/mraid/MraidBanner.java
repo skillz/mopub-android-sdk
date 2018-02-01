@@ -1,4 +1,4 @@
-package com.mopub.mraid;
+package com.skillz.mopub.mraid;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -10,13 +10,9 @@ import com.skillz.mopub.common.ExternalViewabilitySessionManager;
 import com.skillz.mopub.common.VisibleForTesting;
 import com.skillz.mopub.common.logging.MoPubLog;
 import com.skillz.mopub.mobileads.AdViewController;
-import com.mopub.mobileads.CustomEventBanner;
+import com.skillz.mopub.mobileads.CustomEventBanner;
 import com.skillz.mopub.mobileads.factories.MraidControllerFactory;
-import com.skillz.mopub.mraid.MraidBridge;
-import com.skillz.mopub.mraid.MraidController;
 import com.skillz.mopub.mraid.MraidController.MraidListener;
-import com.skillz.mopub.mraid.MraidWebViewDebugListener;
-import com.skillz.mopub.mraid.PlacementType;
 
 import java.util.Map;
 

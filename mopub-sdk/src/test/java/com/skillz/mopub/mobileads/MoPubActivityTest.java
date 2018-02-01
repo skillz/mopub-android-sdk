@@ -1,4 +1,4 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -10,16 +10,11 @@ import android.view.ViewGroup;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 
+import com.skillz.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.common.AdReport;
 import com.skillz.mopub.common.CreativeOrientation;
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.mobileads.test.support.TestHtmlInterstitialWebViewFactory;
-import com.skillz.mopub.mobileads.EventForwardingBroadcastReceiver;
-import com.skillz.mopub.mobileads.HtmlInterstitial;
-import com.skillz.mopub.mobileads.HtmlInterstitialWebView;
-import com.skillz.mopub.mobileads.MoPubActivity;
-import com.skillz.mopub.mobileads.MoPubErrorCode;
-import com.skillz.mopub.mobileads.WebViewCacheService;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.test.support.TestHtmlInterstitialWebViewFactory;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -44,7 +39,7 @@ import static com.skillz.mopub.common.IntentActions.ACTION_INTERSTITIAL_CLICK;
 import static com.skillz.mopub.common.IntentActions.ACTION_INTERSTITIAL_DISMISS;
 import static com.skillz.mopub.common.IntentActions.ACTION_INTERSTITIAL_FAIL;
 import static com.skillz.mopub.common.IntentActions.ACTION_INTERSTITIAL_SHOW;
-import static com.mopub.mobileads.EventForwardingBroadcastReceiverTest.getIntentForActionAndIdentifier;
+import static com.skillz.mopub.mobileads.EventForwardingBroadcastReceiverTest.getIntentForActionAndIdentifier;
 import static com.skillz.mopub.mobileads.MoPubErrorCode.UNSPECIFIED;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;

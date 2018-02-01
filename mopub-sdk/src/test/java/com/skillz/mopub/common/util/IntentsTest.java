@@ -1,4 +1,4 @@
-package com.mopub.common.util;
+package com.skillz.mopub.common.util;
 
 import android.app.Activity;
 import android.content.Context;

@@ -1,13 +1,13 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
-import com.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.VastExtensionParentXmlManager;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.annotation.Config;
 
-import static com.mopub.mobileads.test.support.VastUtils.createNode;
+import static com.skillz.mopub.mobileads.test.support.VastUtils.createNode;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 @RunWith(SdkTestRunner.class)

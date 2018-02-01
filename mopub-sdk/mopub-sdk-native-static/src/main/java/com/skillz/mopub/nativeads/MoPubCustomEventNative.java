@@ -1,4 +1,4 @@
-package com.mopub.nativeads;
+package com.skillz.mopub.nativeads;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -8,7 +8,7 @@ import android.view.View;
 import com.skillz.mopub.common.DataKeys;
 import com.skillz.mopub.common.VisibleForTesting;
 import com.skillz.mopub.common.logging.MoPubLog;
-import com.mopub.nativeads.NativeImageHelper.ImageListener;
+import com.skillz.mopub.nativeads.NativeImageHelper.ImageListener;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -23,7 +23,7 @@ import java.util.Set;
 
 import static com.skillz.mopub.common.DataKeys.JSON_BODY_KEY;
 import static com.skillz.mopub.common.util.Numbers.parseDouble;
-import static com.mopub.nativeads.NativeImageHelper.preCacheImages;
+import static com.skillz.mopub.nativeads.NativeImageHelper.preCacheImages;
 
 public class MoPubCustomEventNative extends CustomEventNative {
 

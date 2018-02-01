@@ -10,7 +10,7 @@ import android.view.ViewGroup;
  * An interface for creating ad views and rendering them using ad data.
  *
  * Normally you will use the subclass {@link MoPubStaticNativeAdRenderer} with {@link
- * com.skillz.mopub.nativeads.ViewBinder} to customize your ad view with your own layout. However, if you
+ * ViewBinder} to customize your ad view with your own layout. However, if you
  * wish to programmatically create or manage your ad view, you can implement {@code MoPubAdRenderer}
  * directly.
  *
@@ -20,7 +20,7 @@ public interface MoPubAdRenderer<T extends BaseNativeAd> {
     /**
      * Creates a new view to be used as an ad.
      * <p/>
-     * This method is called when you call {@link com.skillz.mopub.nativeads.MoPubStreamAdPlacer#getAdView}
+     * This method is called when you call {@link MoPubStreamAdPlacer#getAdView}
      * and the convertView is null. You must return a valid view.
      *
      * @param context The context. Useful for creating a view. This is recommended to be an

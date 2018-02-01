@@ -1,4 +1,4 @@
-package com.mopub.common.util;
+package com.skillz.mopub.common.util;
 
 import android.Manifest;
 import android.app.Activity;
@@ -8,10 +8,9 @@ import android.content.res.Resources;
 import android.view.Surface;
 
 import com.skillz.mopub.common.CreativeOrientation;
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.mobileads.BuildConfig;
-import com.mopub.nativeads.test.support.MoPubShadowDisplay;
-import com.skillz.mopub.common.util.DeviceUtils;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.nativeads.test.support.MoPubShadowDisplay;
 
 import org.junit.Before;
 import org.junit.Test;

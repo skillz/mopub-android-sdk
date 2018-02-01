@@ -1,11 +1,9 @@
-package com.mopub.common;
+package com.skillz.mopub.common;
 
 import android.support.annotation.Nullable;
 
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.mobileads.BuildConfig;
-import com.skillz.mopub.common.MoPub;
-import com.skillz.mopub.common.UrlResolutionTask;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
 
 import org.junit.After;
 import org.junit.Before;

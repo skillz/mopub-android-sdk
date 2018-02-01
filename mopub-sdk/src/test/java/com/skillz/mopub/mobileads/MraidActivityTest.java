@@ -1,4 +1,4 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -11,12 +11,8 @@ import android.view.WindowManager;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 
-import com.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.CustomEventInterstitial;
-import com.skillz.mopub.mobileads.EventForwardingBroadcastReceiver;
-import com.skillz.mopub.mobileads.MoPubErrorCode;
-import com.skillz.mopub.mobileads.MraidActivity;
-import com.skillz.mopub.mobileads.ResponseBodyInterstitial;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.mraid.MraidBridge;
 import com.skillz.mopub.mraid.MraidBridge.MraidWebView;
 import com.skillz.mopub.mraid.MraidController;
@@ -40,7 +36,6 @@ import static com.skillz.mopub.common.DataKeys.HTML_RESPONSE_BODY_KEY;
 import static com.skillz.mopub.common.IntentActions.ACTION_INTERSTITIAL_CLICK;
 import static com.skillz.mopub.common.IntentActions.ACTION_INTERSTITIAL_DISMISS;
 import static com.skillz.mopub.common.IntentActions.ACTION_INTERSTITIAL_SHOW;
-import static com.mopub.mobileads.EventForwardingBroadcastReceiverTest.getIntentForActionAndIdentifier;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
@@ -230,7 +225,7 @@ public class MraidActivityTest {
     @Ignore("Mraid 2.0")
     @Test
     public void onDestroy_DestroyMraidView() throws Exception {
-        Intent expectedIntent = getIntentForActionAndIdentifier(ACTION_INTERSTITIAL_DISMISS, subject.getBroadcastIdentifier());
+        Intent expectedIntent = EventForwardingBroadcastReceiverTest.getIntentForActionAndIdentifier(ACTION_INTERSTITIAL_DISMISS, subject.getBroadcastIdentifier());
         ShadowLocalBroadcastManager.getInstance(subject).registerReceiver(broadcastReceiver,
                 new EventForwardingBroadcastReceiver(customEventInterstitialListener,
                         testBroadcastIdentifier).getIntentFilter());
@@ -291,7 +286,7 @@ public class MraidActivityTest {
     @Ignore("Mraid 2.0")
     @Test
     public void baseMraidListenerOnOpen_shouldBroadcastClickEvent() throws Exception {
-        Intent expectedIntent = getIntentForActionAndIdentifier(ACTION_INTERSTITIAL_CLICK, testBroadcastIdentifier);
+        Intent expectedIntent = EventForwardingBroadcastReceiverTest.getIntentForActionAndIdentifier(ACTION_INTERSTITIAL_CLICK, testBroadcastIdentifier);
         ShadowLocalBroadcastManager.getInstance(subject).registerReceiver(broadcastReceiver,
                 new EventForwardingBroadcastReceiver(customEventInterstitialListener,
                         testBroadcastIdentifier).getIntentFilter());
@@ -355,7 +350,7 @@ public class MraidActivityTest {
     @Ignore("Mraid 2.0")
     @Test
     public void onCreate_shouldBroadcastInterstitialShow() throws Exception {
-        Intent expectedIntent = getIntentForActionAndIdentifier(ACTION_INTERSTITIAL_SHOW, testBroadcastIdentifier);
+        Intent expectedIntent = EventForwardingBroadcastReceiverTest.getIntentForActionAndIdentifier(ACTION_INTERSTITIAL_SHOW, testBroadcastIdentifier);
         ShadowLocalBroadcastManager.getInstance(subject).registerReceiver(broadcastReceiver,
                 new EventForwardingBroadcastReceiver(customEventInterstitialListener,
                         testBroadcastIdentifier).getIntentFilter());
@@ -366,7 +361,7 @@ public class MraidActivityTest {
     @Ignore("Mraid 2.0")
     @Test
     public void onDestroy_shouldBroadcastInterstitialDismiss() throws Exception {
-        Intent expectedIntent = getIntentForActionAndIdentifier(ACTION_INTERSTITIAL_DISMISS, testBroadcastIdentifier);
+        Intent expectedIntent = EventForwardingBroadcastReceiverTest.getIntentForActionAndIdentifier(ACTION_INTERSTITIAL_DISMISS, testBroadcastIdentifier);
         ShadowLocalBroadcastManager.getInstance(subject).registerReceiver(broadcastReceiver,
                 new EventForwardingBroadcastReceiver(customEventInterstitialListener,
                         testBroadcastIdentifier).getIntentFilter());

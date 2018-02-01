@@ -1,15 +1,13 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
 
+import com.skillz.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.common.DataKeys;
-import com.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.CustomEventInterstitialAdapter;
-import com.skillz.mopub.mobileads.EventForwardingBroadcastReceiver;
-import com.skillz.mopub.mobileads.MoPubInterstitial;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
 import com.skillz.mopub.mobileads.factories.CustomEventInterstitialAdapterFactory;
 
 import org.fest.util.Sets;

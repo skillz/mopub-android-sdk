@@ -1,4 +1,4 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.app.Activity;
 import android.content.Context;
@@ -18,32 +18,16 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.VideoView;
 
+import com.skillz.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.common.ExternalViewabilitySession;
 import com.skillz.mopub.common.MoPubBrowser;
-import com.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.common.VolleyRequestMatcher;
 import com.skillz.mopub.common.util.DeviceUtils.ForceOrientation;
-import com.skillz.mopub.mobileads.EventForwardingBroadcastReceiver;
-import com.skillz.mopub.mobileads.VastAbsoluteProgressTracker;
-import com.skillz.mopub.mobileads.VastCompanionAdConfig;
-import com.skillz.mopub.mobileads.VastFractionalProgressTracker;
-import com.skillz.mopub.mobileads.VastIconConfig;
-import com.skillz.mopub.mobileads.VastResource;
-import com.skillz.mopub.mobileads.VastTracker;
-import com.skillz.mopub.mobileads.VastVideoBlurLastVideoFrameTask;
-import com.skillz.mopub.mobileads.VastVideoCloseButtonWidget;
-import com.skillz.mopub.mobileads.VastVideoConfig;
-import com.skillz.mopub.mobileads.VastVideoCtaButtonWidget;
-import com.skillz.mopub.mobileads.VastVideoGradientStripWidget;
-import com.skillz.mopub.mobileads.VastVideoProgressBarWidget;
-import com.skillz.mopub.mobileads.VastVideoRadialCountdownWidget;
-import com.skillz.mopub.mobileads.VastVideoViewController;
-import com.skillz.mopub.mobileads.VastVideoViewCountdownRunnable;
-import com.skillz.mopub.mobileads.VastVideoViewProgressRunnable;
-import com.skillz.mopub.mobileads.VastWebView;
 import com.skillz.mopub.mobileads.resource.CloseButtonDrawable;
-import com.mopub.mobileads.test.support.GestureUtils;
-import com.mopub.mobileads.test.support.ShadowVastVideoView;
-import com.mopub.mobileads.test.support.VastUtils;
+import com.skillz.mopub.mobileads.test.support.GestureUtils;
+import com.skillz.mopub.mobileads.test.support.ShadowVastVideoView;
+import com.skillz.mopub.mobileads.test.support.VastUtils;
 import com.skillz.mopub.network.MaxWidthImageLoader;
 import com.skillz.mopub.network.MoPubRequestQueue;
 import com.skillz.mopub.network.Networking;
@@ -80,9 +64,7 @@ import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 import static com.skillz.mopub.common.IntentActions.ACTION_INTERSTITIAL_DISMISS;
 import static com.skillz.mopub.common.IntentActions.ACTION_INTERSTITIAL_FAIL;
 import static com.skillz.mopub.common.IntentActions.ACTION_INTERSTITIAL_SHOW;
-import static com.mopub.common.VolleyRequestMatcher.isUrl;
 import static com.skillz.mopub.mobileads.BaseVideoViewController.BaseVideoViewControllerListener;
-import static com.mopub.mobileads.EventForwardingBroadcastReceiverTest.getIntentForActionAndIdentifier;
 import static com.skillz.mopub.mobileads.VastVideoViewController.CURRENT_POSITION;
 import static com.skillz.mopub.mobileads.VastVideoViewController.DEFAULT_VIDEO_DURATION_FOR_CLOSE_BUTTON;
 import static com.skillz.mopub.mobileads.VastVideoViewController.MAX_VIDEO_DURATION_FOR_CLOSE_BUTTON;
@@ -558,12 +540,12 @@ public class VastVideoViewControllerTest {
 
         subject.onCreate();
         verify(mockRequestQueue).add(
-                argThat(isUrl("imp?errorcode=&asseturi=video_url&contentplayhead=00:00:00.000")));
+                argThat(VolleyRequestMatcher.isUrl("imp?errorcode=&asseturi=video_url&contentplayhead=00:00:00.000")));
     }
 
     @Test
     public void onCreate_shouldBroadcastInterstitialShow() throws Exception {
-        Intent expectedIntent = getIntentForActionAndIdentifier(ACTION_INTERSTITIAL_SHOW, testBroadcastIdentifier);
+        Intent expectedIntent = EventForwardingBroadcastReceiverTest.getIntentForActionAndIdentifier(ACTION_INTERSTITIAL_SHOW, testBroadcastIdentifier);
 
         initializeSubject();
 
@@ -675,7 +657,7 @@ public class VastVideoViewControllerTest {
 
     @Test
     public void onDestroy_shouldBroadcastInterstitialDismiss() throws Exception {
-        Intent expectedIntent = getIntentForActionAndIdentifier(ACTION_INTERSTITIAL_DISMISS,
+        Intent expectedIntent = EventForwardingBroadcastReceiverTest.getIntentForActionAndIdentifier(ACTION_INTERSTITIAL_DISMISS,
                 testBroadcastIdentifier);
 
         initializeSubject();
@@ -870,9 +852,9 @@ public class VastVideoViewControllerTest {
         subject.setCloseButtonVisible(true);
 
         getShadowVideoView().getOnTouchListener().onTouch(null, GestureUtils.createActionUp(0, 0));
-        verify(mockRequestQueue).add(argThat(isUrl(
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl(
                 "click_1?errorcode=&asseturi=video_url&contentplayhead=00:00:15.142")));
-        verify(mockRequestQueue).add(argThat(isUrl(
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl(
                 "click_2?errorcode=&asseturi=video_url&contentplayhead=00:00:15.142")));
     }
 
@@ -1248,16 +1230,16 @@ public class VastVideoViewControllerTest {
         setVideoViewParams(15000, 15000);
 
         getShadowVideoView().getOnCompletionListener().onCompletion(null);
-        verify(mockRequestQueue).add(argThat(isUrl(
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl(
                 "complete_1?errorcode=&asseturi=video_url&contentplayhead=00:00:15.000")));
-        verify(mockRequestQueue).add(argThat(isUrl(
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl(
                 "complete_2?errorcode=&asseturi=video_url&contentplayhead=00:00:15.000")));
 
         // Completion trackers should still only be hit once
         getShadowVideoView().getOnCompletionListener().onCompletion(null);
-        verify(mockRequestQueue).add(argThat(isUrl(
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl(
                 "complete_1?errorcode=&asseturi=video_url&contentplayhead=00:00:15.000")));
-        verify(mockRequestQueue).add(argThat(isUrl(
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl(
                 "complete_2?errorcode=&asseturi=video_url&contentplayhead=00:00:15.000")));
     }
 
@@ -1277,8 +1259,8 @@ public class VastVideoViewControllerTest {
         initializeSubject();
 
         getShadowVideoView().getOnCompletionListener().onCompletion(null);
-        verify(mockRequestQueue, never()).add(argThat(isUrl("complete_1")));
-        verify(mockRequestQueue, never()).add(argThat(isUrl("complete_2")));
+        verify(mockRequestQueue, never()).add(argThat(VolleyRequestMatcher.isUrl("complete_1")));
+        verify(mockRequestQueue, never()).add(argThat(VolleyRequestMatcher.isUrl("complete_2")));
     }
 
     @Test
@@ -1296,8 +1278,8 @@ public class VastVideoViewControllerTest {
         setVideoViewParams(12345, 15000);
 
         getShadowVideoView().getOnCompletionListener().onCompletion(null);
-        verify(mockRequestQueue, never()).add(argThat(isUrl("complete_1")));
-        verify(mockRequestQueue, never()).add(argThat(isUrl("complete_2")));
+        verify(mockRequestQueue, never()).add(argThat(VolleyRequestMatcher.isUrl("complete_1")));
+        verify(mockRequestQueue, never()).add(argThat(VolleyRequestMatcher.isUrl("complete_2")));
     }
 
     @Test
@@ -1498,7 +1480,7 @@ public class VastVideoViewControllerTest {
     public void onError_shouldFireVideoErrorAndReturnFalse() throws Exception {
         initializeSubject();
 
-        Intent expectedIntent = getIntentForActionAndIdentifier(ACTION_INTERSTITIAL_FAIL, testBroadcastIdentifier);
+        Intent expectedIntent = EventForwardingBroadcastReceiverTest.getIntentForActionAndIdentifier(ACTION_INTERSTITIAL_FAIL, testBroadcastIdentifier);
 
         boolean result = getShadowVideoView().getOnErrorListener().onError(null, 0, 0);
         Robolectric.getForegroundThreadScheduler().unPause();
@@ -1539,9 +1521,9 @@ public class VastVideoViewControllerTest {
         setVideoViewParams(12345, 15000);
 
         getShadowVideoView().getOnErrorListener().onError(null, 0, 0);
-        verify(mockRequestQueue, never()).add(argThat(isUrl("complete_1")));
-        verify(mockRequestQueue, never()).add(argThat(isUrl("complete_2")));
-        verify(mockRequestQueue).add(argThat(isUrl(
+        verify(mockRequestQueue, never()).add(argThat(VolleyRequestMatcher.isUrl("complete_1")));
+        verify(mockRequestQueue, never()).add(argThat(VolleyRequestMatcher.isUrl("complete_2")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl(
                 "error?errorcode=400&asseturi=video_url&contentplayhead=00:00:12.345")));
     }
 
@@ -1561,7 +1543,7 @@ public class VastVideoViewControllerTest {
 
         for(int i = 0; i < 10; i++) {
             getShadowVideoView().getOnErrorListener().onError(null, 0, 0);
-            verify(mockRequestQueue).add(argThat(isUrl(
+            verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl(
                     "error?errorcode=400&asseturi=video_url&contentplayhead=00:00:12.345")));
         }
         verifyNoMoreInteractions(mockRequestQueue);
@@ -1588,11 +1570,11 @@ public class VastVideoViewControllerTest {
         Robolectric.getForegroundThreadScheduler().unPause();
 
         verify(mockRequestQueue).add(
-                argThat(isUrl("first?errorcode=&asseturi=video_url&contentplayhead=00:00:09.002")));
-        verify(mockRequestQueue).add(argThat(isUrl(
+                argThat(VolleyRequestMatcher.isUrl("first?errorcode=&asseturi=video_url&contentplayhead=00:00:09.002")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl(
                 "second?errorcode=&asseturi=video_url&contentplayhead=00:00:09.002")));
         verify(mockRequestQueue).add(
-                argThat(isUrl("third?errorcode=&asseturi=video_url&contentplayhead=00:00:09.002")));
+                argThat(VolleyRequestMatcher.isUrl("third?errorcode=&asseturi=video_url&contentplayhead=00:00:09.002")));
     }
 
     @Test
@@ -1666,7 +1648,7 @@ public class VastVideoViewControllerTest {
         Robolectric.getForegroundThreadScheduler().unPause();
 
         verify(mockRequestQueue).add(
-                argThat(isUrl("start?errorcode=&asseturi=video_url&contentplayhead=00:00:02.000")));
+                argThat(VolleyRequestMatcher.isUrl("start?errorcode=&asseturi=video_url&contentplayhead=00:00:02.000")));
 
         // run checker another time
         assertThat(Robolectric.getForegroundThreadScheduler().size()).isEqualTo(2);
@@ -1697,7 +1679,7 @@ public class VastVideoViewControllerTest {
         Robolectric.getForegroundThreadScheduler().unPause();
 
         verify(mockRequestQueue).add(
-                argThat(isUrl("first?errorcode=&asseturi=video_url&contentplayhead=00:00:00.026")));
+                argThat(VolleyRequestMatcher.isUrl("first?errorcode=&asseturi=video_url&contentplayhead=00:00:00.026")));
 
         // run checker another time
         Robolectric.getForegroundThreadScheduler().runOneTask();
@@ -1728,8 +1710,8 @@ public class VastVideoViewControllerTest {
         Robolectric.getForegroundThreadScheduler().unPause();
 
         verify(mockRequestQueue).add(
-                argThat(isUrl("first?errorcode=&asseturi=video_url&contentplayhead=00:00:00.051")));
-        verify(mockRequestQueue).add(argThat(isUrl(
+                argThat(VolleyRequestMatcher.isUrl("first?errorcode=&asseturi=video_url&contentplayhead=00:00:00.051")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl(
                 "second?errorcode=&asseturi=video_url&contentplayhead=00:00:00.051")));
 
         Robolectric.getForegroundThreadScheduler().runOneTask();
@@ -1761,11 +1743,11 @@ public class VastVideoViewControllerTest {
         Robolectric.getForegroundThreadScheduler().unPause();
 
         verify(mockRequestQueue).add(
-                argThat(isUrl("first?errorcode=&asseturi=video_url&contentplayhead=00:00:00.076")));
-        verify(mockRequestQueue).add(argThat(isUrl(
+                argThat(VolleyRequestMatcher.isUrl("first?errorcode=&asseturi=video_url&contentplayhead=00:00:00.076")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl(
                 "second?errorcode=&asseturi=video_url&contentplayhead=00:00:00.076")));
         verify(mockRequestQueue).add(
-                argThat(isUrl("third?errorcode=&asseturi=video_url&contentplayhead=00:00:00.076")));
+                argThat(VolleyRequestMatcher.isUrl("third?errorcode=&asseturi=video_url&contentplayhead=00:00:00.076")));
 
         Robolectric.getForegroundThreadScheduler().runOneTask();
         Robolectric.getForegroundThreadScheduler().runOneTask();
@@ -1823,7 +1805,7 @@ public class VastVideoViewControllerTest {
         Robolectric.getForegroundThreadScheduler().advanceToLastPostedRunnable();
 
         for (String url : trackingUrls) {
-            verify(mockRequestQueue).add(argThat(isUrl(url)));
+            verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl(url)));
         }
     }
 
@@ -1907,7 +1889,7 @@ public class VastVideoViewControllerTest {
 
         subject.onPause();
         verify(mockRequestQueue).add(
-                argThat(isUrl("pause?errorcode=&asseturi=video_url&contentplayhead=00:00:00.000")));
+                argThat(VolleyRequestMatcher.isUrl("pause?errorcode=&asseturi=video_url&contentplayhead=00:00:00.000")));
     }
 
     @Test
@@ -1967,18 +1949,18 @@ public class VastVideoViewControllerTest {
         setVideoViewParams(1000, 10000);
         subject.onResume();
 
-        verify(mockRequestQueue).add(argThat(isUrl
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl
                 ("pause?errorcode=&asseturi=video_url&contentplayhead=00:00:07.000")));
         verify(mockRequestQueue).add(
-                argThat(isUrl("resume?errorcode=&asseturi=video_url&contentplayhead=00:00:07.000")));
+                argThat(VolleyRequestMatcher.isUrl("resume?errorcode=&asseturi=video_url&contentplayhead=00:00:07.000")));
 
         subject.onPause();
         subject.onResume();
 
         verify(mockRequestQueue).add(
-                argThat(isUrl("pause?errorcode=&asseturi=video_url&contentplayhead=00:00:07.000")));
+                argThat(VolleyRequestMatcher.isUrl("pause?errorcode=&asseturi=video_url&contentplayhead=00:00:07.000")));
         verify(mockRequestQueue).add(
-                argThat(isUrl("resume?errorcode=&asseturi=video_url&contentplayhead=00:00:07.000")));
+                argThat(VolleyRequestMatcher.isUrl("resume?errorcode=&asseturi=video_url&contentplayhead=00:00:07.000")));
     }
 
     @Test
@@ -1991,8 +1973,8 @@ public class VastVideoViewControllerTest {
 
         assertThat(subject.getPortraitCompanionAdView().getVisibility()).isEqualTo(View.INVISIBLE);
         assertThat(subject.getLandscapeCompanionAdView().getVisibility()).isEqualTo(View.VISIBLE);
-        verify(mockRequestQueue).add(argThat(isUrl(COMPANION_CREATIVE_VIEW_URL_1)));
-        verify(mockRequestQueue).add(argThat(isUrl(COMPANION_CREATIVE_VIEW_URL_2)));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl(COMPANION_CREATIVE_VIEW_URL_1)));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl(COMPANION_CREATIVE_VIEW_URL_2)));
         verifyNoMoreInteractions(mockRequestQueue);
     }
 
@@ -2006,7 +1988,7 @@ public class VastVideoViewControllerTest {
 
         assertThat(subject.getLandscapeCompanionAdView().getVisibility()).isEqualTo(View.INVISIBLE);
         assertThat(subject.getPortraitCompanionAdView().getVisibility()).isEqualTo(View.VISIBLE);
-        verify(mockRequestQueue).add(argThat(isUrl(COMPANION_CREATIVE_VIEW_URL_3)));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl(COMPANION_CREATIVE_VIEW_URL_3)));
         verifyNoMoreInteractions(mockRequestQueue);
     }
 
@@ -2020,7 +2002,7 @@ public class VastVideoViewControllerTest {
 
         assertThat(subject.getPortraitCompanionAdView().getVisibility()).isEqualTo(View.VISIBLE);
         assertThat(subject.getLandscapeCompanionAdView().getVisibility()).isEqualTo(View.INVISIBLE);
-        verify(mockRequestQueue).add(argThat(isUrl(COMPANION_CREATIVE_VIEW_URL_3)));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl(COMPANION_CREATIVE_VIEW_URL_3)));
         verifyNoMoreInteractions(mockRequestQueue);
     }
 
@@ -2047,9 +2029,9 @@ public class VastVideoViewControllerTest {
             context.getResources().getConfiguration().orientation = Configuration.ORIENTATION_PORTRAIT;
             subject.onConfigurationChanged(null);
         }
-        verify(mockRequestQueue).add(argThat(isUrl(COMPANION_CREATIVE_VIEW_URL_1)));
-        verify(mockRequestQueue).add(argThat(isUrl(COMPANION_CREATIVE_VIEW_URL_2)));
-        verify(mockRequestQueue).add(argThat(isUrl(COMPANION_CREATIVE_VIEW_URL_3)));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl(COMPANION_CREATIVE_VIEW_URL_1)));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl(COMPANION_CREATIVE_VIEW_URL_2)));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl(COMPANION_CREATIVE_VIEW_URL_3)));
         verifyNoMoreInteractions(mockRequestQueue);
     }
 
@@ -2106,9 +2088,9 @@ public class VastVideoViewControllerTest {
         closeButtonImageViewOnTouchListener.onTouch(null, GestureUtils.createActionUp(0, 0));
 
         verify(mockRequestQueue).add(
-                argThat(isUrl("close?errorcode=&asseturi=video_url&contentplayhead=00:00:15.094")));
+                argThat(VolleyRequestMatcher.isUrl("close?errorcode=&asseturi=video_url&contentplayhead=00:00:15.094")));
         verify(mockRequestQueue).add(
-                argThat(isUrl("skip?errorcode=&asseturi=video_url&contentplayhead=00:00:15.094")));
+                argThat(VolleyRequestMatcher.isUrl("skip?errorcode=&asseturi=video_url&contentplayhead=00:00:15.094")));
     }
 
     @Test
@@ -2129,9 +2111,9 @@ public class VastVideoViewControllerTest {
         closeButtonTextViewOnTouchListener.onTouch(null, GestureUtils.createActionUp(0, 0));
 
         verify(mockRequestQueue).add(
-                argThat(isUrl("close?errorcode=&asseturi=video_url&contentplayhead=00:00:15.203")));
+                argThat(VolleyRequestMatcher.isUrl("close?errorcode=&asseturi=video_url&contentplayhead=00:00:15.203")));
         verify(mockRequestQueue).add(
-                argThat(isUrl("skip?errorcode=&asseturi=video_url&contentplayhead=00:00:15.203")));
+                argThat(VolleyRequestMatcher.isUrl("skip?errorcode=&asseturi=video_url&contentplayhead=00:00:15.203")));
     }
 
     @Test

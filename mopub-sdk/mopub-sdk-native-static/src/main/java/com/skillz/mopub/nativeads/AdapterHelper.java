@@ -13,8 +13,8 @@ import com.skillz.mopub.common.logging.MoPubLog;
 import java.lang.ref.WeakReference;
 
 /**
- * @deprecated As of release 2.4, use {@link com.skillz.mopub.nativeads.MoPubAdAdapter} or
- * {@link com.skillz.mopub.nativeads.MoPubStreamAdPlacer} instead
+ * @deprecated As of release 2.4, use {@link MoPubAdAdapter} or
+ * {@link MoPubStreamAdPlacer} instead
  */
 @Deprecated
 public final class AdapterHelper {
@@ -55,9 +55,16 @@ public final class AdapterHelper {
                 convertView,
                 parent,
                 context,
-                nativeAd,
-                viewBinder
+                nativeAd
         );
+    }
+
+    @Deprecated
+    @NonNull
+    public View getAdView(@Nullable final View convertView,
+            @Nullable final ViewGroup parent,
+            @Nullable final NativeAd nativeAd) {
+        return getAdView(convertView, parent, nativeAd, null);
     }
 
     // Total number of content rows + ad rows

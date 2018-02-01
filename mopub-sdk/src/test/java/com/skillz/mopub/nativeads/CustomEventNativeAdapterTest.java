@@ -1,12 +1,12 @@
-package com.mopub.nativeads;
+package com.skillz.mopub.nativeads;
 
 import android.app.Activity;
 
 import com.skillz.mopub.common.AdType;
 import com.skillz.mopub.common.DataKeys;
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.mobileads.BuildConfig;
-import com.mopub.nativeads.test.support.TestCustomEventNativeFactory;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.nativeads.test.support.TestCustomEventNativeFactory;
 import com.skillz.mopub.network.AdResponse;
 
 import org.junit.Before;
@@ -44,7 +44,7 @@ public class CustomEventNativeAdapterTest {
 
         testAdResponse = new AdResponse.Builder()
                 .setAdType(AdType.STATIC_NATIVE)
-                .setCustomEventClassName("com.mopub.nativeads.MoPubCustomEventNative")
+                .setCustomEventClassName("MoPubCustomEventNative")
                 .setClickTrackingUrl("clicktrackingurl")
                 .setResponseBody("body")
                 .setServerExtras(serverExtras)

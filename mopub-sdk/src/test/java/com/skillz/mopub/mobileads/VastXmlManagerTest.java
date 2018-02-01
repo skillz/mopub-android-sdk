@@ -1,14 +1,11 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
-import com.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.common.util.DeviceUtils.ForceOrientation;
-import com.mopub.mobileads.test.support.VastUtils;
-import com.skillz.mopub.mobileads.VastAbsoluteProgressTracker;
-import com.skillz.mopub.mobileads.VastAdXmlManager;
-import com.skillz.mopub.mobileads.VastCompanionAdXmlManager;
-import com.skillz.mopub.mobileads.VastFractionalProgressTracker;
-import com.skillz.mopub.mobileads.VastXmlManager;
+import com.skillz.mopub.mobileads.test.support.VastUtils;
 
+import org.fest.assertions.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -459,7 +456,7 @@ public class VastXmlManagerTest {
 
     @Test
     public void getMoPubImpressionTrackers_shouldReturnTheCorrectValue() {
-        assertThat(VastUtils.vastTrackersToStrings(mXmlManager.getMoPubImpressionTrackers()))
+        Assertions.assertThat(VastUtils.vastTrackersToStrings(mXmlManager.getMoPubImpressionTrackers()))
                 .containsOnly("https://www.mopub.com/imp1", "https://www.mopub.com/imp2");
     }
 

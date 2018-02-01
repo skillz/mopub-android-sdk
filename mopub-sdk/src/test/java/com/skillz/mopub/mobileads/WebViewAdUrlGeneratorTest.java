@@ -1,4 +1,4 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.app.Activity;
 import android.content.Context;
@@ -18,17 +18,17 @@ import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
 
+import com.skillz.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.common.ClientMetadata;
 import com.skillz.mopub.common.GpsHelper;
-import com.mopub.common.GpsHelperTest;
+import com.skillz.mopub.common.GpsHelperTest;
 import com.skillz.mopub.common.LocationService;
 import com.skillz.mopub.common.MoPub;
-import com.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
 import com.skillz.mopub.common.util.Reflection.MethodBuilder;
 import com.skillz.mopub.common.util.Utils;
-import com.mopub.common.util.test.support.TestMethodBuilderFactory;
-import com.mopub.mobileads.test.support.MoPubShadowTelephonyManager;
-import com.skillz.mopub.mobileads.WebViewAdUrlGenerator;
+import com.skillz.mopub.common.util.test.support.TestMethodBuilderFactory;
+import com.skillz.mopub.mobileads.test.support.MoPubShadowTelephonyManager;
 import com.skillz.mopub.mraid.MraidNativeCommandHandler;
 import com.skillz.mopub.network.PlayServicesUrlRewriter;
 

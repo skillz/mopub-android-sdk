@@ -1,4 +1,4 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,8 +8,7 @@ import com.skillz.mopub.common.AdReport;
 import com.skillz.mopub.common.DataKeys;
 import com.skillz.mopub.common.ExternalViewabilitySessionManager;
 import com.skillz.mopub.common.logging.MoPubLog;
-import com.mopub.mobileads.factories.HtmlBannerWebViewFactory;
-import com.skillz.mopub.mobileads.AdViewController;
+import com.skillz.mopub.mobileads.factories.HtmlBannerWebViewFactory;
 
 import java.util.Map;
 

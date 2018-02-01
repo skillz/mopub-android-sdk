@@ -1,4 +1,4 @@
-package com.mopub.mraid;
+package com.skillz.mopub.mraid;
 
 import android.app.Activity;
 import android.content.ComponentName;
@@ -13,27 +13,20 @@ import android.widget.FrameLayout;
 import com.skillz.mopub.common.AdReport;
 import com.skillz.mopub.common.CloseableLayout.ClosePosition;
 import com.skillz.mopub.common.ExternalViewabilitySessionManager;
-import com.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
 import com.skillz.mopub.common.util.Utils;
-import com.mopub.mobileads.BaseVideoPlayerActivityTest;
-import com.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.mobileads.BaseVideoPlayerActivityTest;
+import com.skillz.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.mobileads.Interstitial;
 import com.skillz.mopub.mobileads.MraidVideoPlayerActivity;
 import com.skillz.mopub.mobileads.WebViewCacheService;
-import com.skillz.mopub.mraid.MraidBridge;
 import com.skillz.mopub.mraid.MraidBridge.MraidBridgeListener;
 import com.skillz.mopub.mraid.MraidBridge.MraidWebView;
-import com.skillz.mopub.mraid.MraidCommandException;
-import com.skillz.mopub.mraid.MraidController;
 import com.skillz.mopub.mraid.MraidController.MraidListener;
 import com.skillz.mopub.mraid.MraidController.OrientationBroadcastReceiver;
 import com.skillz.mopub.mraid.MraidController.ScreenMetricsWaiter;
 import com.skillz.mopub.mraid.MraidController.ScreenMetricsWaiter.WaitRequest;
 import com.skillz.mopub.mraid.MraidController.UseCustomCloseListener;
-import com.skillz.mopub.mraid.MraidOrientation;
-import com.skillz.mopub.mraid.MraidScreenMetrics;
-import com.skillz.mopub.mraid.PlacementType;
-import com.skillz.mopub.mraid.ViewState;
 
 import org.junit.Before;
 import org.junit.Test;

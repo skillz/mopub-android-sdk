@@ -1,16 +1,13 @@
-package com.mopub.common;
+package com.skillz.mopub.common;
 
 import android.app.Activity;
 import android.content.Context;
 import android.os.Looper;
 
-import com.skillz.mopub.common.ClientMetadata;
-import com.skillz.mopub.common.GpsHelper;
-import com.skillz.mopub.common.SharedPreferencesHelper;
 import com.skillz.mopub.common.factories.MethodBuilderFactory;
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.common.util.test.support.TestMethodBuilderFactory;
-import com.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.common.util.test.support.TestMethodBuilderFactory;
+import com.skillz.mopub.mobileads.BuildConfig;
 
 import org.junit.After;
 import org.junit.Before;

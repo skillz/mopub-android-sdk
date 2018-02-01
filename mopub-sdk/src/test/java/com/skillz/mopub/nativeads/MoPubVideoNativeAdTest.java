@@ -1,4 +1,4 @@
-package com.mopub.nativeads;
+package com.skillz.mopub.nativeads;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,23 +12,24 @@ import android.view.TextureView.SurfaceTextureListener;
 import android.view.View;
 
 import com.skillz.mopub.common.Constants;
+import com.skillz.mopub.common.VolleyRequestMatcher;
 import com.skillz.mopub.common.event.EventDetails;
-import com.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
 import com.skillz.mopub.mobileads.BaseVideoPlayerActivity;
-import com.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.mobileads.MraidVideoPlayerActivity;
 import com.skillz.mopub.mobileads.VastManager;
 import com.skillz.mopub.mobileads.VastTracker;
 import com.skillz.mopub.mobileads.VastVideoConfig;
 import com.skillz.mopub.mobileads.VideoViewabilityTracker;
-import com.mopub.nativeads.BaseNativeAd.NativeEventListener;
-import com.mopub.nativeads.CustomEventNative.CustomEventNativeListener;
-import com.mopub.nativeads.MoPubCustomEventVideoNative.HeaderVisibilityStrategy;
-import com.mopub.nativeads.MoPubCustomEventVideoNative.MoPubVideoNativeAd;
-import com.mopub.nativeads.MoPubCustomEventVideoNative.MoPubVideoNativeAd.VideoState;
-import com.mopub.nativeads.MoPubCustomEventVideoNative.NativeVideoControllerFactory;
-import com.mopub.nativeads.MoPubCustomEventVideoNative.PayloadVisibilityStrategy;
-import com.mopub.nativeads.MoPubCustomEventVideoNative.VideoResponseHeaders;
+import com.skillz.mopub.nativeads.BaseNativeAd.NativeEventListener;
+import com.skillz.mopub.nativeads.CustomEventNative.CustomEventNativeListener;
+import com.skillz.mopub.nativeads.MoPubCustomEventVideoNative.HeaderVisibilityStrategy;
+import com.skillz.mopub.nativeads.MoPubCustomEventVideoNative.MoPubVideoNativeAd;
+import com.skillz.mopub.nativeads.MoPubCustomEventVideoNative.MoPubVideoNativeAd.VideoState;
+import com.skillz.mopub.nativeads.MoPubCustomEventVideoNative.NativeVideoControllerFactory;
+import com.skillz.mopub.nativeads.MoPubCustomEventVideoNative.PayloadVisibilityStrategy;
+import com.skillz.mopub.nativeads.MoPubCustomEventVideoNative.VideoResponseHeaders;
 import com.skillz.mopub.network.MaxWidthImageLoader;
 import com.skillz.mopub.network.MoPubRequestQueue;
 import com.skillz.mopub.network.Networking;
@@ -50,7 +51,6 @@ import org.robolectric.Robolectric;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowApplication;
 
-import static com.mopub.common.VolleyRequestMatcher.isUrl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -226,8 +226,8 @@ public class MoPubVideoNativeAdTest {
     public void onVastVideoConfigurationPrepared_shouldConstructNativeVideoController_shouldNotifyListenerOfAdLoaded() {
         subject.loadAd();
         subject.onVastVideoConfigurationPrepared(mockVastVideoConfig);
-
-     /*   ArgumentCaptor<List> argumentCaptor = ArgumentCaptor.forClass(List.class);
+/*
+        ArgumentCaptor<List> argumentCaptor = ArgumentCaptor.forClass(List.class);
         verify(mockNativeVideoControllerFactory).createForId(anyInt(),
                 eq(activity.getApplicationContext()),
                 argumentCaptor.capture(),
@@ -891,7 +891,7 @@ public class MoPubVideoNativeAdTest {
         subject.applyState(VideoState.PAUSED);
 
         verify(mockVastVideoConfig).getPauseTrackers();
-        verify(mockRequestQueue).add(argThat(isUrl("testUrl")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl("testUrl")));
     }
 
     @Test
@@ -912,7 +912,7 @@ public class MoPubVideoNativeAdTest {
         subject.applyState(VideoState.PLAYING_MUTED);
 
         verify(mockVastVideoConfig).getPauseTrackers();
-        verify(mockRequestQueue).add(argThat(isUrl("testResumeUrl")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl("testResumeUrl")));
     }
 
     @Test
@@ -930,6 +930,6 @@ public class MoPubVideoNativeAdTest {
                 = new PayloadVisibilityStrategy(activity, "payloadUrl");
         payloadVisibilityStrategy.execute();
 
-        verify(mockRequestQueue).add(argThat(isUrl("payloadUrl")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl("payloadUrl")));
     }
 }

@@ -1,10 +1,9 @@
-package com.mopub.mobileads.factories;
+package com.skillz.mopub.mobileads.factories;
 
-import com.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
 import com.skillz.mopub.mobileads.AdTypeTranslator;
-import com.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.mobileads.CustomEventInterstitial;
-import com.skillz.mopub.mobileads.factories.CustomEventInterstitialFactory;
 
 import org.junit.Before;
 import org.junit.Test;

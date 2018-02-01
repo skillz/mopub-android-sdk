@@ -1,13 +1,13 @@
-package com.mopub.mobileads.test.support;
+package com.skillz.mopub.mobileads.test.support;
 
 import android.content.Context;
 import android.webkit.WebSettings;
 
 import com.skillz.mopub.common.AdReport;
-import com.mopub.mobileads.HtmlBannerWebView;
-import com.mopub.mobileads.factories.HtmlBannerWebViewFactory;
+import com.skillz.mopub.mobileads.HtmlBannerWebView;
+import com.skillz.mopub.mobileads.factories.HtmlBannerWebViewFactory;
 
-import static com.mopub.mobileads.CustomEventBanner.CustomEventBannerListener;
+import static com.skillz.mopub.mobileads.CustomEventBanner.CustomEventBannerListener;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.stub;
 

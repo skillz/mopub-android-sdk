@@ -1,10 +1,9 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.net.Uri;
 
-import com.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.VastErrorCode;
-import com.skillz.mopub.mobileads.VastMacroHelper;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
 
 import org.junit.Before;
 import org.junit.Test;

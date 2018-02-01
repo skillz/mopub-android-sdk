@@ -1,4 +1,4 @@
-package com.mopub.mraid;
+package com.skillz.mopub.mraid;
 
 import android.Manifest;
 import android.app.Activity;
@@ -15,14 +15,12 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.common.util.test.support.ShadowAsyncTasks;
-import com.mopub.common.util.test.support.ShadowMoPubHttpUrlConnection;
-import com.mopub.mobileads.BuildConfig;
-import com.mopub.mobileads.test.support.FileUtils;
-import com.mopub.mobileads.test.support.TestHttpResponseWithHeaders;
-import com.skillz.mopub.mraid.MraidCommandException;
-import com.skillz.mopub.mraid.MraidNativeCommandHandler;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.common.util.test.support.ShadowAsyncTasks;
+import com.skillz.mopub.common.util.test.support.ShadowMoPubHttpUrlConnection;
+import com.skillz.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.mobileads.test.support.FileUtils;
+import com.skillz.mopub.mobileads.test.support.TestHttpResponseWithHeaders;
 import com.skillz.mopub.mraid.MraidNativeCommandHandler.DownloadImageAsyncTask;
 import com.skillz.mopub.mraid.MraidNativeCommandHandler.DownloadImageAsyncTask.DownloadImageAsyncTaskListener;
 import com.skillz.mopub.mraid.MraidNativeCommandHandler.MraidCommandFailureListener;

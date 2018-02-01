@@ -1,13 +1,12 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.app.Activity;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.skillz.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.common.AdReport;
-import com.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.AdAlertGestureListener;
-import com.skillz.mopub.mobileads.ViewGestureDetector;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
 
 import org.junit.Before;
 import org.junit.Test;

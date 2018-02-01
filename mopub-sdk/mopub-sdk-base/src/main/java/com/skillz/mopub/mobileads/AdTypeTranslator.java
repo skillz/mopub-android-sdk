@@ -15,13 +15,13 @@ public class AdTypeTranslator {
     public enum CustomEventType {
         // "Special" custom events that we let people choose in the UI.
         GOOGLE_PLAY_SERVICES_BANNER("admob_native_banner",
-                "com.mopub.mobileads.GooglePlayServicesBanner", false),
+                "com.skillz.mopub.mobileads.GooglePlayServicesBanner", false),
         GOOGLE_PLAY_SERVICES_INTERSTITIAL("admob_full_interstitial",
-                "com.mopub.mobileads.GooglePlayServicesInterstitial", false),
+                "com.skillz.mopub.mobileads.GooglePlayServicesInterstitial", false),
         MILLENNIAL_BANNER("millennial_native_banner",
-                "com.mopub.mobileads.MillennialBanner", false),
+                "com.skillz.mopub.mobileads.MillennialBanner", false),
         MILLENNIAL_INTERSTITIAL("millennial_full_interstitial",
-                "com.mopub.mobileads.MillennialInterstitial", false),
+                "com.skillz.mopub.mobileads.MillennialInterstitial", false),
 
         // MoPub-specific custom events.
         MRAID_BANNER("mraid_banner",
@@ -29,19 +29,19 @@ public class AdTypeTranslator {
         MRAID_INTERSTITIAL("mraid_interstitial",
                 "com.mopub.mraid.MraidInterstitial", true),
         HTML_BANNER("html_banner",
-                "com.mopub.mobileads.HtmlBanner", true),
+                "com.skillz.mopub.mobileads.HtmlBanner", true),
         HTML_INTERSTITIAL("html_interstitial",
-                "com.mopub.mobileads.HtmlInterstitial", true),
+                "com.skillz.mopub.mobileads.HtmlInterstitial", true),
         VAST_VIDEO_INTERSTITIAL("vast_interstitial",
-                "com.mopub.mobileads.VastVideoInterstitial", true),
+                "com.skillz.mopub.mobileads.VastVideoInterstitial", true),
         MOPUB_NATIVE("mopub_native",
                 "com.mopub.nativeads.MoPubCustomEventNative", true),
         MOPUB_VIDEO_NATIVE("mopub_video_native",
                 "com.mopub.nativeads.MoPubCustomEventVideoNative", true),
         MOPUB_REWARDED_VIDEO("rewarded_video",
-                "com.mopub.mobileads.MoPubRewardedVideo", true),
+                "com.skillz.mopub.mobileads.MoPubRewardedVideo", true),
         MOPUB_REWARDED_PLAYABLE("rewarded_playable",
-                "com.mopub.mobileads.MoPubRewardedPlayable", true),
+                "com.skillz.mopub.mobileads.MoPubRewardedPlayable", true),
 
         UNSPECIFIED("", null, false);
 

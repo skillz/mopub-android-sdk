@@ -1,14 +1,13 @@
-package com.mopub.mraid;
+package com.skillz.mopub.mraid;
 
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.widget.ImageButton;
 
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.mobileads.EventForwardingBroadcastReceiver;
-import com.skillz.mopub.mraid.MraidVideoViewController;
 
 import org.apache.http.HttpRequest;
 import org.junit.After;

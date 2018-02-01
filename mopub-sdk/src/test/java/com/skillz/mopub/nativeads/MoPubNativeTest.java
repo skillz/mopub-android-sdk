@@ -1,14 +1,15 @@
-package com.mopub.nativeads;
+package com.skillz.mopub.nativeads;
 
 import android.app.Activity;
 
+import com.skillz.mopub.common.VolleyRequestMatcher;
 import com.skillz.mopub.common.logging.MoPubLog;
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.common.util.test.support.ShadowAsyncTasks;
-import com.mopub.common.util.test.support.TestMethodBuilderFactory;
-import com.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.common.util.test.support.ShadowAsyncTasks;
+import com.skillz.mopub.common.util.test.support.TestMethodBuilderFactory;
+import com.skillz.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.mobileads.MoPubErrorCode;
-import com.mopub.nativeads.MoPubNative.MoPubNativeNetworkListener;
+import com.skillz.mopub.nativeads.MoPubNative.MoPubNativeNetworkListener;
 import com.skillz.mopub.network.MoPubNetworkError;
 import com.skillz.mopub.network.MoPubRequestQueue;
 import com.skillz.mopub.network.Networking;
@@ -34,9 +35,8 @@ import java.util.logging.Level;
 
 import static android.Manifest.permission.ACCESS_NETWORK_STATE;
 import static android.Manifest.permission.INTERNET;
-import static com.mopub.common.VolleyRequestMatcher.isUrl;
 import static com.skillz.mopub.common.util.Reflection.MethodBuilder;
-import static com.mopub.nativeads.MoPubNative.EMPTY_NETWORK_LISTENER;
+import static com.skillz.mopub.nativeads.MoPubNative.EMPTY_NETWORK_LISTENER;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.argThat;
@@ -107,7 +107,7 @@ public class MoPubNativeTest {
         subject.requestNativeAd("https://www.mopub.com");
 
         verify(mockNetworkListener, never()).onNativeFail(any(NativeErrorCode.class));
-        verify(mockRequestQueue).add(argThat(isUrl("https://www.mopub.com")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl("https://www.mopub.com")));
     }
 
     @Test

@@ -1,15 +1,14 @@
-package com.mopub.network;
+package com.skillz.mopub.network;
 
 import android.app.Activity;
 import android.content.Context;
 
 import com.skillz.mopub.common.GpsHelper;
-import com.mopub.common.GpsHelperTest;
-import com.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.common.GpsHelperTest;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
 import com.skillz.mopub.common.util.Reflection;
-import com.mopub.common.util.test.support.TestMethodBuilderFactory;
-import com.mopub.mobileads.BuildConfig;
-import com.skillz.mopub.network.PlayServicesUrlRewriter;
+import com.skillz.mopub.common.util.test.support.TestMethodBuilderFactory;
+import com.skillz.mopub.mobileads.BuildConfig;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package com.mopub.nativeads;
+package com.skillz.mopub.nativeads;
 
 import android.content.Context;
 import android.graphics.SurfaceTexture;
@@ -24,7 +24,7 @@ import com.skillz.mopub.mobileads.VastTracker;
 import com.skillz.mopub.mobileads.VastVideoConfig;
 import com.skillz.mopub.mobileads.VideoViewabilityTracker;
 import com.skillz.mopub.mobileads.factories.VastManagerFactory;
-import com.mopub.nativeads.NativeVideoController.NativeVideoProgressRunnable;
+import com.skillz.mopub.nativeads.NativeVideoController.NativeVideoProgressRunnable;
 import com.skillz.mopub.network.TrackingRequest;
 
 import org.json.JSONArray;
@@ -49,8 +49,8 @@ import static com.skillz.mopub.common.DataKeys.MAX_BUFFER_MS;
 import static com.skillz.mopub.common.DataKeys.PAUSE_VISIBLE_PERCENT;
 import static com.skillz.mopub.common.DataKeys.PLAY_VISIBLE_PERCENT;
 import static com.skillz.mopub.common.DataKeys.VIDEO_TRACKERS_KEY;
-import static com.mopub.nativeads.NativeImageHelper.preCacheImages;
-import static com.mopub.nativeads.NativeVideoController.VisibilityTrackingEvent;
+import static com.skillz.mopub.nativeads.NativeImageHelper.preCacheImages;
+import static com.skillz.mopub.nativeads.NativeVideoController.VisibilityTrackingEvent;
 
 public class MoPubCustomEventVideoNative extends CustomEventNative {
 

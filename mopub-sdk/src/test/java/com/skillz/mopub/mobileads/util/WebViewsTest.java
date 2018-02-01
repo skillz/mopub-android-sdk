@@ -1,10 +1,9 @@
-package com.mopub.mobileads.util;
+package com.skillz.mopub.mobileads.util;
 
 import android.webkit.WebView;
 
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.mobileads.BuildConfig;
-import com.skillz.mopub.mobileads.util.WebViews;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

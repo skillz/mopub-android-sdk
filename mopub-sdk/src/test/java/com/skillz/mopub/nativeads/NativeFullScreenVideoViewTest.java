@@ -1,4 +1,4 @@
-package com.mopub.nativeads;
+package com.skillz.mopub.nativeads;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,15 +14,15 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
-import com.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
 import com.skillz.mopub.common.util.Dips;
 import com.skillz.mopub.common.util.Drawables;
-import com.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.mobileads.VastVideoProgressBarWidget;
 import com.skillz.mopub.mobileads.resource.CloseButtonDrawable;
 import com.skillz.mopub.mobileads.resource.CtaButtonDrawable;
-import com.mopub.nativeads.NativeFullScreenVideoView.LoadingBackground;
-import com.mopub.nativeads.NativeFullScreenVideoView.Mode;
+import com.skillz.mopub.nativeads.NativeFullScreenVideoView.LoadingBackground;
+import com.skillz.mopub.nativeads.NativeFullScreenVideoView.Mode;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -1,16 +1,13 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.app.Activity;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.mobileads.test.support.TestAdViewControllerFactory;
-import com.mopub.mobileads.test.support.TestCustomEventInterstitialAdapterFactory;
-import com.skillz.mopub.mobileads.AdTypeTranslator;
-import com.skillz.mopub.mobileads.AdViewController;
-import com.skillz.mopub.mobileads.CustomEventInterstitialAdapter;
-import com.skillz.mopub.mobileads.MoPubInterstitial;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.mobileads.test.support.TestAdViewControllerFactory;
+import com.skillz.mopub.mobileads.test.support.TestCustomEventInterstitialAdapterFactory;
 
 import org.junit.Before;
 import org.junit.Ignore;

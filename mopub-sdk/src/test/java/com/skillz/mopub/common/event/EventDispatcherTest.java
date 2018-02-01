@@ -1,16 +1,12 @@
-package com.mopub.common.event;
+package com.skillz.mopub.common.event;
 
 import android.app.Activity;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
 
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.mobileads.BuildConfig;
-import com.skillz.mopub.common.event.BaseEvent;
-import com.skillz.mopub.common.event.Event;
-import com.skillz.mopub.common.event.EventDispatcher;
-import com.skillz.mopub.common.event.EventRecorder;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
 
 import org.junit.Before;
 import org.junit.Test;

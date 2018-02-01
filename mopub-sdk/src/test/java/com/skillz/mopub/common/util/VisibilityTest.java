@@ -1,10 +1,9 @@
-package com.mopub.common.util;
+package com.skillz.mopub.common.util;
 
 import android.view.View;
 
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.mobileads.BuildConfig;
-import com.skillz.mopub.common.util.Visibility;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

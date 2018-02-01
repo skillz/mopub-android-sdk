@@ -1,12 +1,11 @@
-package com.mopub.network;
+package com.skillz.mopub.network;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.os.Build;
 
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.mobileads.BuildConfig;
-import com.skillz.mopub.network.Networking;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
 
 import org.junit.After;
 import org.junit.Before;

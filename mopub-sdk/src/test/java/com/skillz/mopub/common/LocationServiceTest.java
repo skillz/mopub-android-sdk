@@ -1,4 +1,4 @@
-package com.mopub.common;
+package com.skillz.mopub.common;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,10 +6,8 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.SystemClock;
 
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.mobileads.BuildConfig;
-import com.skillz.mopub.common.LocationService;
-import com.skillz.mopub.common.MoPub;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
 
 import org.junit.After;
 import org.junit.Before;

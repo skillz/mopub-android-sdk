@@ -44,17 +44,21 @@ public class MoPubRecyclerAdapterTest {
     private static final int AD_POSITION_1 = 1;
     private static final int AD_POSITION_7 = 7;
 
-    @Mock MoPubStreamAdPlacer mockStreamAdPlacer;
-    @Mock VisibilityTracker mockVisibilityTracker;
+    @Mock
+    MoPubStreamAdPlacer mockStreamAdPlacer;
+    @Mock
+    VisibilityTracker mockVisibilityTracker;
     @Mock
     NativeAd mMockNativeAd;
     @Mock
     NativeAd mMockNativeAd2;
-    @Mock MoPubAdRenderer mockAdRenderer;
+    @Mock
+    MoPubAdRenderer mockAdRenderer;
     @Mock ViewGroup mockParent;
     @Mock View mockAdView;
     @Mock RecyclerView.AdapterDataObserver mockObserver;
-    @Mock MoPubNativeAdLoadedListener mockAdLoadedListener;
+    @Mock
+    MoPubNativeAdLoadedListener mockAdLoadedListener;
     MoPubRecyclerViewHolder spyViewHolder;
     @Mock TestHolder mockTestHolder;
     TestAdapter originalAdapter;

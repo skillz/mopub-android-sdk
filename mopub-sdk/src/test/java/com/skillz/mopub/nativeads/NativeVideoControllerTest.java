@@ -1,4 +1,4 @@
-package com.mopub.nativeads;
+package com.skillz.mopub.nativeads;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
@@ -21,16 +21,17 @@ import com.google.android.exoplayer2.audio.MediaCodecAudioRenderer;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.video.MediaCodecVideoRenderer;
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.common.VolleyRequestMatcher;
 import com.skillz.mopub.mobileads.VastTracker;
 import com.skillz.mopub.mobileads.VastVideoConfig;
-import com.mopub.nativeads.NativeVideoController.Listener;
-import com.mopub.nativeads.NativeVideoController.MoPubExoPlayerFactory;
-import com.mopub.nativeads.NativeVideoController.NativeVideoProgressRunnable;
-import com.mopub.nativeads.NativeVideoController.NativeVideoProgressRunnable.ProgressListener;
-import com.mopub.nativeads.NativeVideoController.VisibilityTrackingEvent;
-import com.mopub.nativeads.VisibilityTracker.VisibilityChecker;
+import com.skillz.mopub.nativeads.NativeVideoController.Listener;
+import com.skillz.mopub.nativeads.NativeVideoController.MoPubExoPlayerFactory;
+import com.skillz.mopub.nativeads.NativeVideoController.NativeVideoProgressRunnable;
+import com.skillz.mopub.nativeads.NativeVideoController.NativeVideoProgressRunnable.ProgressListener;
+import com.skillz.mopub.nativeads.NativeVideoController.VisibilityTrackingEvent;
+import com.skillz.mopub.nativeads.VisibilityTracker.VisibilityChecker;
 import com.skillz.mopub.network.MoPubRequestQueue;
 import com.skillz.mopub.network.Networking;
 import com.skillz.mopub.network.TrackingRequest;
@@ -49,15 +50,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.mopub.common.VolleyRequestMatcher.isUrl;
-import static com.mopub.nativeads.NativeVideoController.STATE_BUFFERING;
-import static com.mopub.nativeads.NativeVideoController.STATE_CLEARED;
-import static com.mopub.nativeads.NativeVideoController.STATE_ENDED;
-import static com.mopub.nativeads.NativeVideoController.STATE_IDLE;
-import static com.mopub.nativeads.NativeVideoController.STATE_READY;
-import static com.mopub.nativeads.NativeVideoController.createForId;
-import static com.mopub.nativeads.NativeVideoController.getForId;
-import static com.mopub.nativeads.NativeVideoController.remove;
+import static com.skillz.mopub.nativeads.NativeVideoController.STATE_BUFFERING;
+import static com.skillz.mopub.nativeads.NativeVideoController.STATE_CLEARED;
+import static com.skillz.mopub.nativeads.NativeVideoController.STATE_ENDED;
+import static com.skillz.mopub.nativeads.NativeVideoController.STATE_IDLE;
+import static com.skillz.mopub.nativeads.NativeVideoController.STATE_READY;
+import static com.skillz.mopub.nativeads.NativeVideoController.createForId;
+import static com.skillz.mopub.nativeads.NativeVideoController.getForId;
+import static com.skillz.mopub.nativeads.NativeVideoController.remove;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
@@ -547,7 +547,7 @@ public class NativeVideoControllerTest {
         nativeVideoProgressRunnable.setUpdateIntervalMillis(10);
         nativeVideoProgressRunnable.doWork();
 
-        verify(mockRequestQueue).add(argThat(isUrl("trackingUrl1")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl("trackingUrl1")));
         assertThat(visibilityTrackingEvents.get(0).isTracked).isTrue();
         assertThat(visibilityTrackingEvents.get(1).isTracked).isFalse();
 
@@ -582,7 +582,7 @@ public class NativeVideoControllerTest {
 
         nativeVideoProgressRunnable.doWork();
 
-        verify(mockRequestQueue).add(argThat(isUrl("vastTrackingUrl")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl("vastTrackingUrl")));
         assertThat(vastTracker.isTracked()).isTrue();
 
         reset(mockRequestQueue);
@@ -652,9 +652,9 @@ public class NativeVideoControllerTest {
         assertThat(visibilityTrackingEvents.get(0).isTracked).isTrue();
         assertThat(visibilityTrackingEvents.get(1).isTracked).isTrue();
         assertThat(visibilityTrackingEvents.get(2).isTracked).isTrue();
-        verify(mockRequestQueue).add(argThat(isUrl("trackingUrl1")));
-        verify(mockRequestQueue).add(argThat(isUrl("trackingUrl2")));
-        verify(mockRequestQueue, never()).add(argThat(isUrl("trackingUrl3")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl("trackingUrl1")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl("trackingUrl2")));
+        verify(mockRequestQueue, never()).add(argThat(VolleyRequestMatcher.isUrl("trackingUrl3")));
         verify(spyNativeVideoProgressRunnable,never()).stop();
     }
 
@@ -674,9 +674,9 @@ public class NativeVideoControllerTest {
         assertThat(visibilityTrackingEvents.get(0).isTracked).isTrue();
         assertThat(visibilityTrackingEvents.get(1).isTracked).isTrue();
         assertThat(visibilityTrackingEvents.get(2).isTracked).isTrue();
-        verify(mockRequestQueue).add(argThat(isUrl("trackingUrl1")));
-        verify(mockRequestQueue).add(argThat(isUrl("trackingUrl2")));
-        verify(mockRequestQueue, never()).add(argThat(isUrl("trackingUrl3")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl("trackingUrl1")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl("trackingUrl2")));
+        verify(mockRequestQueue, never()).add(argThat(VolleyRequestMatcher.isUrl("trackingUrl3")));
         verify(spyNativeVideoProgressRunnable).stop();
     }
 
@@ -696,9 +696,9 @@ public class NativeVideoControllerTest {
         assertThat(visibilityTrackingEvents.get(0).isTracked).isTrue();
         assertThat(visibilityTrackingEvents.get(1).isTracked).isTrue();
         assertThat(visibilityTrackingEvents.get(2).isTracked).isTrue();
-        verify(mockRequestQueue).add(argThat(isUrl("trackingUrl1")));
-        verify(mockRequestQueue).add(argThat(isUrl("trackingUrl2")));
-        verify(mockRequestQueue, never()).add(argThat(isUrl("trackingUrl3")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl("trackingUrl1")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl("trackingUrl2")));
+        verify(mockRequestQueue, never()).add(argThat(VolleyRequestMatcher.isUrl("trackingUrl3")));
         verify(spyNativeVideoProgressRunnable, never()).stop();
     }
 
@@ -717,9 +717,9 @@ public class NativeVideoControllerTest {
         assertThat(visibilityTrackingEvents.get(0).isTracked).isTrue();
         assertThat(visibilityTrackingEvents.get(1).isTracked).isTrue();
         assertThat(visibilityTrackingEvents.get(2).isTracked).isTrue();
-        verify(mockRequestQueue).add(argThat(isUrl("trackingUrl1")));
-        verify(mockRequestQueue).add(argThat(isUrl("trackingUrl2")));
-        verify(mockRequestQueue, never()).add(argThat(isUrl("trackingUrl3")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl("trackingUrl1")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl("trackingUrl2")));
+        verify(mockRequestQueue, never()).add(argThat(VolleyRequestMatcher.isUrl("trackingUrl3")));
         verify(spyNativeVideoProgressRunnable).stop();
     }
 
@@ -757,10 +757,10 @@ public class NativeVideoControllerTest {
         assertThat(visibilityTrackingEvents.get(1).isTracked).isFalse();
         assertThat(visibilityTrackingEvents.get(2).isTracked).isTrue();
         assertThat(visibilityTrackingEvents.get(3).isTracked).isFalse();
-        verify(mockRequestQueue).add(argThat(isUrl("trackingUrl1")));
-        verify(mockRequestQueue, never()).add(argThat(isUrl("trackingUrl2")));
-        verify(mockRequestQueue, never()).add(argThat(isUrl("trackingUrl3")));
-        verify(mockRequestQueue, never()).add(argThat(isUrl("trackingUrl4")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl("trackingUrl1")));
+        verify(mockRequestQueue, never()).add(argThat(VolleyRequestMatcher.isUrl("trackingUrl2")));
+        verify(mockRequestQueue, never()).add(argThat(VolleyRequestMatcher.isUrl("trackingUrl3")));
+        verify(mockRequestQueue, never()).add(argThat(VolleyRequestMatcher.isUrl("trackingUrl4")));
         verify(spyNativeVideoProgressRunnable, never()).stop();
     }
 
@@ -798,10 +798,10 @@ public class NativeVideoControllerTest {
         assertThat(visibilityTrackingEvents.get(1).isTracked).isTrue();
         assertThat(visibilityTrackingEvents.get(2).isTracked).isTrue();
         assertThat(visibilityTrackingEvents.get(3).isTracked).isTrue();
-        verify(mockRequestQueue).add(argThat(isUrl("trackingUrl1")));
-        verify(mockRequestQueue).add(argThat(isUrl("trackingUrl2")));
-        verify(mockRequestQueue, never()).add(argThat(isUrl("trackingUrl3")));
-        verify(mockRequestQueue).add(argThat(isUrl("trackingUrl4")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl("trackingUrl1")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl("trackingUrl2")));
+        verify(mockRequestQueue, never()).add(argThat(VolleyRequestMatcher.isUrl("trackingUrl3")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl("trackingUrl4")));
         verify(spyNativeVideoProgressRunnable, never()).stop();
     }
 
@@ -840,10 +840,10 @@ public class NativeVideoControllerTest {
         assertThat(visibilityTrackingEvents.get(1).isTracked).isTrue();
         assertThat(visibilityTrackingEvents.get(2).isTracked).isTrue();
         assertThat(visibilityTrackingEvents.get(3).isTracked).isTrue();
-        verify(mockRequestQueue).add(argThat(isUrl("trackingUrl1")));
-        verify(mockRequestQueue).add(argThat(isUrl("trackingUrl2")));
-        verify(mockRequestQueue, never()).add(argThat(isUrl("trackingUrl3")));
-        verify(mockRequestQueue).add(argThat(isUrl("trackingUrl4")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl("trackingUrl1")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl("trackingUrl2")));
+        verify(mockRequestQueue, never()).add(argThat(VolleyRequestMatcher.isUrl("trackingUrl3")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl("trackingUrl4")));
         verify(spyNativeVideoProgressRunnable).stop();
     }
 }

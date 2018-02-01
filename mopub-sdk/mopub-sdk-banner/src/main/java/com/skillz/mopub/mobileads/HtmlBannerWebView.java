@@ -1,14 +1,10 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.content.Context;
 
 import com.skillz.mopub.common.AdReport;
-import com.skillz.mopub.mobileads.BaseHtmlWebView;
-import com.skillz.mopub.mobileads.HtmlWebViewClient;
-import com.skillz.mopub.mobileads.HtmlWebViewListener;
-import com.skillz.mopub.mobileads.MoPubErrorCode;
 
-import static com.mopub.mobileads.CustomEventBanner.CustomEventBannerListener;
+import static com.skillz.mopub.mobileads.CustomEventBanner.CustomEventBannerListener;
 
 public class HtmlBannerWebView extends BaseHtmlWebView {
     public static final String EXTRA_AD_CLICK_DATA = "com.mopub.intent.extra.AD_CLICK_DATA";

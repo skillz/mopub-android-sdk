@@ -1,10 +1,9 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.os.Handler;
 
-import com.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.VastVideoViewController;
-import com.skillz.mopub.mobileads.VastVideoViewCountdownRunnable;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
 
 import org.junit.Before;
 import org.junit.Test;

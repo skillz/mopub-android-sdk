@@ -24,10 +24,10 @@ import java.util.List;
 public class ManifestUtils {
     private ManifestUtils() {}
 
-    private static final String MOPUB_ACTIVITY = "com.mopub.mobileads.MoPubActivity";
-    private static final String MRAID_ACTIVITY = "com.mopub.mobileads.MraidActivity";
+    private static final String MOPUB_ACTIVITY = "com.skillz.mopub.mobileads.MoPubActivity";
+    private static final String MRAID_ACTIVITY = "com.skillz.mopub.mobileads.MraidActivity";
     private static final String REWARDED_MRAID_ACTIVITY =
-            "com.mopub.mobileads.RewardedMraidActivity";
+            "com.skillz.mopub.mobileads.RewardedMraidActivity";
     private static final List<Class<? extends Activity>> REQUIRED_WEB_VIEW_SDK_ACTIVITIES;
     private static FlagCheckUtil sFlagCheckUtil = new FlagCheckUtil();
 

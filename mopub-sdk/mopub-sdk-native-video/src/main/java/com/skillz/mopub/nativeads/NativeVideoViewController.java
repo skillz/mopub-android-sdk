@@ -1,4 +1,4 @@
-package com.mopub.nativeads;
+package com.skillz.mopub.nativeads;
 
 import android.app.Activity;
 import android.content.Context;
@@ -22,9 +22,6 @@ import com.skillz.mopub.common.VisibleForTesting;
 import com.skillz.mopub.common.logging.MoPubLog;
 import com.skillz.mopub.mobileads.BaseVideoViewController;
 import com.skillz.mopub.mobileads.VastVideoConfig;
-import com.mopub.nativeads.MoPubCustomEventVideoNative.MoPubVideoNativeAd;
-import com.mopub.nativeads.NativeFullScreenVideoView.Mode;
-import com.mopub.nativeads.NativeVideoController.NativeVideoProgressRunnable;
 
 public class NativeVideoViewController extends BaseVideoViewController implements TextureView
         .SurfaceTextureListener, NativeVideoController.Listener,
@@ -89,7 +86,7 @@ public class NativeVideoViewController extends BaseVideoViewController implement
     @Override
     protected void onCreate() {
         mFullScreenVideoView.setSurfaceTextureListener(this);
-        mFullScreenVideoView.setMode(Mode.LOADING);
+        mFullScreenVideoView.setMode(NativeFullScreenVideoView.Mode.LOADING);
         mFullScreenVideoView.setPlayControlClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,7 +123,7 @@ public class NativeVideoViewController extends BaseVideoViewController implement
                 mCachedVideoFrame = mFullScreenVideoView.getTextureView().getBitmap();
                 new UrlHandler.Builder().withSupportedUrlActions(UrlAction.OPEN_IN_APP_BROWSER)
                         .build().handleUrl(getContext(),
-                        MoPubVideoNativeAd.PRIVACY_INFORMATION_CLICKTHROUGH_URL);
+                        MoPubCustomEventVideoNative.MoPubVideoNativeAd.PRIVACY_INFORMATION_CLICKTHROUGH_URL);
             }
         });
 
@@ -135,8 +132,7 @@ public class NativeVideoViewController extends BaseVideoViewController implement
         mFullScreenVideoView.setLayoutParams(adViewLayout);
         getBaseVideoViewControllerListener().onSetContentView(mFullScreenVideoView);
 
-        mNativeVideoController.setProgressListener(new NativeVideoProgressRunnable
-                .ProgressListener() {
+        mNativeVideoController.setProgressListener(new NativeVideoController.NativeVideoProgressRunnable.ProgressListener() {
 
             @Override
             public void updateProgress(final int progressTenthPercent) {
@@ -274,32 +270,32 @@ public class NativeVideoViewController extends BaseVideoViewController implement
                 mNativeVideoController.setPlayWhenReady(false);
                 mNativeVideoController.setAudioEnabled(false);
                 mNativeVideoController.setAppAudioEnabled(false);
-                mFullScreenVideoView.setMode(Mode.LOADING);
+                mFullScreenVideoView.setMode(NativeFullScreenVideoView.Mode.LOADING);
                 mVastVideoConfig.handleError(getContext(), null, 0);
                 break;
             case LOADING:
             case BUFFERING:
                 mNativeVideoController.setPlayWhenReady(true);
-                mFullScreenVideoView.setMode(Mode.LOADING);
+                mFullScreenVideoView.setMode(NativeFullScreenVideoView.Mode.LOADING);
                 break;
             case PLAYING:
                 mNativeVideoController.setPlayWhenReady(true);
                 mNativeVideoController.setAudioEnabled(true);
                 mNativeVideoController.setAppAudioEnabled(true);
-                mFullScreenVideoView.setMode(Mode.PLAYING);
+                mFullScreenVideoView.setMode(NativeFullScreenVideoView.Mode.PLAYING);
                 break;
             case PAUSED:
                 if (!transitionToInline) {
                     mNativeVideoController.setAppAudioEnabled(false);
                 }
                 mNativeVideoController.setPlayWhenReady(false);
-                mFullScreenVideoView.setMode(Mode.PAUSED);
+                mFullScreenVideoView.setMode(NativeFullScreenVideoView.Mode.PAUSED);
                 break;
             case ENDED:
                 mEnded = true;
                 mNativeVideoController.setAppAudioEnabled(false);
                 mFullScreenVideoView.updateProgress(1000);
-                mFullScreenVideoView.setMode(Mode.FINISHED);
+                mFullScreenVideoView.setMode(NativeFullScreenVideoView.Mode.FINISHED);
                 mVastVideoConfig.handleComplete(getContext(), 0);
                 break;
             default:

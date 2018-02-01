@@ -1,12 +1,12 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.app.Activity;
 import android.content.Context;
 
+import com.skillz.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.common.AdReport;
 import com.skillz.mopub.common.DataKeys;
-import com.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.VastVideoConfig;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
 
 import org.junit.Before;
 import org.junit.Test;

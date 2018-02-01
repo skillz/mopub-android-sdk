@@ -1,4 +1,4 @@
-package com.mopub.nativeads;
+package com.skillz.mopub.nativeads;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
@@ -11,14 +11,12 @@ import android.view.ViewGroup;
 import com.skillz.mopub.common.Preconditions;
 import com.skillz.mopub.common.VisibleForTesting;
 import com.skillz.mopub.common.logging.MoPubLog;
-import com.mopub.nativeads.MoPubNativeAdPositioning.MoPubClientPositioning;
-import com.mopub.nativeads.MoPubNativeAdPositioning.MoPubServerPositioning;
 
 import java.util.List;
 import java.util.WeakHashMap;
 
-import static com.mopub.nativeads.MoPubRecyclerAdapter.ContentChangeStrategy.INSERT_AT_END;
-import static com.mopub.nativeads.MoPubRecyclerAdapter.ContentChangeStrategy.KEEP_ADS_FIXED;
+import static com.skillz.mopub.nativeads.MoPubRecyclerAdapter.ContentChangeStrategy.INSERT_AT_END;
+import static com.skillz.mopub.nativeads.MoPubRecyclerAdapter.ContentChangeStrategy.KEEP_ADS_FIXED;
 
 
 public final class MoPubRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -46,14 +44,14 @@ public final class MoPubRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
 
     public MoPubRecyclerAdapter(@NonNull Activity activity,
             @NonNull RecyclerView.Adapter originalAdapter,
-            @NonNull MoPubServerPositioning adPositioning) {
+            @NonNull MoPubNativeAdPositioning.MoPubServerPositioning adPositioning) {
         this(new MoPubStreamAdPlacer(activity, adPositioning), originalAdapter,
                 new VisibilityTracker(activity));
     }
 
     public MoPubRecyclerAdapter(@NonNull Activity activity,
             @NonNull RecyclerView.Adapter originalAdapter,
-            @NonNull MoPubClientPositioning adPositioning) {
+            @NonNull MoPubNativeAdPositioning.MoPubClientPositioning adPositioning) {
         this(new MoPubStreamAdPlacer(activity, adPositioning), originalAdapter,
                 new VisibilityTracker(activity));
     }
@@ -371,13 +369,13 @@ public final class MoPubRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
      * from the wrapped original adapter. This strategy can be set at any time to change the
      * behavior of the adapter.
      * <ul>
-     * <li>{@link com.mopub.nativeads.MoPubRecyclerAdapter.ContentChangeStrategy#INSERT_AT_END}
+     * <li>{@link MoPubRecyclerAdapter.ContentChangeStrategy#INSERT_AT_END}
      *     will insert ads when content is added to the end of the stream. This is the default behavior
      *     and the recommended strategy.</li>
-     * <li>{@link com.mopub.nativeads.MoPubRecyclerAdapter.ContentChangeStrategy#MOVE_ALL_ADS_WITH_CONTENT}
+     * <li>{@link MoPubRecyclerAdapter.ContentChangeStrategy#MOVE_ALL_ADS_WITH_CONTENT}
      *     will cause all ad positions after an insertion or deletion to be adjusted. New
      *     ads will not be displayed when items are added to the end of the stream.</li>
-     * <li>{@link com.mopub.nativeads.MoPubRecyclerAdapter.ContentChangeStrategy#KEEP_ADS_FIXED}
+     * <li>{@link MoPubRecyclerAdapter.ContentChangeStrategy#KEEP_ADS_FIXED}
      *     will never adjust ad positions when items are inserted or removed.</li>
      * </ul>
      */

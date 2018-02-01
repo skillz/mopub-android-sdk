@@ -1,13 +1,8 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.mobileads.test.support.VastUtils;
-import com.skillz.mopub.mobileads.VastAbsoluteProgressTracker;
-import com.skillz.mopub.mobileads.VastFractionalProgressTracker;
-import com.skillz.mopub.mobileads.VastIconXmlManager;
-import com.skillz.mopub.mobileads.VastLinearXmlManager;
-import com.skillz.mopub.mobileads.VastMediaXmlManager;
-import com.skillz.mopub.mobileads.VastTracker;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.mobileads.test.support.VastUtils;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +12,6 @@ import org.w3c.dom.Node;
 
 import java.util.List;
 
-import static com.mopub.mobileads.test.support.VastUtils.createNode;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 @RunWith(SdkTestRunner.class)
@@ -238,7 +232,7 @@ public class VastLinearXmlManagerTest {
                 "</Icons>" +
                 "</Linear>";
 
-        linearNode = createNode(linearXml);
+        linearNode = VastUtils.createNode(linearXml);
     }
 
     @Test
@@ -383,7 +377,7 @@ public class VastLinearXmlManagerTest {
         String linearXml = "<Linear>" +
                 "</Linear>";
 
-        Node linearNode = createNode(linearXml);
+        Node linearNode = VastUtils.createNode(linearXml);
         subject = new VastLinearXmlManager(linearNode);
 
         assertThat(subject.getSkipOffset()).isNull();
@@ -394,7 +388,7 @@ public class VastLinearXmlManagerTest {
         String linearXml = "<Linear skipoffset=\"\">" +
                 "</Linear>";
 
-        Node linearNode = createNode(linearXml);
+        Node linearNode = VastUtils.createNode(linearXml);
         subject = new VastLinearXmlManager(linearNode);
 
         assertThat(subject.getSkipOffset()).isNull();
@@ -420,7 +414,7 @@ public class VastLinearXmlManagerTest {
                 "    </MediaFiles>" +
                 "</Linear>";
 
-        Node linearNode = createNode(linearXml);
+        Node linearNode = VastUtils.createNode(linearXml);
         subject = new VastLinearXmlManager(linearNode);
 
         List<VastMediaXmlManager> mediaXmlManagers = subject.getMediaXmlManagers();
@@ -438,7 +432,7 @@ public class VastLinearXmlManagerTest {
                 "    </MediaFile>" +
                 "</Linear>";
 
-        Node linearNode = createNode(linearXml);
+        Node linearNode = VastUtils.createNode(linearXml);
         subject = new VastLinearXmlManager(linearNode);
 
         List<VastMediaXmlManager> mediaXmlManagers = subject.getMediaXmlManagers();
@@ -464,7 +458,7 @@ public class VastLinearXmlManagerTest {
                 "    </Icons>" +
                 "</Linear>";
 
-        Node linearNode = createNode(linearXml);
+        Node linearNode = VastUtils.createNode(linearXml);
         subject = new VastLinearXmlManager(linearNode);
 
         assertThat(subject.getIconXmlManagers()).isEmpty();
@@ -482,7 +476,7 @@ public class VastLinearXmlManagerTest {
                 "    </Icon>" +
                 "</Linear>";
 
-        Node linearNode = createNode(linearXml);
+        Node linearNode = VastUtils.createNode(linearXml);
         subject = new VastLinearXmlManager(linearNode);
 
         assertThat(subject.getIconXmlManagers()).isEmpty();

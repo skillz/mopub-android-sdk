@@ -1,4 +1,4 @@
-package com.skillz.mopub.mobileads;
+package com.skillz.mopub.mobileads.;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -10,13 +10,13 @@ import com.facebook.ads.AdError;
 import com.facebook.ads.AdListener;
 import com.facebook.ads.AdSize;
 import com.facebook.ads.AdView;
-import com.skillz.mopub.common.DataKeys;
-import com.skillz.mopub.common.util.Views;
+import com.mopub.common.DataKeys;
+import com.mopub.common.util.Views;
 
 import java.util.Map;
 
 /**
- * Tested with Facebook SDK 4.8.1.
+ * Certified with Facebook Audience Network 4.26.1
  */
 public class FacebookBanner extends CustomEventBanner implements AdListener {
     public static final String PLACEMENT_ID_KEY = "placement_id";
@@ -100,6 +100,11 @@ public class FacebookBanner extends CustomEventBanner implements AdListener {
     public void onAdClicked(Ad ad) {
         Log.d("MoPub", "Facebook banner ad clicked.");
         mBannerListener.onBannerClicked();
+    }
+
+    @Override
+    public void onLoggingImpression(Ad ad) {
+        Log.d("MoPub", "Facebook banner ad logged impression.");
     }
 
     private boolean serverExtrasAreValid(final Map<String, String> serverExtras) {

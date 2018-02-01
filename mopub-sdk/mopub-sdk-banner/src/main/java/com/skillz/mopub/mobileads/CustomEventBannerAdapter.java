@@ -1,4 +1,4 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.content.Context;
 import android.os.Handler;
@@ -14,10 +14,8 @@ import com.skillz.mopub.common.Preconditions;
 import com.skillz.mopub.common.VisibleForTesting;
 import com.skillz.mopub.common.logging.MoPubLog;
 import com.skillz.mopub.common.util.ReflectionTarget;
-import com.mopub.mobileads.CustomEventBanner.CustomEventBannerListener;
-import com.mopub.mobileads.factories.CustomEventBannerFactory;
-import com.skillz.mopub.mobileads.MoPubErrorCode;
-import com.skillz.mopub.mobileads.MoPubView;
+import com.skillz.mopub.mobileads.CustomEventBanner.CustomEventBannerListener;
+import com.skillz.mopub.mobileads.factories.CustomEventBannerFactory;
 
 import java.util.Map;
 import java.util.TreeMap;

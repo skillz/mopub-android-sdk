@@ -1,11 +1,9 @@
-package com.mopub.common;
+package com.skillz.mopub.common;
 
 import android.app.Activity;
 
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.mobileads.BuildConfig;
-import com.skillz.mopub.common.CacheService;
-import com.skillz.mopub.common.DiskLruCache;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.Manifest;
 import android.app.Activity;
@@ -8,14 +8,13 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.skillz.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.common.AdFormat;
-import com.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.common.VolleyRequestMatcher;
 import com.skillz.mopub.common.util.Reflection;
-import com.mopub.common.util.test.support.TestMethodBuilderFactory;
-import com.mopub.mobileads.test.support.ThreadUtils;
-import com.skillz.mopub.mobileads.AdViewController;
-import com.skillz.mopub.mobileads.MoPubErrorCode;
-import com.skillz.mopub.mobileads.MoPubView;
+import com.skillz.mopub.common.util.test.support.TestMethodBuilderFactory;
+import com.skillz.mopub.mobileads.test.support.ThreadUtils;
 import com.skillz.mopub.network.AdRequest;
 import com.skillz.mopub.network.AdResponse;
 import com.skillz.mopub.network.MoPubNetworkError;
@@ -41,7 +40,6 @@ import org.robolectric.shadows.ShadowLooper;
 import java.util.Collections;
 import java.util.Map;
 
-import static com.mopub.common.VolleyRequestMatcher.isUrl;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyMap;
@@ -295,7 +293,7 @@ public class AdViewControllerTest {
         subject.onAdLoadSuccess(response);
         subject.trackImpression();
 
-        verify(mockRequestQueue).add(argThat(isUrl("impressionUrl")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl("impressionUrl")));
     }
 
     @Test
@@ -310,7 +308,7 @@ public class AdViewControllerTest {
         subject.onAdLoadSuccess(response);
 
         subject.registerClick();
-        verify(mockRequestQueue).add(argThat(isUrl("clickUrl")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl("clickUrl")));
     }
 
     @Test
@@ -348,7 +346,7 @@ public class AdViewControllerTest {
         String url = "https://www.guy.com";
         subject.loadNonJavascript(url);
 
-        verify(mockRequestQueue).add(argThat(isUrl(url)));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl(url)));
     }
 
     @Test
@@ -375,7 +373,7 @@ public class AdViewControllerTest {
         reset(mockRequestQueue);
         subject.reload();
 
-        verify(mockRequestQueue).add(argThat(isUrl(url)));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl(url)));
     }
 
     @Test
@@ -383,7 +381,7 @@ public class AdViewControllerTest {
         subject.onAdLoadSuccess(response);
         subject.loadFailUrl(MoPubErrorCode.INTERNAL_ERROR);
 
-        verify(mockRequestQueue).add(argThat(isUrl("failUrl")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl("failUrl")));
         verify(mockMoPubView, never()).adFailed(any(MoPubErrorCode.class));
     }
 

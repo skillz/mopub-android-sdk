@@ -1,4 +1,4 @@
-package com.skillz.mopub.mobileads;
+package com.skillz.mopub.mobileads.;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
@@ -8,11 +8,11 @@ import android.util.Log;
 import com.chartboost.sdk.Chartboost;
 import com.chartboost.sdk.ChartboostDelegate;
 import com.chartboost.sdk.Model.CBError;
-import com.skillz.mopub.common.MoPub;
-import com.skillz.mopub.common.MoPubReward;
-import com.skillz.mopub.common.Preconditions;
-import com.skillz.mopub.common.VisibleForTesting;
-import com.skillz.mopub.common.logging.MoPubLog;
+import com.mopub.common.MoPub;
+import com.mopub.common.MoPubReward;
+import com.mopub.common.Preconditions;
+import com.mopub.common.VisibleForTesting;
+import com.mopub.common.logging.MoPubLog;
 import com.skillz.mopub.mobileads.CustomEventInterstitial.CustomEventInterstitialListener;
 
 import java.util.Collections;
@@ -27,7 +27,7 @@ import static com.skillz.mopub.mobileads.MoPubErrorCode.VIDEO_DOWNLOAD_ERROR;
 /**
  * Shared infrastructure for initializing the Chartboost SDK when mediated by MoPub
  *
- * Certified with Chartboost 6.4.1
+ * Certified with Chartboost 7.0.1
  */
 public class ChartboostShared {
     private static volatile ChartboostSingletonDelegate sDelegate = new ChartboostSingletonDelegate();
@@ -75,7 +75,6 @@ public class ChartboostShared {
 
         // Perform all the common SDK initialization steps including startAppWithId
         Chartboost.startWithAppId(launcherActivity, mAppId, mAppSignature);
-        Chartboost.setImpressionsUseActivities(false);
         Chartboost.setMediation(Chartboost.CBMediation.CBMediationMoPub, MoPub.SDK_VERSION);
         Chartboost.setDelegate(sDelegate);
         Chartboost.setShouldRequestInterstitialsInFirstSession(true);

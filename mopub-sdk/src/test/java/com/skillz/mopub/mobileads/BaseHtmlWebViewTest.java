@@ -1,4 +1,4 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.app.Activity;
 import android.os.Build.VERSION_CODES;
@@ -6,10 +6,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mopub.TestSdkHelper;
+import com.skillz.mopub.TestSdkHelper;
+import com.skillz.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.common.AdReport;
-import com.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.BaseHtmlWebView;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package com.mopub.nativeads;
+package com.skillz.mopub.nativeads;
 
 import android.app.Activity;
 import android.os.Handler;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.skillz.mopub.common.Constants.AD_EXPIRATION_DELAY;
-import static com.mopub.nativeads.MoPubNative.MoPubNativeNetworkListener;
+import static com.skillz.mopub.nativeads.MoPubNative.MoPubNativeNetworkListener;
 
 /**
  * An ad source responsible for requesting ads from the MoPub ad server.

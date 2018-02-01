@@ -1,7 +1,8 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
-import com.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.VastMediaXmlManager;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.mobileads.test.support.VastUtils;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -9,7 +10,6 @@ import org.junit.runner.RunWith;
 import org.robolectric.annotation.Config;
 import org.w3c.dom.Node;
 
-import static com.mopub.mobileads.test.support.VastUtils.createNode;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 @RunWith(SdkTestRunner.class)
@@ -30,7 +30,7 @@ public class VastMediaXmlManagerTest {
                 "        ]]>" +
                 "</MediaFile>";
 
-        mediaNode = createNode(mediaXml);
+        mediaNode = VastUtils.createNode(mediaXml);
         subject = new VastMediaXmlManager(mediaNode);
     }
 
@@ -49,7 +49,7 @@ public class VastMediaXmlManagerTest {
                 "        ]]>" +
                 "</MediaFile>";
 
-        mediaNode = createNode(mediaXml);
+        mediaNode = VastUtils.createNode(mediaXml);
         subject = new VastMediaXmlManager(mediaNode);
 
         assertThat(subject.getWidth()).isNull();
@@ -70,7 +70,7 @@ public class VastMediaXmlManagerTest {
                 "        ]]>" +
                 "</MediaFile>";
 
-        mediaNode = createNode(mediaXml);
+        mediaNode = VastUtils.createNode(mediaXml);
         subject = new VastMediaXmlManager(mediaNode);
 
         assertThat(subject.getHeight()).isNull();
@@ -91,7 +91,7 @@ public class VastMediaXmlManagerTest {
                 "        ]]>" +
                 "</MediaFile>";
 
-        mediaNode = createNode(mediaXml);
+        mediaNode = VastUtils.createNode(mediaXml);
         subject = new VastMediaXmlManager(mediaNode);
 
         assertThat(subject.getType()).isNull();
@@ -109,7 +109,7 @@ public class VastMediaXmlManagerTest {
                 "bitrate=\"457\" width=\"300\" height=\"225\">" +
                 "</MediaFile>";
 
-        mediaNode = createNode(mediaXml);
+        mediaNode = VastUtils.createNode(mediaXml);
         subject = new VastMediaXmlManager(mediaNode);
 
         assertThat(subject.getMediaUrl()).isNull();

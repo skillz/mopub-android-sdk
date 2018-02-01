@@ -1,4 +1,4 @@
-package com.mopub.nativeads;
+package com.skillz.mopub.nativeads;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -25,14 +25,13 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import static com.skillz.mopub.common.GpsHelper.fetchAdvertisingInfoAsync;
-import static com.mopub.nativeads.CustomEventNative.CustomEventNativeListener;
-import static com.mopub.nativeads.NativeErrorCode.CONNECTION_ERROR;
-import static com.mopub.nativeads.NativeErrorCode.EMPTY_AD_RESPONSE;
-import static com.mopub.nativeads.NativeErrorCode.INVALID_REQUEST_URL;
-import static com.mopub.nativeads.NativeErrorCode.INVALID_RESPONSE;
-import static com.mopub.nativeads.NativeErrorCode.NATIVE_RENDERER_CONFIGURATION_ERROR;
-import static com.mopub.nativeads.NativeErrorCode.SERVER_ERROR_RESPONSE_CODE;
-import static com.mopub.nativeads.NativeErrorCode.UNSPECIFIED;
+import static com.skillz.mopub.nativeads.NativeErrorCode.CONNECTION_ERROR;
+import static com.skillz.mopub.nativeads.NativeErrorCode.EMPTY_AD_RESPONSE;
+import static com.skillz.mopub.nativeads.NativeErrorCode.INVALID_REQUEST_URL;
+import static com.skillz.mopub.nativeads.NativeErrorCode.INVALID_RESPONSE;
+import static com.skillz.mopub.nativeads.NativeErrorCode.NATIVE_RENDERER_CONFIGURATION_ERROR;
+import static com.skillz.mopub.nativeads.NativeErrorCode.SERVER_ERROR_RESPONSE_CODE;
+import static com.skillz.mopub.nativeads.NativeErrorCode.UNSPECIFIED;
 
 public class MoPubNative {
 
@@ -198,8 +197,8 @@ public class MoPubNative {
         if (context == null) {
             return;
         }
-        final CustomEventNativeListener customEventNativeListener =
-                new CustomEventNativeListener() {
+        final CustomEventNative.CustomEventNativeListener customEventNativeListener =
+                new CustomEventNative.CustomEventNativeListener() {
                     @Override
                     public void onNativeAdLoaded(@NonNull final BaseNativeAd nativeAd) {
                         final Context context = getContextOrDestroy();

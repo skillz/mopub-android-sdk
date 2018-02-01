@@ -1,9 +1,8 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.mobileads.test.support.VastUtils;
-import com.skillz.mopub.mobileads.VastCompanionAdXmlManager;
-import com.skillz.mopub.mobileads.VastResourceXmlManager;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.mobileads.test.support.VastUtils;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +10,6 @@ import org.junit.runner.RunWith;
 import org.robolectric.annotation.Config;
 import org.w3c.dom.Node;
 
-import static com.mopub.mobileads.test.support.VastUtils.createNode;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 @RunWith(SdkTestRunner.class)
@@ -41,7 +39,7 @@ public class VastCompanionAdConfigXmlManagerTest {
                 "    <RandomUnusedTag>This_is_unused</RandomUnusedTag>" +
                 "</Companion>";
 
-        companionNode = createNode(companionXml);
+        companionNode = VastUtils.createNode(companionXml);
         subject = new VastCompanionAdXmlManager(companionNode);
     }
 
@@ -55,7 +53,7 @@ public class VastCompanionAdConfigXmlManagerTest {
         String companionXml = "<Companion id=\"valid\" height=\"250\">" +
                 "</Companion>";
 
-        companionNode = createNode(companionXml);
+        companionNode = VastUtils.createNode(companionXml);
         subject = new VastCompanionAdXmlManager(companionNode);
 
         assertThat(subject.getWidth()).isNull();
@@ -71,7 +69,7 @@ public class VastCompanionAdConfigXmlManagerTest {
         String companionXml = "<Companion id=\"valid\" width=\"300\">" +
                 "</Companion>";
 
-        companionNode = createNode(companionXml);
+        companionNode = VastUtils.createNode(companionXml);
         subject = new VastCompanionAdXmlManager(companionNode);
 
         assertThat(subject.getHeight()).isNull();

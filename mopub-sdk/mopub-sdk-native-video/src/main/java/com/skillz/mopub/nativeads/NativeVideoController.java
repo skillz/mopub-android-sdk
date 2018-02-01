@@ -1,4 +1,4 @@
-package com.mopub.nativeads;
+package com.skillz.mopub.nativeads;
 
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
@@ -46,8 +46,8 @@ import com.skillz.mopub.common.logging.MoPubLog;
 import com.skillz.mopub.mobileads.RepeatingHandlerRunnable;
 import com.skillz.mopub.mobileads.VastTracker;
 import com.skillz.mopub.mobileads.VastVideoConfig;
-import com.mopub.nativeads.NativeVideoController.NativeVideoProgressRunnable.ProgressListener;
-import com.mopub.nativeads.VisibilityTracker.VisibilityChecker;
+import com.skillz.mopub.nativeads.NativeVideoController.NativeVideoProgressRunnable.ProgressListener;
+import com.skillz.mopub.nativeads.VisibilityTracker.VisibilityChecker;
 import com.skillz.mopub.network.TrackingRequest;
 
 import java.lang.ref.WeakReference;
@@ -393,7 +393,7 @@ public class NativeVideoController implements ExoPlayer.EventListener, OnAudioFo
      * Handles forwarding the user to the specified click through url. Also, fires all unfired
      * impression trackers (which should already have been handled in the transition from in-stream
      * to full-screen. See
-     * {@link com.mopub.nativeads.MoPubCustomEventVideoNative.MoPubVideoNativeAd#render(MediaLayout)}
+     * {@link MoPubCustomEventVideoNative.MoPubVideoNativeAd#render(MediaLayout)}
      */
     public void handleCtaClick(@NonNull final Context context) {
         triggerImpressionTrackers();

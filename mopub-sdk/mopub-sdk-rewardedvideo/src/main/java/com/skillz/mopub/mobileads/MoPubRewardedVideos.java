@@ -1,11 +1,11 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.skillz.mopub.common.MediationSettings;
-import com.mopub.common.MoPubReward;
+import com.skillz.mopub.common.MoPubReward;
 import com.skillz.mopub.common.Preconditions;
 import com.skillz.mopub.common.util.ReflectionTarget;
 

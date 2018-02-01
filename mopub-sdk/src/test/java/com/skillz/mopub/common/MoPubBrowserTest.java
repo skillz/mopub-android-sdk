@@ -1,11 +1,10 @@
-package com.mopub.common;
+package com.skillz.mopub.common;
 
 import android.webkit.CookieSyncManager;
 import android.webkit.WebView;
 
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.mobileads.BuildConfig;
-import com.skillz.mopub.common.MoPubBrowser;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
 
 import org.junit.Before;
 import org.junit.Test;

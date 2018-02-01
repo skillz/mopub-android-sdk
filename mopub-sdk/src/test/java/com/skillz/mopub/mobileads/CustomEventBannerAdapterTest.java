@@ -1,16 +1,15 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
 import android.view.View;
 
+import com.skillz.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.common.AdReport;
 import com.skillz.mopub.common.DataKeys;
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.mobileads.factories.CustomEventBannerFactory;
-import com.skillz.mopub.mobileads.MoPubErrorCode;
-import com.skillz.mopub.mobileads.MoPubView;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.factories.CustomEventBannerFactory;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -25,7 +24,7 @@ import org.robolectric.shadows.ShadowLooper;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.mopub.mobileads.CustomEventBanner.CustomEventBannerListener;
+import static com.skillz.mopub.mobileads.CustomEventBanner.CustomEventBannerListener;
 import static com.skillz.mopub.mobileads.MoPubErrorCode.ADAPTER_CONFIGURATION_ERROR;
 import static com.skillz.mopub.mobileads.MoPubErrorCode.NETWORK_TIMEOUT;
 import static com.skillz.mopub.mobileads.MoPubErrorCode.UNSPECIFIED;

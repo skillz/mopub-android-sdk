@@ -1,15 +1,15 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 
+import com.skillz.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.common.MoPubBrowser;
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.mobileads.test.support.VastUtils;
-import com.skillz.mopub.mobileads.VastCompanionAdConfig;
-import com.skillz.mopub.mobileads.VastResource;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.test.support.VastUtils;
+import com.skillz.mopub.common.VolleyRequestMatcher;
 import com.skillz.mopub.network.MoPubRequestQueue;
 import com.skillz.mopub.network.Networking;
 
@@ -21,7 +21,6 @@ import org.robolectric.Robolectric;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowApplication;
 
-import static com.mopub.common.VolleyRequestMatcher.isUrl;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.verify;
@@ -72,8 +71,8 @@ public class VastCompanionAdConfigTest {
     public void handleImpression_shouldTrackImpression() throws Exception {
         subject.handleImpression(context, 123);
 
-        verify(mockRequestQueue).add(argThat(isUrl("viewTrackerOne")));
-        verify(mockRequestQueue).add(argThat(isUrl("viewTrackerTwo")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl("viewTrackerOne")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl("viewTrackerTwo")));
     }
 
     @Test

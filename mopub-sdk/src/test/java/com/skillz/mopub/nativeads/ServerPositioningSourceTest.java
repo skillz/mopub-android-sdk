@@ -1,4 +1,4 @@
-package com.mopub.nativeads;
+package com.skillz.mopub.nativeads;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,11 +7,11 @@ import android.content.pm.PackageManager;
 import com.skillz.mopub.common.ClientMetadata;
 import com.skillz.mopub.common.DownloadResponse;
 import com.skillz.mopub.common.logging.MoPubLog;
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.mobileads.MoPubErrorCode;
-import com.mopub.nativeads.MoPubNativeAdPositioning.MoPubClientPositioning;
-import com.mopub.nativeads.PositioningSource.PositioningListener;
+import com.skillz.mopub.nativeads.MoPubNativeAdPositioning.MoPubClientPositioning;
+import com.skillz.mopub.nativeads.PositioningSource.PositioningListener;
 import com.skillz.mopub.network.MoPubRequestQueue;
 import com.skillz.mopub.network.Networking;
 import com.mopub.volley.NoConnectionError;

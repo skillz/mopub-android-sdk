@@ -1,12 +1,11 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.app.Activity;
 import android.webkit.WebViewClient;
 
+import com.skillz.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.common.AdReport;
-import com.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.HtmlInterstitialWebView;
-import com.skillz.mopub.mobileads.HtmlWebViewClient;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
 
 import org.junit.Before;
 import org.junit.Test;

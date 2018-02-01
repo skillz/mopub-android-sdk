@@ -1,13 +1,12 @@
-package com.mopub.mraid;
+package com.skillz.mopub.mraid;
 
 import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.mobileads.BuildConfig;
-import com.mopub.mobileads.test.support.TestMraidControllerFactory;
-import com.skillz.mopub.mraid.MraidController;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.mobileads.test.support.TestMraidControllerFactory;
 import com.skillz.mopub.mraid.MraidController.MraidListener;
 
 import org.junit.Before;
@@ -21,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.skillz.mopub.common.DataKeys.HTML_RESPONSE_BODY_KEY;
-import static com.mopub.mobileads.CustomEventBanner.CustomEventBannerListener;
+import static com.skillz.mopub.mobileads.CustomEventBanner.CustomEventBannerListener;
 import static com.skillz.mopub.mobileads.MoPubErrorCode.MRAID_LOAD_ERROR;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;

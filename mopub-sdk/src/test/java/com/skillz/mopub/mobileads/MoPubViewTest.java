@@ -1,17 +1,16 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
-import com.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.common.util.Reflection;
-import com.mopub.common.util.test.support.ShadowReflection;
-import com.mopub.mobileads.test.support.TestAdViewControllerFactory;
-import com.mopub.mobileads.test.support.TestCustomEventBannerAdapterFactory;
-import com.skillz.mopub.mobileads.AdViewController;
-import com.skillz.mopub.mobileads.MoPubView;
+import com.skillz.mopub.common.util.test.support.ShadowReflection;
+import com.skillz.mopub.mobileads.test.support.TestAdViewControllerFactory;
+import com.skillz.mopub.mobileads.test.support.TestCustomEventBannerAdapterFactory;
 
 import org.junit.Before;
 import org.junit.Test;

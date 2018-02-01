@@ -1,14 +1,10 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.content.Context;
 import android.os.Handler;
 
-import com.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.VastAbsoluteProgressTracker;
-import com.skillz.mopub.mobileads.VastTracker;
-import com.skillz.mopub.mobileads.VastVideoConfig;
-import com.skillz.mopub.mobileads.VastVideoViewController;
-import com.skillz.mopub.mobileads.VastVideoViewProgressRunnable;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.network.MoPubRequestQueue;
 import com.skillz.mopub.network.Networking;
 import com.skillz.mopub.network.TrackingRequest;

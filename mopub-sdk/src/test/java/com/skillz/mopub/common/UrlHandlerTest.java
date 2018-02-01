@@ -1,4 +1,4 @@
-package com.mopub.common;
+package com.skillz.mopub.common;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,11 +7,8 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.mobileads.BuildConfig;
-import com.skillz.mopub.common.MoPubBrowser;
-import com.skillz.mopub.common.UrlAction;
-import com.skillz.mopub.common.UrlHandler;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.network.MoPubRequestQueue;
 import com.skillz.mopub.network.Networking;
 
@@ -36,7 +33,6 @@ import static com.skillz.mopub.common.UrlAction.NOOP;
 import static com.skillz.mopub.common.UrlAction.OPEN_APP_MARKET;
 import static com.skillz.mopub.common.UrlAction.OPEN_IN_APP_BROWSER;
 import static com.skillz.mopub.common.UrlAction.OPEN_NATIVE_BROWSER;
-import static com.mopub.common.VolleyRequestMatcher.isUrl;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.never;
@@ -405,8 +401,8 @@ public class UrlHandlerTest {
                 .withSupportedUrlActions(FOLLOW_DEEP_LINK_WITH_FALLBACK)
                 .build().handleResolvedUrl(context, url, true, null);
 
-        verify(mockRequestQueue).add(argThat(isUrl(primaryTracker)));
-        verify(mockRequestQueue, never()).add(argThat(isUrl(fallbackTracker)));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl(primaryTracker)));
+        verify(mockRequestQueue, never()).add(argThat(VolleyRequestMatcher.isUrl(fallbackTracker)));
     }
 
     @Test
@@ -424,8 +420,8 @@ public class UrlHandlerTest {
                 .withSupportedUrlActions(FOLLOW_DEEP_LINK_WITH_FALLBACK)
                 .build().handleResolvedUrl(context, url, true, null);
 
-        verify(mockRequestQueue).add(argThat(isUrl(primaryTracker1)));
-        verify(mockRequestQueue).add(argThat(isUrl(primaryTracker2)));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl(primaryTracker1)));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl(primaryTracker2)));
     }
 
     @Test
@@ -445,8 +441,8 @@ public class UrlHandlerTest {
                 .withSupportedUrlActions(FOLLOW_DEEP_LINK_WITH_FALLBACK, OPEN_IN_APP_BROWSER)
                 .build().handleResolvedUrl(context, url, true, null);
 
-        verify(mockRequestQueue).add(argThat(isUrl(fallbackTracker)));
-        verify(mockRequestQueue, never()).add(argThat(isUrl(primaryTracker)));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl(fallbackTracker)));
+        verify(mockRequestQueue, never()).add(argThat(VolleyRequestMatcher.isUrl(primaryTracker)));
     }
 
     @Test
@@ -465,8 +461,8 @@ public class UrlHandlerTest {
                 .withSupportedUrlActions(FOLLOW_DEEP_LINK_WITH_FALLBACK, OPEN_IN_APP_BROWSER)
                 .build().handleResolvedUrl(context, url, true, null);
 
-        verify(mockRequestQueue).add(argThat(isUrl(fallbackTracker1)));
-        verify(mockRequestQueue).add(argThat(isUrl(fallbackTracker2)));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl(fallbackTracker1)));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl(fallbackTracker2)));
     }
 
     @Test

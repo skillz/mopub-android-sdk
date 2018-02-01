@@ -1,12 +1,12 @@
-package com.mopub.mraid;
+package com.skillz.mopub.mraid;
 
 import android.app.Activity;
 import android.content.Intent;
 
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.mobileads.BuildConfig;
-import com.mopub.mobileads.ResponseBodyInterstitialTest;
-import com.skillz.mopub.mraid.MraidInterstitial;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.mobileads.ResponseBodyInterstitialTest;
+import com.skillz.mopub.mobileads.EventForwardingBroadcastReceiverTest;
 
 import org.junit.Before;
 import org.junit.Ignore;
@@ -28,7 +28,6 @@ import static com.skillz.mopub.mobileads.CustomEventInterstitial.CustomEventInte
 import static com.skillz.mopub.common.IntentActions.ACTION_INTERSTITIAL_CLICK;
 import static com.skillz.mopub.common.IntentActions.ACTION_INTERSTITIAL_DISMISS;
 import static com.skillz.mopub.common.IntentActions.ACTION_INTERSTITIAL_SHOW;
-import static com.mopub.mobileads.EventForwardingBroadcastReceiverTest.getIntentForActionAndIdentifier;
 import static com.skillz.mopub.mobileads.MoPubErrorCode.NETWORK_INVALID_STATE;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.never;
@@ -86,17 +85,17 @@ public class MraidInterstitialTest extends ResponseBodyInterstitialTest {
                 serverExtras);
 
         Intent intent =
-                getIntentForActionAndIdentifier(ACTION_INTERSTITIAL_SHOW, broadcastIdentifier);
+                EventForwardingBroadcastReceiverTest.getIntentForActionAndIdentifier(ACTION_INTERSTITIAL_SHOW, broadcastIdentifier);
         ShadowLocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
         verify(customEventInterstitialListener).onInterstitialShown();
 
-        intent = getIntentForActionAndIdentifier(ACTION_INTERSTITIAL_CLICK, broadcastIdentifier);
+        intent = EventForwardingBroadcastReceiverTest.getIntentForActionAndIdentifier(ACTION_INTERSTITIAL_CLICK, broadcastIdentifier);
         ShadowLocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
         verify(customEventInterstitialListener).onInterstitialClicked();
 
-        intent = getIntentForActionAndIdentifier(ACTION_INTERSTITIAL_DISMISS, broadcastIdentifier);
+        intent = EventForwardingBroadcastReceiverTest.getIntentForActionAndIdentifier(ACTION_INTERSTITIAL_DISMISS, broadcastIdentifier);
         ShadowLocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
         verify(customEventInterstitialListener).onInterstitialDismissed();

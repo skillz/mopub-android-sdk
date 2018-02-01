@@ -47,13 +47,13 @@ public class MoPub {
     }
 
     private static final String MOPUB_REWARDED_VIDEOS =
-            "com.mopub.mobileads.MoPubRewardedVideos";
+            "com.skillz.mopub.mobileads.MoPubRewardedVideos";
     private static final String MOPUB_REWARDED_VIDEO_MANAGER =
-            "com.mopub.mobileads.MoPubRewardedVideoManager";
+            "com.skillz.mopub.mobileads.MoPubRewardedVideoManager";
     private static final String MOPUB_REWARDED_VIDEO_LISTENER =
-            "com.mopub.mobileads.MoPubRewardedVideoListener";
+            "com.skillz.mopub.mobileads.MoPubRewardedVideoListener";
     private static final String MOPUB_REWARDED_VIDEO_MANAGER_REQUEST_PARAMETERS =
-            "com.mopub.mobileads.MoPubRewardedVideoManager$RequestParameters";
+            "com.skillz.mopub.mobileads.MoPubRewardedVideoManager$RequestParameters";
 
     private static final int DEFAULT_LOCATION_PRECISION = 6;
     private static final long DEFAULT_LOCATION_REFRESH_TIME_MILLIS = 60 * 1000;

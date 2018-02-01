@@ -1,4 +1,4 @@
-package com.skillz.mopub.nativeads;
+package com.mopub.nativeads;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,7 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.ads.MediaView;
-import com.skillz.mopub.common.Preconditions;
+import com.mopub.common.Preconditions;
 
 import java.util.WeakHashMap;
 
@@ -19,9 +19,9 @@ import static android.view.View.VISIBLE;
  * Include this class if you want to use Facebook native video ads. This renderer handles Facebook
  * static and video native ads. This will automatically replace the main image view with the
  * Facebook MediaView that handles showing the main asset.
+ * Certified with Facebook Audience Network 4.26.1
  */
-public class FacebookAdRenderer
-        implements MoPubAdRenderer<com.skillz.mopub.nativeads.FacebookNative.FacebookVideoEnabledNativeAd> {
+public class FacebookAdRenderer implements MoPubAdRenderer<FacebookNative.FacebookVideoEnabledNativeAd> {
     private final ViewBinder mViewBinder;
 
     // This is used instead of View.setTag, which causes a memory leak in 2.3
@@ -82,7 +82,7 @@ public class FacebookAdRenderer
 
     @Override
     public void renderAdView(final View view,
-            final com.skillz.mopub.nativeads.FacebookNative.FacebookVideoEnabledNativeAd facebookVideoEnabledNativeAd) {
+            final FacebookNative.FacebookVideoEnabledNativeAd facebookVideoEnabledNativeAd) {
         FacebookNativeViewHolder facebookNativeViewHolder = mViewHolderMap.get(view);
         if (facebookNativeViewHolder == null) {
             facebookNativeViewHolder = FacebookNativeViewHolder.fromViewBinder(view, mViewBinder);
@@ -99,11 +99,11 @@ public class FacebookAdRenderer
     @Override
     public boolean supports(final BaseNativeAd nativeAd) {
         Preconditions.checkNotNull(nativeAd);
-        return nativeAd instanceof com.skillz.mopub.nativeads.FacebookNative.FacebookVideoEnabledNativeAd;
+        return nativeAd instanceof FacebookNative.FacebookVideoEnabledNativeAd;
     }
 
     private void update(final FacebookNativeViewHolder facebookNativeViewHolder,
-            final com.skillz.mopub.nativeads.FacebookNative.FacebookVideoEnabledNativeAd nativeAd) {
+            final FacebookNative.FacebookVideoEnabledNativeAd nativeAd) {
         final ImageView mainImageView = facebookNativeViewHolder.getMainImageView();
         NativeRendererHelper.addTextView(facebookNativeViewHolder.getTitleView(),
                 nativeAd.getTitle());
@@ -207,4 +207,3 @@ public class FacebookAdRenderer
         }
     }
 }
-

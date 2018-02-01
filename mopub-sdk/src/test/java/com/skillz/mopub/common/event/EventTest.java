@@ -1,9 +1,7 @@
-package com.mopub.common.event;
+package com.skillz.mopub.common.event;
 
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.mobileads.BuildConfig;
-import com.skillz.mopub.common.event.BaseEvent;
-import com.skillz.mopub.common.event.Event;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
 
 import org.junit.Before;
 import org.junit.Test;

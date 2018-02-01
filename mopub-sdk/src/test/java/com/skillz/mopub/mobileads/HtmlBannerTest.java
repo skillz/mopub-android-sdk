@@ -1,14 +1,13 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.app.Activity;
 import android.view.Gravity;
 import android.widget.FrameLayout;
 
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.mobileads.test.support.TestHtmlBannerWebViewFactory;
-import com.mopub.mobileads.test.support.TestMoPubViewFactory;
-import com.skillz.mopub.mobileads.AdViewController;
-import com.skillz.mopub.mobileads.MoPubView;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.mobileads.test.support.TestHtmlBannerWebViewFactory;
+import com.skillz.mopub.mobileads.test.support.TestMoPubViewFactory;
 import com.skillz.mopub.network.AdResponse;
 
 import org.junit.Before;

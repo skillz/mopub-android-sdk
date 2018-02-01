@@ -1,4 +1,4 @@
-package com.mopub.common;
+package com.skillz.mopub.common;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,10 +7,8 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.webkit.WebView;
 
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.mobileads.BuildConfig;
-import com.skillz.mopub.common.BrowserWebViewClient;
-import com.skillz.mopub.common.MoPubBrowser;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.network.Networking;
 
 import org.junit.Before;

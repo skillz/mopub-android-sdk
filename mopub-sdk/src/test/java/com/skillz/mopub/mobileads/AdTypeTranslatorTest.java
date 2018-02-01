@@ -1,15 +1,13 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.app.Activity;
 import android.content.Context;
 
+import com.skillz.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.common.AdFormat;
 import com.skillz.mopub.common.AdType;
-import com.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
 import com.skillz.mopub.common.util.ResponseHeader;
-import com.skillz.mopub.mobileads.AdTypeTranslator;
-import com.skillz.mopub.mobileads.MoPubInterstitial;
-import com.skillz.mopub.mobileads.MoPubView;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -47,28 +45,28 @@ public class AdTypeTranslatorTest {
     public void getCustomEventName_shouldBeGoogleBanner() {
         customEventName = AdTypeTranslator.getCustomEventName(AdFormat.BANNER, "admob_native", null, headers);
 
-        assertThat(customEventName).isEqualTo("com.mopub.mobileads.GooglePlayServicesBanner");
+        assertThat(customEventName).isEqualTo("com.skillz.mopub.mobileads.GooglePlayServicesBanner");
     }
 
     @Test
     public void getCustomEventName_shouldBeGoogleInterstitial() {
         customEventName = AdTypeTranslator.getCustomEventName(AdFormat.BANNER, "interstitial", "admob_full", headers);
 
-        assertThat(customEventName).isEqualTo("com.mopub.mobileads.GooglePlayServicesInterstitial");
+        assertThat(customEventName).isEqualTo("com.skillz.mopub.mobileads.GooglePlayServicesInterstitial");
     }
 
     @Test
     public void getCustomEventName_shouldBeMillenialBanner() {
         customEventName = AdTypeTranslator.getCustomEventName(AdFormat.BANNER, "millennial_native", null, headers);
 
-        assertThat(customEventName).isEqualTo("com.mopub.mobileads.MillennialBanner");
+        assertThat(customEventName).isEqualTo("com.skillz.mopub.mobileads.MillennialBanner");
     }
 
     @Test
     public void getCustomEventName_shouldBeMillennialIntersitial() {
         customEventName = AdTypeTranslator.getCustomEventName(AdFormat.INTERSTITIAL, "interstitial", "millennial_full", headers);
 
-        assertThat(customEventName).isEqualTo("com.mopub.mobileads.MillennialInterstitial");
+        assertThat(customEventName).isEqualTo("com.skillz.mopub.mobileads.MillennialInterstitial");
     }
 
     @Test
@@ -89,7 +87,7 @@ public class AdTypeTranslatorTest {
     public void getCustomEventName_shouldBeHtmlBanner() {
         customEventName = AdTypeTranslator.getCustomEventName(AdFormat.BANNER, "html", null, headers);
 
-        assertThat(customEventName).isEqualTo("com.mopub.mobileads.HtmlBanner");
+        assertThat(customEventName).isEqualTo("HtmlBanner");
     }
 
     @Test
@@ -125,7 +123,7 @@ public class AdTypeTranslatorTest {
     public void getCustomEventName_withNativeFormat_shouldBeMoPubNative() {
         customEventName = AdTypeTranslator.getCustomEventName(AdFormat.NATIVE, AdType.STATIC_NATIVE, null, headers);
 
-        assertThat(customEventName).isEqualTo("com.mopub.nativeads.MoPubCustomEventNative");
+        assertThat(customEventName).isEqualTo("MoPubCustomEventNative");
     }
 
     @Test
@@ -140,7 +138,7 @@ public class AdTypeTranslatorTest {
         customEventName = AdTypeTranslator.getCustomEventName(AdFormat.REWARDED_VIDEO,
                 AdType.REWARDED_VIDEO, null, headers);
 
-        assertThat(customEventName).isEqualTo("com.mopub.mobileads.MoPubRewardedVideo");
+        assertThat(customEventName).isEqualTo("MoPubRewardedVideo");
     }
 
     @Test
@@ -148,7 +146,7 @@ public class AdTypeTranslatorTest {
         customEventName = AdTypeTranslator.getCustomEventName(AdFormat.INTERSTITIAL,
                 AdType.REWARDED_PLAYABLE, null, headers);
 
-        assertThat(customEventName).isEqualTo("com.mopub.mobileads.MoPubRewardedPlayable");
+        assertThat(customEventName).isEqualTo("MoPubRewardedPlayable");
     }
 
     @Test
@@ -164,15 +162,15 @@ public class AdTypeTranslatorTest {
     @Test
     public void isMoPubSpecific_withMoPubRewardedClassNames_shouldBeTrue() {
         assertThat(AdTypeTranslator.CustomEventType
-                .isMoPubSpecific("com.mopub.mobileads.MoPubRewardedVideo")).isTrue();
+                .isMoPubSpecific("MoPubRewardedVideo")).isTrue();
         assertThat(AdTypeTranslator.CustomEventType
-                .isMoPubSpecific("com.mopub.mobileads.MoPubRewardedPlayable")).isTrue();
+                .isMoPubSpecific("MoPubRewardedPlayable")).isTrue();
     }
 
     @Test
     public void isMoPubSpecific_withNonMoPubClassNames_shouldBeFalse() {
         assertThat(AdTypeTranslator.CustomEventType
-                .isMoPubSpecific("com.mopub.mobileads.GooglePlayServicesBanner")).isFalse();
+                .isMoPubSpecific("com.skillz.mopub.mobileads.GooglePlayServicesBanner")).isFalse();
         assertThat(AdTypeTranslator.CustomEventType
                 .isMoPubSpecific("com.whatever.ads.SomeRandomAdFormat")).isFalse();
         assertThat(AdTypeTranslator.CustomEventType

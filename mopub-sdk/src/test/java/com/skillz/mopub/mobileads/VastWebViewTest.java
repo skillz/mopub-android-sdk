@@ -1,4 +1,4 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,13 +7,11 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
-import com.mopub.TestSdkHelper;
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.mobileads.test.support.GestureUtils;
-import com.mopub.mobileads.test.support.VastUtils;
-import com.skillz.mopub.mobileads.VastIconConfig;
-import com.skillz.mopub.mobileads.VastResource;
-import com.skillz.mopub.mobileads.VastWebView;
+import com.skillz.mopub.TestSdkHelper;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.mobileads.test.support.GestureUtils;
+import com.skillz.mopub.mobileads.test.support.VastUtils;
 
 import org.junit.Before;
 import org.junit.Test;

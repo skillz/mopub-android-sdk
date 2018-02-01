@@ -1,9 +1,8 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.mobileads.test.support.VastUtils;
-import com.skillz.mopub.mobileads.VastIconXmlManager;
-import com.skillz.mopub.mobileads.VastResourceXmlManager;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.mobileads.test.support.VastUtils;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +10,6 @@ import org.junit.runner.RunWith;
 import org.robolectric.annotation.Config;
 import org.w3c.dom.Node;
 
-import static com.mopub.mobileads.test.support.VastUtils.createNode;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 @RunWith(SdkTestRunner.class)
@@ -48,7 +46,7 @@ public class VastIconConfigXmlManagerTest {
                     "</IconViewTracking>" +
                 "</Icon>";
 
-        iconNode = createNode(iconXml);
+        iconNode = VastUtils.createNode(iconXml);
         subject = new VastIconXmlManager(iconNode);
     }
 
@@ -64,7 +62,7 @@ public class VastIconConfigXmlManagerTest {
                 "duration=\"01:02:03.456\">" +
                 "</Icon>";
 
-        iconNode = createNode(iconXml);
+        iconNode = VastUtils.createNode(iconXml);
         subject = new VastIconXmlManager(iconNode);
         assertThat(subject.getWidth()).isNull();
     }
@@ -81,7 +79,7 @@ public class VastIconConfigXmlManagerTest {
                 "duration=\"01:02:03.456\">" +
                 "</Icon>";
 
-        iconNode = createNode(iconXml);
+        iconNode = VastUtils.createNode(iconXml);
         subject = new VastIconXmlManager(iconNode);
         assertThat(subject.getHeight()).isNull();
     }
@@ -98,7 +96,7 @@ public class VastIconConfigXmlManagerTest {
                 "duration=\"01:02:03.456\">" +
                 "</Icon>";
 
-        iconNode = createNode(iconXml);
+        iconNode = VastUtils.createNode(iconXml);
         subject = new VastIconXmlManager(iconNode);
         assertThat(subject.getOffsetMS()).isNull();
     }
@@ -110,7 +108,7 @@ public class VastIconConfigXmlManagerTest {
                 "duration=\"01:02:03.456\">" +
                 "</Icon>";
 
-        iconNode = createNode(iconXml);
+        iconNode = VastUtils.createNode(iconXml);
         subject = new VastIconXmlManager(iconNode);
         assertThat(subject.getOffsetMS()).isNull();
     }
@@ -126,7 +124,7 @@ public class VastIconConfigXmlManagerTest {
                 "yPosition=\"101\" apiFramework=\"apiFramework\" offset=\"01:02:03\" >" +
                 "</Icon>";
 
-        iconNode = createNode(iconXml);
+        iconNode = VastUtils.createNode(iconXml);
         subject = new VastIconXmlManager(iconNode);
         assertThat(subject.getDurationMS()).isNull();
     }
@@ -138,7 +136,7 @@ public class VastIconConfigXmlManagerTest {
                 "duration=\"malformed\">" +
                 "</Icon>";
 
-        iconNode = createNode(iconXml);
+        iconNode = VastUtils.createNode(iconXml);
         subject = new VastIconXmlManager(iconNode);
         assertThat(subject.getDurationMS()).isNull();
     }
@@ -168,7 +166,7 @@ public class VastIconConfigXmlManagerTest {
                     "</IconClicks>" +
                 "</Icon>";
 
-        iconNode = createNode(iconXml);
+        iconNode = VastUtils.createNode(iconXml);
         subject = new VastIconXmlManager(iconNode);
         assertThat(subject.getClickTrackingUris()).isEmpty();
     }
@@ -193,7 +191,7 @@ public class VastIconConfigXmlManagerTest {
                 "</IconClicks>" +
                 "</Icon>";
 
-        iconNode = createNode(iconXml);
+        iconNode = VastUtils.createNode(iconXml);
         subject = new VastIconXmlManager(iconNode);
         assertThat(subject.getClickThroughUri()).isNull();
     }
@@ -211,7 +209,7 @@ public class VastIconConfigXmlManagerTest {
                 "duration=\"01:02:03.456\">" +
                 "</Icon>";
 
-        iconNode = createNode(iconXml);
+        iconNode = VastUtils.createNode(iconXml);
         subject = new VastIconXmlManager(iconNode);
         assertThat(subject.getViewTrackingUris()).isEmpty();
     }

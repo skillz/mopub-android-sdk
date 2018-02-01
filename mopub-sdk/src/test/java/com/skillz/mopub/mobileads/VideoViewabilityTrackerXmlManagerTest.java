@@ -1,13 +1,13 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
-import com.mopub.common.test.support.SdkTestRunner;
-import com.skillz.mopub.mobileads.VideoViewabilityTrackerXmlManager;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.mobileads.test.support.VastUtils;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.annotation.Config;
 
-import static com.mopub.mobileads.test.support.VastUtils.createNode;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 @RunWith(SdkTestRunner.class)
@@ -23,7 +23,7 @@ public class VideoViewabilityTrackerXmlManagerTest {
                 "                         <![CDATA[https://ad.server.com/impression/dot.gif]]>" +
                 "                     </MoPubViewabilityTracker>";
 
-        subject = new VideoViewabilityTrackerXmlManager(createNode(videoViewabilityXml));
+        subject = new VideoViewabilityTrackerXmlManager(VastUtils.createNode(videoViewabilityXml));
 
         assertThat(subject.getViewablePlaytimeMS()).isEqualTo(3661001);
     }
@@ -36,7 +36,7 @@ public class VideoViewabilityTrackerXmlManagerTest {
                 "                         <![CDATA[https://ad.server.com/impression/dot.gif]]>" +
                 "                     </MoPubViewabilityTracker>";
 
-        subject = new VideoViewabilityTrackerXmlManager(createNode(videoViewabilityXml));
+        subject = new VideoViewabilityTrackerXmlManager(VastUtils.createNode(videoViewabilityXml));
 
         assertThat(subject.getViewablePlaytimeMS()).isEqualTo(1001);
     }
@@ -49,7 +49,7 @@ public class VideoViewabilityTrackerXmlManagerTest {
                 "                         <![CDATA[https://ad.server.com/impression/dot.gif]]>" +
                 "                     </MoPubViewabilityTracker>";
 
-        subject = new VideoViewabilityTrackerXmlManager(createNode(videoViewabilityXml));
+        subject = new VideoViewabilityTrackerXmlManager(VastUtils.createNode(videoViewabilityXml));
 
         assertThat(subject.getViewablePlaytimeMS()).isEqualTo(2000);
     }
@@ -61,7 +61,7 @@ public class VideoViewabilityTrackerXmlManagerTest {
                 "                         <![CDATA[https://ad.server.com/impression/dot.gif]]>" +
                 "                     </MoPubViewabilityTracker>";
 
-        subject = new VideoViewabilityTrackerXmlManager(createNode(videoViewabilityXml));
+        subject = new VideoViewabilityTrackerXmlManager(VastUtils.createNode(videoViewabilityXml));
 
         assertThat(subject.getViewablePlaytimeMS()).isNull();
     }
@@ -74,7 +74,7 @@ public class VideoViewabilityTrackerXmlManagerTest {
                 "                         <![CDATA[https://ad.server.com/impression/dot.gif]]>" +
                 "                     </MoPubViewabilityTracker>";
 
-        subject = new VideoViewabilityTrackerXmlManager(createNode(videoViewabilityXml));
+        subject = new VideoViewabilityTrackerXmlManager(VastUtils.createNode(videoViewabilityXml));
 
         assertThat(subject.getViewablePlaytimeMS()).isNull();
     }
@@ -87,7 +87,7 @@ public class VideoViewabilityTrackerXmlManagerTest {
                 "                         <![CDATA[https://ad.server.com/impression/dot.gif]]>" +
                 "                     </MoPubViewabilityTracker>";
 
-        subject = new VideoViewabilityTrackerXmlManager(createNode(videoViewabilityXml));
+        subject = new VideoViewabilityTrackerXmlManager(VastUtils.createNode(videoViewabilityXml));
 
         assertThat(subject.getViewablePlaytimeMS()).isNull();
     }
@@ -100,7 +100,7 @@ public class VideoViewabilityTrackerXmlManagerTest {
                 "                         <![CDATA[https://ad.server.com/impression/dot.gif]]>" +
                 "                     </MoPubViewabilityTracker>";
 
-        subject = new VideoViewabilityTrackerXmlManager(createNode(videoViewabilityXml));
+        subject = new VideoViewabilityTrackerXmlManager(VastUtils.createNode(videoViewabilityXml));
 
         assertThat(subject.getViewablePlaytimeMS()).isNull();
     }
@@ -113,7 +113,7 @@ public class VideoViewabilityTrackerXmlManagerTest {
                 "                         <![CDATA[https://ad.server.com/impression/dot.gif]]>" +
                 "                     </MoPubViewabilityTracker>";
 
-        subject = new VideoViewabilityTrackerXmlManager(createNode(videoViewabilityXml));
+        subject = new VideoViewabilityTrackerXmlManager(VastUtils.createNode(videoViewabilityXml));
 
         assertThat(subject.getViewablePlaytimeMS()).isNull();
     }
@@ -126,7 +126,7 @@ public class VideoViewabilityTrackerXmlManagerTest {
                 "                         <![CDATA[https://ad.server.com/impression/dot.gif]]>" +
                 "                     </MoPubViewabilityTracker>";
 
-        subject = new VideoViewabilityTrackerXmlManager(createNode(videoViewabilityXml));
+        subject = new VideoViewabilityTrackerXmlManager(VastUtils.createNode(videoViewabilityXml));
 
         assertThat(subject.getPercentViewable()).isEqualTo(25);
     }
@@ -139,7 +139,7 @@ public class VideoViewabilityTrackerXmlManagerTest {
                 "                         <![CDATA[https://ad.server.com/impression/dot.gif]]>" +
                 "                     </MoPubViewabilityTracker>";
 
-        subject = new VideoViewabilityTrackerXmlManager(createNode(videoViewabilityXml));
+        subject = new VideoViewabilityTrackerXmlManager(VastUtils.createNode(videoViewabilityXml));
 
         assertThat(subject.getPercentViewable()).isEqualTo(25);
     }
@@ -152,7 +152,7 @@ public class VideoViewabilityTrackerXmlManagerTest {
                 "                         <![CDATA[https://ad.server.com/impression/dot.gif]]>" +
                 "                     </MoPubViewabilityTracker>";
 
-        subject = new VideoViewabilityTrackerXmlManager(createNode(videoViewabilityXml));
+        subject = new VideoViewabilityTrackerXmlManager(VastUtils.createNode(videoViewabilityXml));
 
         assertThat(subject.getPercentViewable()).isEqualTo(25);
     }
@@ -164,7 +164,7 @@ public class VideoViewabilityTrackerXmlManagerTest {
                 "                         <![CDATA[https://ad.server.com/impression/dot.gif]]>" +
                 "                     </MoPubViewabilityTracker>";
 
-        subject = new VideoViewabilityTrackerXmlManager(createNode(videoViewabilityXml));
+        subject = new VideoViewabilityTrackerXmlManager(VastUtils.createNode(videoViewabilityXml));
 
         assertThat(subject.getPercentViewable()).isNull();
     }
@@ -177,7 +177,7 @@ public class VideoViewabilityTrackerXmlManagerTest {
                 "                         <![CDATA[https://ad.server.com/impression/dot.gif]]>" +
                 "                     </MoPubViewabilityTracker>";
 
-        subject = new VideoViewabilityTrackerXmlManager(createNode(videoViewabilityXml));
+        subject = new VideoViewabilityTrackerXmlManager(VastUtils.createNode(videoViewabilityXml));
 
         assertThat(subject.getPercentViewable()).isNull();
     }
@@ -190,7 +190,7 @@ public class VideoViewabilityTrackerXmlManagerTest {
                 "                         <![CDATA[https://ad.server.com/impression/dot.gif]]>" +
                 "                     </MoPubViewabilityTracker>";
 
-        subject = new VideoViewabilityTrackerXmlManager(createNode(videoViewabilityXml));
+        subject = new VideoViewabilityTrackerXmlManager(VastUtils.createNode(videoViewabilityXml));
 
         assertThat(subject.getPercentViewable()).isNull();
     }
@@ -203,7 +203,7 @@ public class VideoViewabilityTrackerXmlManagerTest {
                 "                         <![CDATA[https://ad.server.com/impression/dot.gif]]>" +
                 "                     </MoPubViewabilityTracker>";
 
-        subject = new VideoViewabilityTrackerXmlManager(createNode(videoViewabilityXml));
+        subject = new VideoViewabilityTrackerXmlManager(VastUtils.createNode(videoViewabilityXml));
 
         assertThat(subject.getPercentViewable()).isNull();
     }
@@ -216,7 +216,7 @@ public class VideoViewabilityTrackerXmlManagerTest {
                 "                         <![CDATA[https://ad.server.com/impression/dot.gif]]>" +
                 "                     </MoPubViewabilityTracker>";
 
-        subject = new VideoViewabilityTrackerXmlManager(createNode(videoViewabilityXml));
+        subject = new VideoViewabilityTrackerXmlManager(VastUtils.createNode(videoViewabilityXml));
 
         assertThat(subject.getVideoViewabilityTrackerUrl())
                 .isEqualTo("https://ad.server.com/impression/dot.gif");
@@ -229,7 +229,7 @@ public class VideoViewabilityTrackerXmlManagerTest {
                 "                             percentViewable=\"50%\">" +
                 "                     </MoPubViewabilityTracker>";
 
-        subject = new VideoViewabilityTrackerXmlManager(createNode(videoViewabilityXml));
+        subject = new VideoViewabilityTrackerXmlManager(VastUtils.createNode(videoViewabilityXml));
 
         assertThat(subject.getVideoViewabilityTrackerUrl()).isEmpty();
     }

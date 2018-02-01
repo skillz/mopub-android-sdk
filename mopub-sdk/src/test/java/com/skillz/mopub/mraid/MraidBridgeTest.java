@@ -1,4 +1,4 @@
-package com.mopub.mraid;
+package com.skillz.mopub.mraid;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -10,16 +10,11 @@ import android.webkit.WebViewClient;
 
 import com.skillz.mopub.common.AdReport;
 import com.skillz.mopub.common.Constants;
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.mobileads.BuildConfig;
-import com.skillz.mopub.mraid.MraidBridge;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.mraid.MraidBridge.MraidBridgeListener;
 import com.skillz.mopub.mraid.MraidBridge.MraidWebView;
-import com.skillz.mopub.mraid.MraidCommandException;
-import com.skillz.mopub.mraid.MraidJavascriptCommand;
-import com.skillz.mopub.mraid.MraidNativeCommandHandler;
 import com.skillz.mopub.mraid.MraidNativeCommandHandler.MraidCommandFailureListener;
-import com.skillz.mopub.mraid.PlacementType;
 
 import org.junit.Before;
 import org.junit.Test;

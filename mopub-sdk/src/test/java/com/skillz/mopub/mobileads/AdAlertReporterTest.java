@@ -1,4 +1,4 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,10 +7,10 @@ import android.net.Uri;
 import android.view.View;
 import android.widget.TextView;
 
+import com.skillz.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.common.AdReport;
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.common.util.test.support.TestDateAndTime;
-import com.skillz.mopub.mobileads.AdAlertReporter;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.common.util.test.support.TestDateAndTime;
 
 import org.junit.Before;
 import org.junit.Ignore;

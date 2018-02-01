@@ -1,4 +1,4 @@
-package com.skillz.mopub.mobileads;
+package com.skillz.mopub.mobileads.;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,14 +7,14 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.chartboost.sdk.Chartboost;
-import com.skillz.mopub.common.Preconditions;
+import com.mopub.common.Preconditions;
 
 import java.util.Map;
 
 /**
  * A custom event for showing Chartboost interstitial ads.
  *
- * Certified with Chartboost 6.4.1
+ * Certified with Chartboost 7.0.1
  */
 class ChartboostInterstitial extends CustomEventInterstitial {
 

@@ -1,12 +1,13 @@
-package com.mopub.nativeads;
+package com.skillz.mopub.nativeads;
 
 import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.mobileads.BuildConfig;
-import com.mopub.nativeads.BaseNativeAd.NativeEventListener;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.common.VolleyRequestMatcher;
+import com.skillz.mopub.nativeads.BaseNativeAd.NativeEventListener;
 import com.skillz.mopub.network.MoPubRequestQueue;
 import com.skillz.mopub.network.Networking;
 
@@ -20,8 +21,7 @@ import org.robolectric.annotation.Config;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.mopub.common.VolleyRequestMatcher.isUrl;
-import static com.mopub.nativeads.NativeAd.MoPubNativeEventListener;
+import static com.skillz.mopub.nativeads.NativeAd.MoPubNativeEventListener;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.argThat;
@@ -85,8 +85,8 @@ public class NativeAdTest {
 
         subject.handleClick(null);
 
-        verify(mockRequestQueue).add(argThat(isUrl("moPubClickTrackerUrl")));
-        verify(mockRequestQueue).add(argThat(isUrl("clkUrl")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl("moPubClickTrackerUrl")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl("clkUrl")));
     }
 
     @Test
@@ -157,8 +157,8 @@ public class NativeAdTest {
     @Test
     public void recordImpression_shouldRecordImpressionsOnce() {
         subject.recordImpression(mockView);
-        verify(mockRequestQueue).add(argThat(isUrl("moPubImpressionTrackerUrl")));
-        verify(mockRequestQueue).add(argThat(isUrl("impUrl")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl("moPubImpressionTrackerUrl")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl("impUrl")));
         verify(mockEventListener).onImpression(mockView);
 
         // reset state
@@ -181,8 +181,8 @@ public class NativeAdTest {
     @Test
     public void handleClick_shouldTrackClicksOnce() {
         subject.handleClick(mockView);
-        verify(mockRequestQueue).add(argThat(isUrl("moPubClickTrackerUrl")));
-        verify(mockRequestQueue).add(argThat(isUrl("clkUrl")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl("moPubClickTrackerUrl")));
+        verify(mockRequestQueue).add(argThat(VolleyRequestMatcher.isUrl("clkUrl")));
         verify(mockEventListener).onClick(mockView);
 
         // reset state

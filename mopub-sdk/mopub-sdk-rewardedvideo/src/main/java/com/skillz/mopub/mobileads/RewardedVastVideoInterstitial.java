@@ -1,11 +1,9 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
 
 import com.skillz.mopub.common.VisibleForTesting;
-import com.skillz.mopub.mobileads.VastVideoConfig;
-import com.skillz.mopub.mobileads.VastVideoInterstitial;
 
 import java.util.Map;
 

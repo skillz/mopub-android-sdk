@@ -1,4 +1,4 @@
-package com.mopub.common;
+package com.skillz.mopub.common;
 
 
 import com.skillz.mopub.common.Preconditions;

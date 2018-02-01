@@ -1,12 +1,10 @@
-package com.mopub.common;
+package com.skillz.mopub.common;
 
 import android.os.Build;
 
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.common.util.test.support.TestDateAndTime;
-import com.mopub.mobileads.BuildConfig;
-import com.skillz.mopub.common.AdReport;
-import com.skillz.mopub.common.ClientMetadata;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.common.util.test.support.TestDateAndTime;
+import com.skillz.mopub.mobileads.BuildConfig;
 import com.skillz.mopub.network.AdResponse;
 
 import org.junit.Before;

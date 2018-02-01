@@ -1,10 +1,8 @@
-package com.mopub.mobileads;
+package com.skillz.mopub.mobileads;
 
-import com.mopub.common.test.support.SdkTestRunner;
-import com.mopub.mobileads.test.support.VastUtils;
-import com.skillz.mopub.mobileads.VastBaseInLineWrapperXmlManager;
-import com.skillz.mopub.mobileads.VastInLineXmlManager;
-import com.skillz.mopub.mobileads.VastLinearXmlManager;
+import com.skillz.mopub.common.test.support.SdkTestRunner;
+import com.skillz.mopub.mobileads.BuildConfig;
+import com.skillz.mopub.mobileads.test.support.VastUtils;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +11,7 @@ import org.w3c.dom.Node;
 
 import java.util.List;
 
-import static com.mopub.mobileads.test.support.VastUtils.createNode;
+import static com.skillz.mopub.mobileads.test.support.VastUtils.createNode;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 @RunWith(SdkTestRunner.class)

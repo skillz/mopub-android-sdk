@@ -3,7 +3,7 @@ package com.skillz.mopub.nativeads;
 import android.support.annotation.NonNull;
 
 /**
- * An object that represents placed ads in a {@link com.skillz.mopub.nativeads.MoPubStreamAdPlacer}
+ * An object that represents placed ads in a {@link MoPubStreamAdPlacer}
  */
 class NativeAdData {
     @NonNull private final String adUnitId;
