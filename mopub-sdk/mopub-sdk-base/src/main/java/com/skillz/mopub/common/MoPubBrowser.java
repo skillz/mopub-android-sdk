@@ -1,8 +1,10 @@
 package com.skillz.mopub.common;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.Gravity;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.webkit.CookieSyncManager;
+import android.webkit.DownloadListener;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -19,9 +22,9 @@ import android.widget.RelativeLayout;
 
 import com.skillz.mopub.common.event.Event;
 import com.skillz.mopub.common.event.MoPubEvents;
+import com.skillz.mopub.common.util.Drawables;
 import com.skillz.mopub.mobileads.BaseWebView;
 import com.skillz.mopub.mobileads.util.WebViews;
-import com.skillz.mopub.common.util.Drawables;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -100,6 +103,7 @@ public class MoPubBrowser extends Activity {
         webSettings.setSupportZoom(true);
         webSettings.setBuiltInZoomControls(true);
         webSettings.setUseWideViewPort(true);
+        webSettings.setAllowFileAccess(true);
 
         mDspCreativeId = getIntent().getStringExtra(DSP_CREATIVE_ID);
 
@@ -114,6 +118,14 @@ public class MoPubBrowser extends Activity {
                 if (progress == 100) {
                     setTitle(webView.getUrl());
                 }
+            }
+        });
+        mWebView.setDownloadListener(new DownloadListener() {
+            @Override
+            public void onDownloadStart(String urlString, String userAgent, String contentDisposition, String mimetype, long contentLength) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlString));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                MoPubBrowser.this.startActivity(intent);
             }
         });
     }
