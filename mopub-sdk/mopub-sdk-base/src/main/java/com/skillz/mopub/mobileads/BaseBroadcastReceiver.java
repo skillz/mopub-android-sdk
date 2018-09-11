@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.LocalBroadcastManager;
 
 import com.skillz.mopub.common.DataKeys;
 import com.skillz.mopub.common.Preconditions;
@@ -33,7 +32,7 @@ public abstract class BaseBroadcastReceiver extends BroadcastReceiver {
 
     public void register(final @NonNull BroadcastReceiver broadcastReceiver, Context context) {
         mContext = context;
-        mContext.register(broadcastReceiver, getIntentFilter());
+        mContext.registerReceiver(broadcastReceiver, getIntentFilter());
     }
 
     public void unregister(final @Nullable BroadcastReceiver broadcastReceiver) {
