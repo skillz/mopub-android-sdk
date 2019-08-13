@@ -206,7 +206,7 @@ public class Networking {
      * @return "https" if {@link #useHttps()} is true; "http" otherwise.
      */
     public static String getScheme() {
-        return useHttps() ? Constants.HTTPS : Constants.HTTP;
+        return useHttps() ? Constants.HTTPS : Constants.HTTPS;
     }
 
     /**
@@ -216,6 +216,6 @@ public class Networking {
      * @return "http"
      */
     public static String getBaseUrlScheme() {
-        return Constants.HTTP;
+        return Constants.HTTPS;
     }
 }

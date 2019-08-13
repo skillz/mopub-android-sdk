@@ -10,7 +10,7 @@ repositories {
     maven { url 'https://maven.google.com' }
 }
 
-project.group = 'com.mopub'
+project.group = 'com.skillz.mopub'
 project.version = '4.19.0'
 
 android {
