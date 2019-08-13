@@ -3,9 +3,7 @@
     package="com.skillz.mopub.mobileads"
     android:versionCode="1"
     android:versionName="1.0">
-    <uses-sdk
-        android:minSdkVersion="9"
-        android:targetSdkVersion="23"/>
+    <uses-sdk android:targetSdkVersion="23"/>
     <application/>
 </manifest>
 
