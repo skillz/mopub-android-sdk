@@ -67,6 +67,7 @@ public abstract class ResponseBodyInterstitial extends CustomEventInterstitial {
     public void onInvalidate() {
         if (mBroadcastReceiver != null) {
             mBroadcastReceiver.unregister(mBroadcastReceiver);
+            mBroadcastReceiver = null;
         }
     }
 
