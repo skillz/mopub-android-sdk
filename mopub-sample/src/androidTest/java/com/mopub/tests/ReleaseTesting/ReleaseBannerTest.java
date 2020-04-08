@@ -2,14 +2,14 @@
 // Licensed under the MoPub SDK License Agreement
 // http://www.mopub.com/legal/sdk-license-agreement/
 
-package com.mopub.tests.ReleaseTesting;
+package com.skillz.mopub.tests.ReleaseTesting;
 import androidx.test.filters.LargeTest;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.mopub.framework.models.AdLabels;
-import com.mopub.framework.pages.AdDetailPage;
-import com.mopub.framework.pages.AdListPage;
-import com.mopub.tests.base.MoPubBaseTestCase;
+import com.skillz.mopub.framework.models.AdLabels;
+import com.skillz.mopub.framework.pages.AdDetailPage;
+import com.skillz.mopub.framework.pages.AdListPage;
+import com.skillz.mopub.tests.base.MoPubBaseTestCase;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

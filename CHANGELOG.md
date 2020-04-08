@@ -217,7 +217,7 @@ Normally, to add the MoPub SDK to your app via JCenter, your `build.gradle` woul
 
 ```	
 dependencies {
-	compile('com.mopub:mopub-sdk:4.16.0@aar') {
+	compile('com.skillz.mopub:mopub-sdk:4.16.0@aar') {
 		transitive = true
 	}
 }
@@ -226,7 +226,7 @@ Update to the following to exclude one or both viewability vendors:
 
 ```
 dependencies {
-	compile('com.mopub:mopub-sdk:4.16.0@aar') {
+	compile('com.skillz.mopub:mopub-sdk:4.16.0@aar') {
 		transitive = true
 		exclude module: 'libAvid-mopub' // To exclude AVID
 		exclude module: 'moat-mobile-app-kit' // To exclude Moat
@@ -274,7 +274,7 @@ If you would like to opt out of viewability measurement but do not want to modif
 - New required Activity declaration in `AndroidManifest`, please add:
 
 ```
-<activity android:name="com.mopub.mobileads.RewardedMraidActivity"
+<activity android:name="com.skillz.mopub.mobileads.RewardedMraidActivity"
           android:configChanges="keyboardHidden|orientation|screenSize"/>
 ```
 - Added support for **rich media in rewarded video** inventory.
@@ -414,7 +414,7 @@ Version 4.0.0 includes a number of improvements to our Native Ads systems under 
 - VAST UI improvements and bug fixes.
   - Pause trackers no longer fire when the ad is skipped.
   - Improved retrieval of blurred video frame when there is no companion ad.
-- Added com.mopub:mopub-sdk AAR to [jCenter](https://bintray.com/mopub/mopub-android-sdk/mopub-android-sdk/view).
+- Added com.skillz.mopub:mopub-sdk AAR to [jCenter](https://bintray.com/mopub/mopub-android-sdk/mopub-android-sdk/view).
 - Bug Fixes:
   - Fixed a NullPointerException in CacheService on devices with low storage space.
   - Improved redirect loading for in-app browser.
@@ -508,7 +508,7 @@ Version 4.0.0 includes a number of improvements to our Native Ads systems under 
   - **Updated API for Native Ads Custom Event writers**
   If you are mediating Facebook or InMobi native ads, this change requires you to copy
   FacebookNative.java and InMobiNative.java custom events from the extras/ folder to
-  com.mopub.nativeads package for compatibility.
+  com.skillz.mopub.nativeads package for compatibility.
 
 ## Version 3.0.0 (September 30, 2014)
 
@@ -575,17 +575,17 @@ Version 4.0.0 includes a number of improvements to our Native Ads systems under 
   - **Native Ads** public release; integration instructions and documentation available on our [support website](https://developers.mopub.com/docs/android/native/)
   - Changed minimum supported Android version to Froyo (Android 2.2, API level 8)
   - Added support for Google Play Services advertising identifier
-  - Renamed the `com.mopub.mobileads.MraidBrowser` Activity to `com.mopub.common.MoPubBrowser`.
+  - Renamed the `com.skillz.mopub.mobileads.MraidBrowser` Activity to `com.skillz.mopub.common.MoPubBrowser`.
       - **Important Note:** This change requires a modification to the `AndroidManifest`. The updated set of requisite activity permissions are as follows:
 
       	```
-    <activity android:name="com.mopub.common.MoPubBrowser"
+    <activity android:name="com.skillz.mopub.common.MoPubBrowser"
 				android:configChanges="keyboardHidden|orientation"/>
-    <activity android:name="com.mopub.mobileads.MoPubActivity"
+    <activity android:name="com.skillz.mopub.mobileads.MoPubActivity"
                 android:configChanges="keyboardHidden|orientation"/>
-    <activity android:name="com.mopub.mobileads.MraidActivity"
+    <activity android:name="com.skillz.mopub.mobileads.MraidActivity"
                 android:configChanges="keyboardHidden|orientation"/>
-	<activity android:name="com.mopub.mobileads.MraidVideoPlayerActivity"
+	<activity android:name="com.skillz.mopub.mobileads.MraidVideoPlayerActivity"
                 android:configChanges="keyboardHidden|orientation"/>
 		```
   - Upgraded the bundled `android-support-v4` library to r19.1.
@@ -691,7 +691,7 @@ To correctly display ads that ask the user to save a picture (storePicture ads),
 * Add the`WRITE_EXTERNAL_STORAGE` permission. Note: **Adding the permission is optional**. If the permission is not added, we will not deliver any store picture ads to the users' devices. All other features will remain functional without the new permission.
 
 To allow users to play videos using the native video player:
-* Declare activity `com.mopub.mobileads.MraidVideoPlayerActivity`. This activity is required to support playing videos in the native player and we strongly recommend adding it.
+* Declare activity `com.skillz.mopub.mobileads.MraidVideoPlayerActivity`. This activity is required to support playing videos in the native player and we strongly recommend adding it.
 
 ## Version 1.14.1 (June 21, 2013)
   - Wait until after loaded interstitials are shown to report an impression

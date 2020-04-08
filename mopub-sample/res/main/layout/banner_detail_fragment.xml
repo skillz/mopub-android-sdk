@@ -85,7 +85,7 @@
 
     </LinearLayout>
 
-    <com.mopub.mobileads.MoPubView
+    <com.skillz.mopub.mobileads.MoPubView
         android:id="@+id/banner_mopubview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

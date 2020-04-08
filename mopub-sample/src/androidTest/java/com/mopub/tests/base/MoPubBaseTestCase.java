@@ -2,11 +2,11 @@
 // Licensed under the MoPub SDK License Agreement
 // http://www.mopub.com/legal/sdk-license-agreement/
 
-package com.mopub.tests.base;
+package com.skillz.mopub.tests.base;
 
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 
-import com.mopub.simpleadsdemo.MoPubSampleActivity;
+import com.skillz.mopub.simpleadsdemo.MoPubSampleActivity;
 
 import org.junit.AfterClass;
 import org.junit.Before;

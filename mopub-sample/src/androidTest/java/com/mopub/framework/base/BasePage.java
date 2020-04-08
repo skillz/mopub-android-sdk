@@ -2,13 +2,13 @@
 // Licensed under the MoPub SDK License Agreement
 // http://www.mopub.com/legal/sdk-license-agreement/
 
-package com.mopub.framework.base;
+package com.skillz.mopub.framework.base;
 
 import androidx.annotation.NonNull;
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.espresso.action.ViewActions;
 
-import com.mopub.framework.pages.AdListPage;
+import com.skillz.mopub.framework.pages.AdListPage;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;

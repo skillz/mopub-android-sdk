@@ -2,7 +2,7 @@
 // Licensed under the MoPub SDK License Agreement
 // http://www.mopub.com/legal/sdk-license-agreement/
 
-package com.mopub.tests.BaseTesting;
+package com.skillz.mopub.tests.BaseTesting;
 
 import android.content.Intent;
 import android.os.SystemClock;
@@ -10,10 +10,10 @@ import androidx.test.espresso.ViewInteraction;
 import androidx.test.espresso.intent.Intents;
 import androidx.test.filters.LargeTest;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import com.mopub.framework.models.AdLabels;
-import com.mopub.framework.pages.AdDetailPage;
-import com.mopub.simpleadsdemo.R;
-import com.mopub.tests.base.MoPubBaseTestCase;
+import com.skillz.mopub.framework.models.AdLabels;
+import com.skillz.mopub.framework.pages.AdDetailPage;
+import com.skillz.mopub.simpleadsdemo.R;
+import com.skillz.mopub.tests.base.MoPubBaseTestCase;
 
 import org.hamcrest.Matcher;
 import org.junit.Test;

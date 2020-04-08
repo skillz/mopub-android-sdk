@@ -2,13 +2,13 @@
 // Licensed under the MoPub SDK License Agreement
 // http://www.mopub.com/legal/sdk-license-agreement/
 
-package com.mopub.framework.util;
+package com.skillz.mopub.framework.util;
 
 import android.content.Context;
 import androidx.test.espresso.IdlingResource;
 import android.util.Log;
 
-import com.mopub.network.Networking;
+import com.skillz.mopub.network.Networking;
 import com.mopub.volley.Request;
 import com.mopub.volley.RequestQueue;
 

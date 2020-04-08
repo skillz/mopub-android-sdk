@@ -2,7 +2,7 @@
 // Licensed under the MoPub SDK License Agreement
 // http://www.mopub.com/legal/sdk-license-agreement/
 
-package com.mopub.framework.pages;
+package com.skillz.mopub.framework.pages;
 
 import android.os.SystemClock;
 
@@ -20,7 +20,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withResourceName;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 
-import com.mopub.framework.base.BasePage;
+import com.skillz.mopub.framework.base.BasePage;
 
 
 public class AdListPage extends BasePage {

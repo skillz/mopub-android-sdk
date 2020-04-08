@@ -37,7 +37,7 @@ The MoPub SDK is available via:
     }
 
     dependencies {
-        implementation('com.mopub:mopub-sdk:5.12.0@aar') {
+        implementation('com.skillz.mopub:mopub-sdk:5.12.0@aar') {
             transitive = true
         }
     }
@@ -59,27 +59,27 @@ The MoPub SDK is available via:
         // ... other project dependencies
 
         // For banners
-        implementation('com.mopub:mopub-sdk-banner:5.12.0@aar') {
+        implementation('com.skillz.mopub:mopub-sdk-banner:5.12.0@aar') {
             transitive = true
         }
         
         // For interstitials
-        implementation('com.mopub:mopub-sdk-interstitial:5.12.0@aar') {
+        implementation('com.skillz.mopub:mopub-sdk-interstitial:5.12.0@aar') {
             transitive = true
         }
 
         // For rewarded videos. This will automatically also include interstitials
-        implementation('com.mopub:mopub-sdk-rewardedvideo:5.12.0@aar') {
+        implementation('com.skillz.mopub:mopub-sdk-rewardedvideo:5.12.0@aar') {
             transitive = true
         }
 
         // For native static (images).
-        implementation('com.mopub:mopub-sdk-native-static:5.12.0@aar') {
+        implementation('com.skillz.mopub:mopub-sdk-native-static:5.12.0@aar') {
             transitive = true
         }
 
         // For native video. This will automatically also include native static
-        implementation('com.mopub:mopub-sdk-native-video:5.12.0@aar') {
+        implementation('com.skillz.mopub:mopub-sdk-native-video:5.12.0@aar') {
             transitive = true
         }
     }
@@ -160,7 +160,7 @@ Normally, to add the MoPub SDK to your app via JCenter, your `build.gradle` woul
 
 ```	
 dependencies {
-    implementation('com.mopub:mopub-sdk:5.12.0@aar') {
+    implementation('com.skillz.mopub:mopub-sdk:5.12.0@aar') {
         transitive = true
     }
 }
@@ -169,7 +169,7 @@ Update to the following to exclude one or both viewability vendors:
 
 ```
 dependencies {
-    implementation('com.mopub:mopub-sdk:5.12.0@aar') {
+    implementation('com.skillz.mopub:mopub-sdk:5.12.0@aar') {
         transitive = true
         exclude module: 'libAvid-mopub' // To exclude AVID
         exclude module: 'moat-mobile-app-kit' // To exclude Moat

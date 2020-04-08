@@ -24,7 +24,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
-project.group = 'com.mopub'
+project.group = 'com.skillz.mopub'
 project.description = '''MoPub Sample App'''
 project.version = '5.12.0'
 

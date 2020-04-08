@@ -2,10 +2,10 @@
 // Licensed under the MoPub SDK License Agreement
 // http://www.mopub.com/legal/sdk-license-agreement/
 
-package com.mopub.simpleadsdemo
+package com.skillz.mopub.simpleadsdemo
 
 import android.content.Context
-import com.mopub.simpleadsdemo.MoPubSampleAdUnit.AdType.*
+import com.skillz.mopub.simpleadsdemo.MoPubSampleAdUnit.AdType.*
 
 internal enum class SampleAppAdUnits (private val adUnitId: Int,
                                       private val adType: MoPubSampleAdUnit.AdType,

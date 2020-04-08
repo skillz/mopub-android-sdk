@@ -1,0 +1,54 @@
+// Copyright 2018-2020 Twitter, Inc.
+// Licensed under the MoPub SDK License Agreement
+// http://www.mopub.com/legal/sdk-license-agreement/
+
+package com.skillz.mopub.mobileads;
+
+import android.content.Context;
+
+import com.skillz.mopub.common.AdReport;
+
+import static com.skillz.mopub.mobileads.CustomEventBanner.CustomEventBannerListener;
+
+public class HtmlBannerWebView extends BaseHtmlWebView {
+    public static final String EXTRA_AD_CLICK_DATA = "com.skillz.mopub.intent.extra.AD_CLICK_DATA";
+
+    public HtmlBannerWebView(Context context, AdReport adReport) {
+        super(context, adReport);
+    }
+
+    public void init(CustomEventBannerListener customEventBannerListener, String clickthroughUrl, String dspCreativeId) {
+        super.init();
+
+        setWebViewClient(new HtmlWebViewClient(new HtmlBannerWebViewListener(customEventBannerListener), this, clickthroughUrl, dspCreativeId));
+    }
+
+    static class HtmlBannerWebViewListener implements HtmlWebViewListener {
+        private final CustomEventBannerListener mCustomEventBannerListener;
+
+        public HtmlBannerWebViewListener(CustomEventBannerListener customEventBannerListener) {
+            mCustomEventBannerListener = customEventBannerListener;
+        }
+
+        @Override
+        public void onLoaded(BaseHtmlWebView htmlWebView) {
+            mCustomEventBannerListener.onBannerLoaded(htmlWebView);
+        }
+
+        @Override
+        public void onFailed(MoPubErrorCode errorCode) {
+            mCustomEventBannerListener.onBannerFailed(errorCode);
+        }
+
+        @Override
+        public void onClicked() {
+            mCustomEventBannerListener.onBannerClicked();
+        }
+
+        @Override
+        public void onCollapsed() {
+            mCustomEventBannerListener.onBannerCollapsed();
+        }
+
+    }
+}

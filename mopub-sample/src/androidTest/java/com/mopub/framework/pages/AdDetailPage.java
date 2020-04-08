@@ -2,10 +2,10 @@
 // Licensed under the MoPub SDK License Agreement
 // http://www.mopub.com/legal/sdk-license-agreement/
 
-package com.mopub.framework.pages;
+package com.skillz.mopub.framework.pages;
 
-import com.mopub.framework.base.BasePage;
-import com.mopub.simpleadsdemo.R;
+import com.skillz.mopub.framework.base.BasePage;
+import com.skillz.mopub.simpleadsdemo.R;
 
 public class AdDetailPage extends BasePage {
     public void clickLoadAdButton() {
