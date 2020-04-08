@@ -67,18 +67,18 @@ echo "push internal android test"
 ./adb install -r -t -g $mopub_sample_dir/build/outputs/apk/androidTest/internal/debug/mopub-sample-internal-debug-androidTest.apk 
 
 # Enable fullscreen mode:
-./adb shell settings put global policy_control immersive.full=com.mopub.simpleadsdemo
+./adb shell settings put global policy_control immersive.full=com.skillz.mopub.simpleadsdemo
 
 # Run All Tests
 echo "Test run starts"
-test_report=$(./adb shell am instrument -w -r -e package com.mopub.tests.ReleaseTesting -e debug false com.mopub.simpleadsdemo.test/androidx.test.runner.AndroidJUnitRunner)
+test_report=$(./adb shell am instrument -w -r -e package com.skillz.mopub.tests.ReleaseTesting -e debug false com.skillz.mopub.simpleadsdemo.test/androidx.test.runner.AndroidJUnitRunner)
 
 # Show test report
 echo "$test_report"
 
 # Clean-up: Uninstall mopub-sample app, test app
-./adb uninstall com.mopub.simpleadsdemo
-./adb uninstall com.mopub.simpleadsdemo.test
+./adb uninstall com.skillz.mopub.simpleadsdemo
+./adb uninstall com.skillz.mopub.simpleadsdemo.test
 
 # Clean-up: Kill any running emulator
 cd $adb_dir

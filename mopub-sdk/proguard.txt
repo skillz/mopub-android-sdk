@@ -3,18 +3,18 @@
 # $ANDROID_HOME/tools/proguard/proguard-android.txt
 
 # Keep public classes and methods.
--keepclassmembers class com.mopub.** { public *; }
--keep public class com.mopub.**
+-keepclassmembers class com.skillz.mopub.** { public *; }
+-keep public class com.skillz.mopub.**
 -keep public class android.webkit.JavascriptInterface {}
 
 # Explicitly keep any custom event classes in any package.
--keep class * extends com.mopub.mobileads.CustomEventBanner {}
--keep class * extends com.mopub.mobileads.CustomEventInterstitial {}
--keep class * extends com.mopub.mobileads.CustomEventRewardedAd {}
--keep class * extends com.mopub.nativeads.CustomEventNative {}
+-keep class * extends com.skillz.mopub.mobileads.CustomEventBanner {}
+-keep class * extends com.skillz.mopub.mobileads.CustomEventInterstitial {}
+-keep class * extends com.skillz.mopub.mobileads.CustomEventRewardedAd {}
+-keep class * extends com.skillz.mopub.nativeads.CustomEventNative {}
 
 # Keep methods that are accessed via reflection
--keepclassmembers class ** { @com.mopub.common.util.ReflectionTarget *; }
+-keepclassmembers class ** { @com.skillz.mopub.common.util.ReflectionTarget *; }
 
 # Viewability support
 -keepclassmembers class com.integralads.avid.library.mopub.** { public *; }

@@ -15,7 +15,7 @@ repositories {
     maven { url "https://s3.amazonaws.com/moat-sdk-builds" }
 }
 
-project.group = 'com.mopub'
+project.group = 'com.skillz.mopub'
 project.version = '5.12.0'
 
 android {
@@ -95,5 +95,5 @@ dependencies {
 apply plugin: 'kotlin-allopen'
 
 allOpen {
-    annotation('com.mopub.mobileads.Mockable')
+    annotation('com.skillz.mopub.mobileads.Mockable')
 }
