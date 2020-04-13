@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.skillz.mopub.common.DataKeys;
 import com.skillz.mopub.common.Preconditions;
@@ -29,7 +28,7 @@ public abstract class BaseBroadcastReceiver extends BroadcastReceiver {
         Preconditions.checkNotNull(action, "action cannot be null");
         Intent intent = new Intent(action);
         intent.putExtra(DataKeys.BROADCAST_IDENTIFIER_KEY, broadcastIdentifier);
-        LocalBroadcastManager.getInstance(context.getApplicationContext()).sendBroadcast(intent);
+        context.sendBroadcast(intent);
     }
 
     @NonNull
@@ -37,13 +36,12 @@ public abstract class BaseBroadcastReceiver extends BroadcastReceiver {
 
     public void register(final @NonNull BroadcastReceiver broadcastReceiver, Context context) {
         mContext = context;
-        LocalBroadcastManager.getInstance(mContext).registerReceiver(broadcastReceiver,
-                getIntentFilter());
+        mContext.registerReceiver(broadcastReceiver, getIntentFilter());
     }
 
     public void unregister(final @Nullable BroadcastReceiver broadcastReceiver) {
         if (mContext != null && broadcastReceiver != null) {
-            LocalBroadcastManager.getInstance(mContext).unregisterReceiver(broadcastReceiver);
+            mContext.unregisterReceiver(broadcastReceiver);
             mContext = null;
         }
     }
