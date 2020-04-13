@@ -4,8 +4,12 @@
 
 package com.skillz.mopub.mobileads;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import androidx.annotation.NonNull;
+import android.content.DialogInterface;
+import android.net.http.SslError;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -45,6 +49,27 @@ class HtmlWebViewClient extends WebViewClient {
         mDspCreativeId = dspCreativeId;
         mContext = htmlWebView.getContext();
     }
+
+    @Override
+    public void onReceivedSslError(WebView view, final SslErrorHandler handler, SslError error) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setMessage("Invalid SSL Certification");
+        builder.setPositiveButton("continue", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                handler.proceed();
+            }
+        });
+        builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                handler.cancel();
+            }
+        });
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
 
     @Override
     public boolean shouldOverrideUrlLoading(final WebView view, final String url) {

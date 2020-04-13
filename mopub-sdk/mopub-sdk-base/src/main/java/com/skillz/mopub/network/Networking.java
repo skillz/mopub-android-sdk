@@ -246,6 +246,6 @@ public class Networking {
      * @return "https" if {@link #shouldUseHttps()} is true; "http" otherwise.
      */
     public static String getBaseUrlScheme() {
-        return shouldUseHttps() ? Constants.HTTPS : Constants.HTTP;
+        return Constants.HTTPS;
     }
 }
