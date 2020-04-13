@@ -39,7 +39,30 @@ public enum UrlAction {
      * Each UrlAction includes its ordinal in a comment as a reminder of this fact.
      */
 
-    /* 0 */ HANDLE_MOPUB_SCHEME(false) {
+    /* 0 */ SKILLZ(true) {
+        @Override
+        public boolean shouldTryHandlingUrl(@NonNull final Uri uri) {
+            return "skillz".equalsIgnoreCase(uri.getScheme());
+        }
+
+        @Override
+        protected void performAction(
+                @NonNull final Context context, @NonNull final Uri uri,
+                @NonNull final UrlHandler urlHandler,
+                @Nullable String creativeId)
+                throws IntentNotResolvableException {
+
+            try {
+                Intent intent = new Intent(context, Class.forName("com.skillz.activity.HomeActivity"));
+                intent.putExtra(".skillz_deep_link", uri.toString());
+                Intents.startActivity(context, intent);
+            } catch (ClassNotFoundException e) {
+                throw new IntentNotResolvableException(e);
+            }
+        }
+    },
+
+    /* 1 */ HANDLE_MOPUB_SCHEME(false) {
         @Override
         public boolean shouldTryHandlingUrl(@NonNull final Uri uri) {
             return "mopub".equalsIgnoreCase(uri.getScheme());
@@ -69,7 +92,7 @@ public enum UrlAction {
         }
     },
 
-    /* 1 */ IGNORE_ABOUT_SCHEME(false) {
+    /* 2 */ IGNORE_ABOUT_SCHEME(false) {
         @Override
         public boolean shouldTryHandlingUrl(@NonNull final Uri uri) {
             return "about".equalsIgnoreCase(uri.getScheme());
@@ -85,7 +108,7 @@ public enum UrlAction {
         }
     },
 
-    /* 2 */ HANDLE_PHONE_SCHEME(true) {
+    /* 3 */ HANDLE_PHONE_SCHEME(true) {
         @Override
         public boolean shouldTryHandlingUrl(@NonNull final Uri uri) {
             final String scheme = uri.getScheme();
@@ -107,7 +130,7 @@ public enum UrlAction {
         }
     },
 
-    /* 3 */ OPEN_NATIVE_BROWSER(true) {
+    /* 4 */ OPEN_NATIVE_BROWSER(true) {
         @Override
         public boolean shouldTryHandlingUrl(@NonNull final Uri uri) {
             final String scheme = uri.getScheme();
@@ -135,7 +158,7 @@ public enum UrlAction {
         }
     },
 
-    /* 4 */ OPEN_APP_MARKET(true) {
+    /* 5 */ OPEN_APP_MARKET(true) {
         @Override
         public boolean shouldTryHandlingUrl(@NonNull final Uri uri) {
             final String scheme = uri.getScheme();
@@ -158,7 +181,7 @@ public enum UrlAction {
         }
     },
 
-    /* 5 */ OPEN_IN_APP_BROWSER(true) {
+    /* 6 */ OPEN_IN_APP_BROWSER(true) {
         @Override
         public boolean shouldTryHandlingUrl(@NonNull final Uri uri) {
             final String scheme = uri.getScheme();
@@ -181,7 +204,7 @@ public enum UrlAction {
      * This handles tweet sharing via the chooser dialog.
      * See {@link Intents#intentForShareTweet(Uri)} for more details.
      */
-    /* 6 */ HANDLE_SHARE_TWEET(true) {
+    /* 7 */ HANDLE_SHARE_TWEET(true) {
         @Override
         public boolean shouldTryHandlingUrl(@NonNull final Uri uri) {
             Preconditions.checkNotNull(uri);
@@ -210,7 +233,7 @@ public enum UrlAction {
         }
     },
 
-    /* 7 */ FOLLOW_DEEP_LINK_WITH_FALLBACK(true) {
+    /* 8 */ FOLLOW_DEEP_LINK_WITH_FALLBACK(true) {
         @Override
         public boolean shouldTryHandlingUrl(@NonNull final Uri uri) {
             return "deeplink+".equalsIgnoreCase(uri.getScheme());
@@ -284,7 +307,7 @@ public enum UrlAction {
         }
     },
 
-    /* 8 */ FOLLOW_DEEP_LINK(true) {
+    /* 9 */ FOLLOW_DEEP_LINK(true) {
         @Override
         public boolean shouldTryHandlingUrl(@NonNull final Uri uri) {
             final String scheme = uri.getScheme();
