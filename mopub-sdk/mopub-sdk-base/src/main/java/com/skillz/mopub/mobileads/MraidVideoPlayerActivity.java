@@ -164,7 +164,7 @@ public class MraidVideoPlayerActivity extends BaseVideoPlayerActivity implements
 
     @Override
     public void onSetRequestedOrientation(final int requestedOrientation) {
-        setRequestedOrientation(requestedOrientation);
+//        setRequestedOrientation(requestedOrientation);
     }
 
     @Override
