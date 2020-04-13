@@ -53,7 +53,8 @@ public enum UrlAction {
                 throws IntentNotResolvableException {
 
             try {
-                Intent intent = new Intent(context, Class.forName("com.skillz.activity.HomeActivity"));
+                Intent intent = new Intent(context, Class.forName("com.skillz.activity.DeepLinkDispatcherActivity"));
+                MoPubLog.log(CUSTOM, "DeepLinkDispatcherActivity UrlAction intent entered. uri: " + uri.toString());
                 intent.putExtra(".skillz_deep_link", uri.toString());
                 Intents.startActivity(context, intent);
             } catch (ClassNotFoundException e) {
