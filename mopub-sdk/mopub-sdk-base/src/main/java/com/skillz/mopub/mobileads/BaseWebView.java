@@ -12,6 +12,7 @@ import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.view.Gravity;
 import android.view.WindowManager;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import androidx.annotation.NonNull;
@@ -37,6 +38,13 @@ public class BaseWebView extends WebView {
         if (!sDeadlockCleared) {
             clearWebViewDeadlock(getContext());
             sDeadlockCleared = true;
+        }
+
+        getSettings().setDomStorageEnabled(true);
+        getSettings().setLoadsImagesAutomatically(true);
+
+        if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
+            getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
         }
     }
 

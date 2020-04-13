@@ -6,6 +6,9 @@ package com.skillz.mopub.mobileads;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
+
+import android.net.http.SslError;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -45,6 +48,11 @@ class HtmlWebViewClient extends WebViewClient {
         mClickthroughUrl = clickthrough;
         mDspCreativeId = dspCreativeId;
         mContext = htmlWebView.getContext();
+    }
+
+    @Override
+    public void onReceivedSslError (WebView view, SslErrorHandler handler, SslError error) {
+        handler.proceed();
     }
 
     @Override
