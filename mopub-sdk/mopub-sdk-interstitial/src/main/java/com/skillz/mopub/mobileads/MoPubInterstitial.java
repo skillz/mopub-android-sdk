@@ -319,7 +319,7 @@ public class MoPubInterstitial implements CustomEventInterstitialAdapter.CustomE
         return mCurrentInterstitialState == READY;
     }
 
-    boolean isDestroyed() {
+    public boolean isDestroyed() {
         return mCurrentInterstitialState == DESTROYED;
     }
 
