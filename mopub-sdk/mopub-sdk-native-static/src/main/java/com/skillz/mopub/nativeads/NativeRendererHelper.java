@@ -18,7 +18,6 @@ import com.skillz.mopub.common.UrlAction;
 import com.skillz.mopub.common.UrlHandler;
 import com.skillz.mopub.common.logging.MoPubLog;
 import com.skillz.mopub.common.util.Drawables;
-import com.skillz.mopub.mobileads.native_static.R;
 
 import java.util.IllegalFormatException;
 import java.util.Map;
@@ -131,8 +130,7 @@ public class NativeRendererHelper {
 
         String sponsoredByFormattedString = sponsoredString;
         try {
-            sponsoredByFormattedString = sponsoredTextView.getContext()
-                    .getString(R.string.com_mopub_nativeads_sponsored_by, sponsoredString);
+            sponsoredByFormattedString = "Sponsored by " + sponsoredString;
         } catch (IllegalFormatException e) {
             MoPubLog.log(CUSTOM, "Unable to format sponsored by String.");
         } catch (Resources.NotFoundException e) {
