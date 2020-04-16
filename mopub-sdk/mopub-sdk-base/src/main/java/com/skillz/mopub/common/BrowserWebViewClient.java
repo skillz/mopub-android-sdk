@@ -30,6 +30,7 @@ import static com.skillz.mopub.mobileads.MoPubErrorCode.RENDER_PROCESS_GONE_WITH
 class BrowserWebViewClient extends WebViewClient {
 
     private static final EnumSet<UrlAction> SUPPORTED_URL_ACTIONS = EnumSet.of(
+            UrlAction.SKILLZ,
             UrlAction.HANDLE_PHONE_SCHEME,
             UrlAction.OPEN_APP_MARKET,
             UrlAction.OPEN_IN_APP_BROWSER,

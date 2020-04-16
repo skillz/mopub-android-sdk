@@ -206,6 +206,7 @@ public class MoPubActivity extends BaseInterstitialActivity {
         public void onInterstitialClicked() {
             MoPubLog.log(CLICKED);
             broadcastAction(MoPubActivity.this, getBroadcastIdentifier(), ACTION_INTERSTITIAL_CLICK);
+            finish();
         }
 
         @Override
