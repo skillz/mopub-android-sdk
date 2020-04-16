@@ -4,6 +4,15 @@
 
 apply from: '../shared-build.gradle'
 
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+    }
+}
+
 repositories {
     flatDir {
         dirs './libs'
@@ -28,4 +37,5 @@ project.description = 'MoPub Android SDK - Base'
 project.ext.displayName = 'MoPub Android SDK - Base'
 project.ext.projectName = 'mopub-sdk-base'
 project.ext.uploadName = 'mopub-android-sdk-base'
-apply from: '../publisher.gradle'
+
+apply from: 'release.gradle'
