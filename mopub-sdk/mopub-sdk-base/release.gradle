@@ -7,14 +7,14 @@ repositories {
 
 def configurePom(def pom) {
     pom.artifactId = "mopub-sdk-base"
-    pom.name = "com.skillz.mopub"
+    pom.name = "com.skillz-mopub"
     pom.packaging = "aar"
-    pom.version = "5.12.1-skillz"
-    pom.groupId = "com.skillz.mopub"
+    pom.version = "5.12.0-skillz"
+    pom.groupId = "com.skillz-mopub"
     archivesBaseName='mopub-sdk-baseRelease'
 
     pom.project {
-        name "com.skillz.mopub"
+        name "com.skillz-mopub"
 
         description 'MoPub Android SDK - Base'
         url 'https://github.com/skillz/mopub-android-sdk'
@@ -65,8 +65,8 @@ afterEvaluate { project ->
         }
     }
 
-    version = "5.12.1-skillz"
-    group = "com.skillz.mopub"
+    version = "5.12.0-skillz"
+    group = "com.skillz-mopub"
 
     signing {
         required { gradle.taskGraph.hasTask('uploadArchives') }
