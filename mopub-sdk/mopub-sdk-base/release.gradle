@@ -9,7 +9,7 @@ def configurePom(def pom) {
     pom.artifactId = "mopub-sdk-base"
     pom.name = "com.skillz-mopub"
     pom.packaging = "aar"
-    pom.version = "5.12.0-skillz"
+    pom.version = "5.12.1-skillz"
     pom.groupId = "com.skillz-mopub"
     archivesBaseName='mopub-sdk-baseRelease'
 
@@ -65,7 +65,7 @@ afterEvaluate { project ->
         }
     }
 
-    version = "5.12.0-skillz"
+    version = "5.12.1-skillz"
     group = "com.skillz-mopub"
 
     signing {
