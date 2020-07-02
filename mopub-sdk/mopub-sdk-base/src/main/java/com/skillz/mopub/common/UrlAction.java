@@ -228,6 +228,7 @@ public enum UrlAction {
                 Intent intent = new Intent(context, Class.forName("com.skillz.activity.DeepLinkDispatcherActivity"));
                 MoPubLog.d("DeepLinkDispatcherActivity UrlAction intent entered. uri: " + uri.toString());
                 intent.putExtra(".skillz_deep_link", uri.toString());
+                intent.putExtra(".from_mopub", creativeId != null && creativeId.length() > 0 ? creativeId : "NoCreativeId");
                 Intents.startActivity(context, intent);
             } catch (ClassNotFoundException e) {
                 throw new IntentNotResolvableException(e);
