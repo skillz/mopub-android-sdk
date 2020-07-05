@@ -78,7 +78,7 @@ public class AdResponse implements Serializable {
     @Nullable
     private final String mDspCreativeId;
     @Nullable
-    private final String mCreativeId;
+    private final String mCreativeId; // Skillz: exposing for AWS tracking
 
     @Nullable
     private final String mResponseBody;
@@ -125,7 +125,7 @@ public class AdResponse implements Serializable {
         mAdTimeoutDelayMillis = builder.adTimeoutDelayMillis;
         mRefreshTimeMillis = builder.refreshTimeMillis;
         mDspCreativeId = builder.dspCreativeId;
-        mCreativeId = builder.creativeId;
+        mCreativeId = builder.creativeId; // Skillz: exposing for AWS tracking
         mResponseBody = builder.responseBody;
         mJsonBody = builder.jsonBody;
         mCustomEventClassName = builder.customEventClassName;
@@ -277,6 +277,7 @@ public class AdResponse implements Serializable {
         return mDspCreativeId;
     }
 
+    // Skillz: exposing for AWS tracking
     @Nullable
     public String getCreativeId() { return mCreativeId; }
 
@@ -325,6 +326,7 @@ public class AdResponse implements Serializable {
                 .setAdTimeoutDelayMilliseconds(mAdTimeoutDelayMillis)
                 .setRefreshTimeMilliseconds(mRefreshTimeMillis)
                 .setDspCreativeId(mDspCreativeId)
+                .setCreativeId(mCreativeId) // Skillz: exposing for AWS tracking
                 .setResponseBody(mResponseBody)
                 .setJsonBody(mJsonBody)
                 .setCustomEventClassName(mCustomEventClassName)
@@ -362,7 +364,7 @@ public class AdResponse implements Serializable {
         private Integer adTimeoutDelayMillis;
         private Integer refreshTimeMillis;
         private String dspCreativeId;
-        private String creativeId;
+        private String creativeId; // Skillz: exposing for AWS tracking
 
         private String responseBody;
         private JSONObject jsonBody;
@@ -499,6 +501,7 @@ public class AdResponse implements Serializable {
             return this;
         }
 
+        // Skillz: exposing for AWS tracking
         public Builder setCreativeId(@Nullable final String creativeId) {
             this.creativeId = creativeId;
             return this;

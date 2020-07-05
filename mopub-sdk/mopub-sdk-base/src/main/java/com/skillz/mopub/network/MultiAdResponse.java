@@ -259,6 +259,7 @@ public class MultiAdResponse implements Iterator<AdResponse> {
             return builder.build();
         }
 
+        // Skillz: exposing for AWS tracking
         String creativeId = extractHeader(jsonHeaders, ResponseHeader.CREATIVE_ID);
         builder.setCreativeId(creativeId);
 

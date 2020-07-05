@@ -43,6 +43,7 @@ public class AdReport implements Serializable {
         return mAdResponse.getDspCreativeId();
     }
 
+    // Skillz: exposing for AWS tracking
     public String getAdCreativeId() { return mAdResponse.getCreativeId(); }
 
     public boolean shouldAllowCustomClose() {
