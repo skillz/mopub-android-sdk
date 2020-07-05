@@ -259,6 +259,9 @@ public class MultiAdResponse implements Iterator<AdResponse> {
             return builder.build();
         }
 
+        String creativeId = extractHeader(jsonHeaders, ResponseHeader.CREATIVE_ID);
+        builder.setCreativeId(creativeId);
+
         String dspCreativeId = extractHeader(jsonHeaders, ResponseHeader.DSP_CREATIVE_ID);
         builder.setDspCreativeId(dspCreativeId);
 

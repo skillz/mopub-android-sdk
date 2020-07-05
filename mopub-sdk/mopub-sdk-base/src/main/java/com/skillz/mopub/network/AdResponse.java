@@ -77,6 +77,8 @@ public class AdResponse implements Serializable {
     private final Integer mRefreshTimeMillis;
     @Nullable
     private final String mDspCreativeId;
+    @Nullable
+    private final String mCreativeId;
 
     @Nullable
     private final String mResponseBody;
@@ -123,6 +125,7 @@ public class AdResponse implements Serializable {
         mAdTimeoutDelayMillis = builder.adTimeoutDelayMillis;
         mRefreshTimeMillis = builder.refreshTimeMillis;
         mDspCreativeId = builder.dspCreativeId;
+        mCreativeId = builder.creativeId;
         mResponseBody = builder.responseBody;
         mJsonBody = builder.jsonBody;
         mCustomEventClassName = builder.customEventClassName;
@@ -275,6 +278,9 @@ public class AdResponse implements Serializable {
     }
 
     @Nullable
+    public String getCreativeId() { return mCreativeId; }
+
+    @Nullable
     public String getCustomEventClassName() {
         return mCustomEventClassName;
     }
@@ -356,6 +362,7 @@ public class AdResponse implements Serializable {
         private Integer adTimeoutDelayMillis;
         private Integer refreshTimeMillis;
         private String dspCreativeId;
+        private String creativeId;
 
         private String responseBody;
         private JSONObject jsonBody;
@@ -489,6 +496,11 @@ public class AdResponse implements Serializable {
 
         public Builder setRefreshTimeMilliseconds(@Nullable final Integer refreshTimeMilliseconds) {
             this.refreshTimeMillis = refreshTimeMilliseconds;
+            return this;
+        }
+
+        public Builder setCreativeId(@Nullable final String creativeId) {
+            this.creativeId = creativeId;
             return this;
         }
 

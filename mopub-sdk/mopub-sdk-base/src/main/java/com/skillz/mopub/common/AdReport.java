@@ -43,6 +43,8 @@ public class AdReport implements Serializable {
         return mAdResponse.getDspCreativeId();
     }
 
+    public String getAdCreativeId() { return mAdResponse.getCreativeId(); }
+
     public boolean shouldAllowCustomClose() {
         return mAdResponse.allowCustomClose();
     }
